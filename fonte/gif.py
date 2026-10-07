@@ -21,21 +21,36 @@ def cursor(im, x, y, escala=1.0):
     return im
 
 
-def mouse(im, x, y, botao="esq", escala=1.0, apertado=True):
-    """Desenha um mouse pequeno ao lado do cursor, com o botao APERTADO aceso.
+def mouse(im, x, y=None, botao="esq", escala=1.0, apertado=True):
+    """Desenha um mouse com o botao APERTADO aceso, ANCORADO no rodape do quadro.
 
-       A aula e para crianca de 10 anos: 'clique' e 'clique com o botao
-       direito' sao gestos diferentes, e ninguem adivinha qual e qual por uma
-       seta. O desenho mostra qual dos dois botoes afunda."""
+       A aula e para crianca: 'clique' e 'clique com o botao direito' sao
+       gestos diferentes, e ninguem adivinha qual e qual por uma seta. O
+       desenho mostra qual dos dois botoes afunda.
+
+       ⛔ Ele NAO segue o cursor, e isso ja foi duas vezes defeito. Colado no
+          cursor ele (a) saia pela borda quando o alvo ficava no alto da tela —
+          e os botoes de agrupar ficam a 72 px do topo — e (b) pior, TAPAVA a
+          palavra que o passo manda ler: no clipe da Altura o rotulo do campo
+          saiu como "ura". Marca de passo nao pode esconder o que o passo
+          manda ler. No rodape ele fica sempre inteiro e nunca em cima de nada,
+          no mesmo lugar em que as TECLAS ja aparecem — a crianca aprende um
+          canto so para "o que eu estou apertando".
+
+       `x`/`y` ficam na assinatura so para nao quebrar quem ja chamava assim.
+    """
     d = ImageDraw.Draw(im, "RGBA")
-    L, A = 34 * escala, 52 * escala          # corpo do mouse
-    x0, y0 = x - L - 16 * escala, y - A - 10 * escala
+    L, A = 38 * escala, 58 * escala
+    x0 = (im.width - L) / 2
+    y0 = im.height - A - 26 * escala
     corpo = [x0, y0, x0 + L, y0 + A]
+    aceso = (232, 60, 60, 255) if apertado else (214, 218, 226, 255)
+    d.rounded_rectangle([x0, y0 + 5*escala, x0 + L, y0 + A + 7*escala],
+                        radius=int(L * 0.45), fill=(190, 196, 206, 255))
     d.rounded_rectangle(corpo, radius=int(L * 0.45),
-                        fill=(250, 250, 252, 240), outline=(28, 30, 38, 255),
-                        width=max(2, int(2.4 * escala)))
+                        fill=(252, 252, 254, 255), outline=(28, 30, 38, 255),
+                        width=max(2, int(2.6 * escala)))
     meio_y = y0 + A * 0.42
-    aceso = (232, 60, 60, 255) if apertado else (210, 214, 220, 255)
     if botao == "esq":
         d.pieslice([x0, y0, x0 + L, y0 + A * 0.84], 180, 270, fill=aceso)
     else:
@@ -45,20 +60,44 @@ def mouse(im, x, y, botao="esq", escala=1.0, apertado=True):
     d.line([x0, meio_y, x0 + L, meio_y], fill=(28, 30, 38, 255),
            width=max(2, int(2 * escala)))
     d.rounded_rectangle(corpo, radius=int(L * 0.45), outline=(28, 30, 38, 255),
-                        width=max(2, int(2.4 * escala)))
+                        width=max(2, int(2.6 * escala)))
     return im
 
 
 def anel(im, x, y, r, alpha=220, larg=7):
+    """Anel de clique. O raio ENCOLHE para caber inteiro no quadro.
+
+       ⛔ Anel cortado pela borda vira um risco vermelho que ninguem reconhece
+          como clique — e o alvo que mais sofre e justamente o botao da barra
+          de cima, que fica a 72 px do topo da tela."""
+    cabe = min(x, y, im.width - x, im.height - y) - larg - 2
+    r = max(6, min(r, cabe))
     d = ImageDraw.Draw(im, "RGBA")
     d.ellipse([x-r, y-r, x+r, y+r], outline=(232, 60, 60, alpha), width=larg)
     return im
 
 
+FUNDO = (238, 241, 246)      # a mesma cinza clara da moldura do site
+
+
 def _prep(caminho, box, larg):
+    """Recorta e escala. O recorte PODE passar da borda da captura.
+
+    ⛔ Antes a janela era presa dentro da captura, e alvo colado na quina
+       (o nome do projeto, a casinha) ficava a 21 px da borda: o anel de
+       clique saia cortado e virava um risco vermelho que ninguem reconhece
+       como clique. Agora o que passa da tela vira margem cinza — fica obvio
+       que e moldura, nao conteudo do Tinkercad.
+    """
     im = Image.open(caminho).convert("RGB")
     if box:
-        im = im.crop(box)
+        larg_b, alt_b = box[2] - box[0], box[3] - box[1]
+        tela = Image.new("RGB", (larg_b, alt_b), FUNDO)
+        corte = (max(0, box[0]), max(0, box[1]),
+                 min(im.width, box[2]), min(im.height, box[3]))
+        if corte[2] > corte[0] and corte[3] > corte[1]:
+            tela.paste(im.crop(corte), (corte[0] - box[0], corte[1] - box[1]))
+        im = tela
     if larg and im.width != larg:
         im = im.resize((larg, round(im.height * larg / im.width)), Image.LANCZOS)
     return im

@@ -90,12 +90,37 @@ E um quarto, menor: o painel do **Cilindro** só tem `Lados`, `Chanfro` e
 
 ---
 
-## 5. Enquadramento do clipe é calculado
+## 5. Enquadramento do clipe é calculado — e inclui o que MUDA
 
-A janela do recorte é a menor 16:10 que **contém o gesto inteiro** (de onde a
-seta sai até onde ela chega) com margem — e o `faz_gifs1.py` confere isso
-antes de gravar. Recorte escolhido a dedo corta justamente o botão que o passo
-manda apertar, e o olho não pega.
+A janela é a menor 16:10 que contém, com margem:
+
+1. o gesto inteiro (de onde a seta sai até onde ela chega), **e**
+2. a **região em que a tela mudou** entre o quadro de antes e o de depois,
+   medida em blocos de 8 px (`caixa_mudanca()`).
+
+O item 2 não estava lá no começo, e o dono viu o estrago antes de mim: nos
+clipes de encolher a caixinha e de virar Orifício, a janela saía só do ponto do
+clique — então ela enquadrava o painel e **cortava a plaquinha ao meio** na
+borda esquerda. A peça é justamente o que a criança precisa ver mudar.
+
+Três regras de desenho vieram junto, e cada uma é um jeito diferente de o
+marcador estragar o quadro:
+
+- **A janela pode passar da borda da captura** (até `SOBRA` = 70 px), e o que
+  passa vira margem cinza. Presa dentro da captura, alvo colado na quina (o
+  nome do projeto, a casinha) ficava a ~21 px da borda e o anel de clique saía
+  cortado — um risco vermelho que ninguém reconhece como clique.
+- **O anel encolhe para caber inteiro** no quadro.
+- **O desenho do mouse é ancorado no rodapé**, no mesmo lugar das teclas, e não
+  segue o cursor. Colado nele, o mouse tapava a palavra que o passo manda ler:
+  no clipe da Altura o rótulo do campo saiu como *"ura"*. É o mesmo defeito do
+  círculo que escondia «Projeto 3D» — **marca de passo não pode esconder o que
+  o passo manda ler**.
+
+O `faz_gifs1.py` confere tudo isso antes de gravar: os pontos do gesto e os dois
+cantos da região mudada têm de cair dentro do recorte, e a seta precisa de pelo
+menos 26 px de folga até a borda (senão o anel só cabe encolhido, que é o mesmo
+defeito disfarçado de certo).
 
 ---
 

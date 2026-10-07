@@ -10,6 +10,7 @@ que é o defeito que o olho não pega quando o recorte vem de números a dedo.
     python3 fonte/faz_gifs1.py
 """
 import json, os, sys
+import numpy as np
 from PIL import Image, ImageSequence
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
@@ -18,9 +19,30 @@ import gif as G
 
 PASTA  = os.path.join(AQUI, "aula1")
 TELA   = (1440, 900)
-MARGEM = 240          # folga em volta do gesto
+MARGEM = 190          # folga em volta do que o clipe tem de mostrar
 MIN_L  = 920          # largura mínima da janela, para o recorte não ficar apertado
 PROP   = 10 / 16      # altura / largura
+SOBRA  = 70           # o quanto a janela pode passar da borda da captura
+
+
+def caixa_mudanca(antes, depois, bloco=8, minimo=12, lim=30):
+    """Onde a tela MUDOU entre os dois quadros, em blocos de 8 px.
+
+    ⛔ Em blocos, e não pixel a pixel, para um respingo solto de compressão
+    não esticar a caixa até o outro canto da tela.
+    """
+    A = np.asarray(Image.open(os.path.join(PASTA, antes)).convert("L"), dtype=int)
+    B = np.asarray(Image.open(os.path.join(PASTA, depois)).convert("L"), dtype=int)
+    if A.shape != B.shape:
+        return None
+    dif = np.abs(A - B) > lim
+    h, w = (s // bloco for s in dif.shape)
+    g = dif[:h*bloco, :w*bloco].reshape(h, bloco, w, bloco).sum(axis=(1, 3))
+    ys, xs = np.nonzero(g >= minimo)
+    if not len(xs):
+        return None
+    return (int(xs.min())*bloco, int(ys.min())*bloco,
+            int(xs.max()+1)*bloco, int(ys.max()+1)*bloco)
 
 
 def janela(pontos):
@@ -31,9 +53,13 @@ def janela(pontos):
     larg = max(MIN_L, x1 - x0, (y1 - y0) / PROP)
     alt  = larg * PROP
     cx, cy = (x0 + x1) / 2, (y0 + y1) / 2
-    larg = min(larg, TELA[0]); alt = min(alt, TELA[1])
-    x0 = min(max(0, cx - larg/2), TELA[0] - larg)
-    y0 = min(max(0, cy - alt/2),  TELA[1] - alt)
+    # ⛔ A janela NÃO é presa dentro da captura. Presa, o alvo colado na quina
+    #    da tela (o nome do projeto, a casinha) ficava a ~21 px da borda e o
+    #    anel de clique saía cortado. O que passar da tela vira margem cinza.
+    larg = min(larg, TELA[0] + 2*SOBRA); alt = min(alt, TELA[1] + 2*SOBRA)
+    x0, y0 = cx - larg/2, cy - alt/2
+    x0 = min(max(-SOBRA, x0), TELA[0] + SOBRA - larg)
+    y0 = min(max(-SOBRA, y0), TELA[1] + SOBRA - alt)
     cx0, cy0 = round(x0), round(y0)
     return (cx0, cy0, cx0 + round(larg), cy0 + round(alt))
 
@@ -78,12 +104,36 @@ def principal():
     for chave, d in sorted(alvos.items()):
         alvo = tuple(d["alvo"])
         ate  = tuple(d["ate"]) if d.get("ate") else None
-        box  = janela([alvo] + ([ate] if ate else []))
+
+        # ⛔ O recorte NÃO sai só do ponto do clique. Saía, e por isso os clipes
+        #    de encolher a caixinha e de virar Orifício mostravam o painel
+        #    inteiro com a PLAQUINHA cortada ao meio pela borda esquerda — e a
+        #    peça é justamente o que a criança precisa ver mudar. A janela tem
+        #    de conter o gesto E a região onde a tela mudou.
+        mud = caixa_mudanca(d["antes"], d["depois"])
+        if mud is None:
+            erros.append(f"{chave}: não achei região mudada entre os quadros")
+            mud = (alvo[0], alvo[1], alvo[0], alvo[1])
+        pontos = [alvo] + ([ate] if ate else []) + [(mud[0], mud[1]), (mud[2], mud[3])]
+        box = janela(pontos)
 
         # o invariante do enquadramento, conferido e não confiado
-        for nome, p in (("a seta", alvo), ("o fim do arrasto", ate)):
+        for nome, p in (("a seta", alvo), ("o fim do arrasto", ate),
+                        ("o canto da região que mudou", (mud[0], mud[1])),
+                        ("o outro canto da região que mudou", (mud[2], mud[3]))):
             if p and not dentro(box, p):
                 erros.append(f"{chave}: {nome} {p} ficou FORA do recorte {box}")
+
+        # ⛔ Clamp no desenho resolve o anel CORTADO, mas pode devolver um anel
+        #    minúsculo — que é o mesmo defeito disfarçado de certo. O alvo tem
+        #    de ter folga de verdade dentro do quadro de saída.
+        esc = 900 / (box[2] - box[0])
+        ax, ay = (alvo[0]-box[0])*esc, (alvo[1]-box[1])*esc
+        alt_saida = (box[3]-box[1]) * esc
+        folga = min(ax, ay, 900-ax, alt_saida-ay)
+        if folga < 26:
+            erros.append(f"{chave}: a seta fica a {folga:.0f} px da borda do "
+                         f"recorte — o anel de clique não cabe inteiro")
 
         tipo = d.get("tipo", "arrasto" if ate else "clique")
         if tipo == "tecla":

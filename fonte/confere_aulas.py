@@ -139,7 +139,27 @@ def confere(aulas=None):
         # mas os quadros eram de tres dias antes, com o nivel ainda BRANCO,
         # no meio de dezesseis clipes de ceu escuro. Nenhum guarda via. Quem
         # viu foi o olho, numa folha de contato com os dezessete lado a lado.
+        # ⛔ Cada script de captura tem a SUA marca, e cada figura responde à
+        #    marca de quem a tirou. Com uma marca só, as figuras do painel
+        #    (cap0.py) eram acusadas de velhas toda vez que o editor (cap1.py)
+        #    rodava de novo — e são de outra captura, com vida própria.
+        MARCAS = (("d0", "painel.txt"), ("", "projeto.txt"))
+
+        def marca_de(nome):
+            base = os.path.basename(nome)
+            for prefixo, arq in MARCAS:
+                if base.startswith(prefixo):
+                    return os.path.join(slug, arq)
+
+        for _pre, _arq in MARCAS:
+            if not os.path.exists(os.path.join(slug, _arq)):
+                erra(f"falta {slug}/{_arq} — sem ele a regra da midia velha "
+                     "nao mede nada para essas figuras")
+
         cam_jogo = os.path.join(slug, "projeto.txt")
+        # ⛔ Ausente, esta regra inteira era pulada em silencio — e ficou pulada,
+        #    porque o `projeto.txt` so passou a ser escrito depois da ultima
+        #    captura. Guarda que nao existe nao fica vermelho: ele some.
         if os.path.exists(cam_jogo):
             nascimento = os.path.getmtime(cam_jogo)
             alvos = os.path.join(slug, "alvos.json")
@@ -151,15 +171,21 @@ def confere(aulas=None):
                             quadros.setdefault(c[campo], set()).add(chave)
             for arq, chaves in sorted(quadros.items()):
                 cam = os.path.join(slug, arq)
-                if os.path.exists(cam) and os.path.getmtime(cam) < nascimento:
+                m = marca_de(arq)
+                nasc = os.path.getmtime(m) if os.path.exists(m) else nascimento
+                if os.path.exists(cam) and os.path.getmtime(cam) < nasc:
                     erra(f"o quadro {arq} (clipe {'/'.join(sorted(chaves))}) e "
                          f"mais VELHO que a captura desta aula — e de outra execucao")
             for p in passos:
                 img = p.get("img")
-                if (img and img.startswith(slug + "/") and os.path.exists(img)
-                        and os.path.getmtime(img) < nascimento):
-                    erra(f"passo {p['n']}: a foto {img} e mais VELHA que o jogo "
-                         "desta aula — e de outro jogo")
+                if not (img and img.startswith(slug + "/") and os.path.exists(img)):
+                    continue
+                m = marca_de(img)
+                nasc = os.path.getmtime(m) if os.path.exists(m) else nascimento
+                if os.path.getmtime(img) < nasc:
+                    erra(f"passo {p['n']}: a foto {img} e mais VELHA que a "
+                         f"captura que a produziu ({os.path.basename(m)}) — "
+                         "e de outra execucao")
 
         # 7. o fecho tem de dizer que o trabalho FICOU, e como achar de novo.
         #

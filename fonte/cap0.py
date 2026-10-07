@@ -63,6 +63,13 @@ def recorta(b, nome, box):
 
 def principal():
     os.makedirs(PASTA, exist_ok=True)
+    # ⛔ A marca de nascimento DESTA captura vai ANTES das figuras. Escrita no
+    #    fim, ela fica mais nova que tudo o que acabou de ser fotografado, e o
+    #    guarda que compara idades acusa de velha justamente a figura recém
+    #    tirada. Cada captura tem a sua marca: as figuras do painel respondem a
+    #    esta, as do editor respondem ao `projeto.txt` do cap1.py.
+    with open(os.path.join(PASTA, "painel.txt"), "w") as f:
+        f.write(f"{time.strftime('%Y-%m-%d %H:%M:%S')}\n")
     with sync_playwright() as p:
 
         # ---- passo 1: a página de entrada, SEM conta nenhuma --------------

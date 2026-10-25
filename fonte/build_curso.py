@@ -38,7 +38,7 @@ PLANO = [
     (11, "Peça que encaixa",
      "Furo de 12 mm e pino de 10 mm: a conta da folga que faz duas peças se encaixarem.", True),
     (12, "Projeto livre e mostra",
-     "A peça do aluno, com o kit das aulas anteriores.", False),
+     "O caminho de um projeto seu: planejar, montar com cores, conferir de todos os lados e mostrar.", True),
 ]
 
 

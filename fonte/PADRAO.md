@@ -270,3 +270,9 @@ As ferramentas novas vivem em `mecanica.py` e valem para todas as aulas.
     do fim do pino laranja ao começo da placa vermelha numa linha pelo centro e
     aceita 0,5–1,8 mm (sem folga daria 0). O cilindro NASCE LARANJA: um passo
     «pinte de laranja» não muda pixel e o guarda (corretamente) o reprova.
+18. **Mostrar (Aula 12).** `Enviar para` (1387,72) e `Exportar` (1299,72) abrem
+    diálogos modais que só se LEEM: nada se baixa nem se publica na captura (o
+    botão .STL baixaria um arquivo). Esc fecha. Cilindro e cone soltos na tampa
+    nascem centrados; mudar só a ALTURA mantém o centro, mudar a base não — os
+    exemplos usam base 20 (a de fábrica). Azul e vermelho têm brilho parecido:
+    o `caixa_mudanca` (cinza, limiar 30) não via a pintura da base — verde sim.

@@ -6,9 +6,10 @@ por baixo.
 
 **O curso está em [shoio.github.io/robotomia-tinkercad](https://shoio.github.io/robotomia-tinkercad/)**
 
-### Aula 1 — Chaveiro com o seu nome
-Uma plaquinha de 90 × 30 × 4 mm com o nome do aluno em relevo e um furo que
-atravessa. 20 passos, 16 animações.
+Doze aulas, de «Chaveiro com o seu nome» (plaquinha com nome e furo) a «Projeto livre e mostra»
+(planejar, montar com cores, conferir e mostrar), passando por caneca, casinha, carrinho,
+foguete, robô, dado, porta-celular, régua e escala, e peça que encaixa. 19 a 21 passos por aula,
+cada gesto novo com uma animação.
 
 ---
 

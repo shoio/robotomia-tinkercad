@@ -5,7 +5,8 @@
 import os, math
 from PIL import Image, ImageDraw
 
-D = os.path.join(os.path.dirname(os.path.abspath(__file__)), "aula1")
+# a aula vem de `GIF_AULA` (faz_gifs.py a define pela linha de comando); padrão: Aula 1
+D = os.path.join(os.path.dirname(os.path.abspath(__file__)), "aula" + os.environ.get("GIF_AULA", "1"))
 OUT = os.path.join(D, "gifs")
 os.makedirs(OUT, exist_ok=True)
 

@@ -1,0 +1,188 @@
+{
+ "cilindro": {
+  "antes": "g04_antes.jpg",
+  "depois": "g04_depois.jpg",
+  "alvo": [
+   1302,
+   375
+  ],
+  "rotulo": "Cilindro",
+  "tipo": "arrasto",
+  "ate": [
+   600,
+   540
+  ]
+ },
+ "alca": {
+  "antes": "g06_antes.jpg",
+  "depois": "g06_depois.jpg",
+  "alvo": [
+   562,
+   511
+  ],
+  "rotulo": "alça do canto",
+  "tipo": "clique"
+ },
+ "largura": {
+  "antes": "g07_antes.jpg",
+  "depois": "g07_depois.jpg",
+  "alvo": [
+   600,
+   447
+  ],
+  "rotulo": "número de cima",
+  "tipo": "clique"
+ },
+ "comprimento": {
+  "antes": "g08_antes.jpg",
+  "depois": "g08_depois.jpg",
+  "alvo": [
+   343,
+   540
+  ],
+  "rotulo": "número da esquerda",
+  "tipo": "clique"
+ },
+ "altura": {
+  "antes": "g09_antes.jpg",
+  "depois": "g09_depois.jpg",
+  "alvo": [
+   541,
+   440
+  ],
+  "rotulo": "alça de cima",
+  "tipo": "clique"
+ },
+ "cilindro2": {
+  "antes": "g10_antes.jpg",
+  "depois": "g10_depois.jpg",
+  "alvo": [
+   1302,
+   375
+  ],
+  "rotulo": "Cilindro",
+  "tipo": "arrasto",
+  "ate": [
+   800,
+   700
+  ]
+ },
+ "orificio": {
+  "antes": "g11_antes.jpg",
+  "depois": "g11_depois.jpg",
+  "alvo": [
+   1072,
+   234
+  ],
+  "rotulo": "Orifício",
+  "tipo": "clique"
+ },
+ "furo_planta": {
+  "antes": "g12_antes.jpg",
+  "depois": "g12_depois.jpg",
+  "alvo": [
+   746,
+   661
+  ],
+  "rotulo": "alça do canto",
+  "tipo": "clique"
+ },
+ "furo_altura": {
+  "antes": "g13_antes.jpg",
+  "depois": "g13_depois.jpg",
+  "alvo": [
+   751,
+   601
+  ],
+  "rotulo": "alça de cima",
+  "tipo": "clique"
+ },
+ "sobe": {
+  "antes": "g14_antes.jpg",
+  "depois": "g14_depois.jpg",
+  "alvo": [
+   660,
+   520
+  ],
+  "rotulo": "Ctrl + seta para cima",
+  "tipo": "tecla",
+  "teclas": [
+   "Ctrl",
+   "↑"
+  ]
+ },
+ "seleciona": {
+  "antes": "g15_antes.jpg",
+  "depois": "g15_depois.jpg",
+  "alvo": [
+   600,
+   520
+  ],
+  "rotulo": "Ctrl + A",
+  "tipo": "tecla",
+  "teclas": [
+   "Ctrl",
+   "A"
+  ]
+ },
+ "alinhar": {
+  "antes": "g16_antes.jpg",
+  "depois": "g16_depois.jpg",
+  "alvo": [
+   892,
+   72
+  ],
+  "rotulo": "Alinhar",
+  "tipo": "clique"
+ },
+ "alinha_x": {
+  "antes": "g17_antes.jpg",
+  "depois": "g17_depois.jpg",
+  "alvo": [
+   635,
+   770
+  ],
+  "rotulo": "bolinha do meio embaixo",
+  "tipo": "clique"
+ },
+ "alinha_y": {
+  "antes": "g18_antes.jpg",
+  "depois": "g18_depois.jpg",
+  "alvo": [
+   495,
+   565
+  ],
+  "rotulo": "bolinha do meio esquerda",
+  "tipo": "clique"
+ },
+ "uniao": {
+  "antes": "g19_antes.jpg",
+  "depois": "g19_depois.jpg",
+  "alvo": [
+   796,
+   72
+  ],
+  "rotulo": "Grupo de união",
+  "tipo": "clique"
+ },
+ "vista_cima": {
+  "antes": "g20_antes.jpg",
+  "depois": "g20_depois.jpg",
+  "alvo": [
+   63,
+   139
+  ],
+  "rotulo": "cubo SUPERIOR",
+  "tipo": "clique"
+ },
+ "batiza": {
+  "antes": "g21_antes.jpg",
+  "depois": "g21_depois.jpg",
+  "alvo": [
+   178,
+   24
+  ],
+  "rotulo": "nome do projeto",
+  "tipo": "clique"
+ }
+}

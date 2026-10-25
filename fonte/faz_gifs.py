@@ -15,6 +15,7 @@ from PIL import Image, ImageSequence
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, AQUI)
+os.environ["GIF_AULA"] = sys.argv[1] if len(sys.argv) > 1 else "1"
 import gif as G
 
 N      = sys.argv[1] if len(sys.argv) > 1 else "1"

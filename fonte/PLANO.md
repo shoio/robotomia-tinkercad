@@ -18,24 +18,28 @@ Uma ideia por aula, e cada ideia usa a anterior.
 | # | Aula | A peça que sai pronta | O que é novo |
 |---|---|---|---|
 | 1 | **Chaveiro com o seu nome** *(no ar)* | plaquinha 90×30×4 com nome em relevo e furo | Caixa, medidas, Texto, Orifício, agrupar, câmera |
-| 2 | **Caneca e porta-lápis** | caneca com alça e porta-lápis de furos | esvaziar por dentro (cilindro + orifício menor), alça, formas redondas |
-| 3 | **Casinha** | casa com telhado, porta e janelas | Telhado/Cunha, **alinhar** formas, furos de porta e janela |
-| 4 | **Carrinho** | carro com quatro rodas | girar uma forma em 90°, **duplicar**, simetria, rodas que se encontram com o corpo |
-| 5 | **Foguete** | foguete com três aletas | Cone, **Duplicar e repetir** (`Ctrl+D`), peças em volta de um eixo |
-| 6 | **Robô de formas** | robô com cabeça, corpo, braços e olhos | muitas formas, **cores**, esfera, empilhar no eixo certo |
-| 7 | **Dado** | dado de seis lados com pontos | cubo com **furos esféricos**, os pontos de cada face, faces opostas somam 7 |
-| 8 | **Porta-celular** | suporte inclinado para o celular | ângulo (girar com a régua), cunha, ranhura, medir o aparelho |
-| 9 | **Régua e escala** | cubo de 1 cm e uma régua de 10 cm | **Régua**, medir com exatidão, **escala** (a peça maior ou menor) |
-| 10 | **Peça que encaixa** | pino e furo que se encaixam | folga/tolerância, encaixe macho e fêmea |
-| 11 | **Pequena cidade** | prédios de alturas diferentes numa base | repetir com variação, base, planejar antes de montar |
-| 12 | **Projeto livre e mostra** | a peça do aluno, com link | escolher, montar com o kit das 11 aulas, **compartilhar** |
+| 2 | **Porta-lápis** *(no ar)* | copo de 50×70 mm com fundo de 5 mm | números das alças (o cilindro não tem campo), subir com `Ctrl+↑`, **Alinhar**, olhar de cima |
+| 3 | **Caneca com alça** | caneca com alça de anel | Tórulo, **girar** uma forma em pé (seta de girar, 90°), posicionar com as setas, agrupar |
+| 4 | **Casinha** | casa com telhado, porta e janelas | Telhado, furos de porta e janela, alinhar na base |
+| 5 | **Carrinho** | carro com quatro rodas | girar 90°, **duplicar**, espelhar, rodas que se encontram com o corpo |
+| 6 | **Foguete** | foguete com três aletas | Cone, **Duplicar e repetir** (`Ctrl+D`), peças em volta de um eixo |
+| 7 | **Robô de formas** | robô com cabeça, corpo, braços e olhos | muitas formas, **cores**, esfera, empilhar no eixo certo |
+| 8 | **Dado** | dado de seis lados com pontos | cubo com **furos esféricos**, os pontos de cada face, faces opostas somam 7 |
+| 9 | **Porta-celular** | suporte inclinado para o celular | ângulo, cunha, ranhura, medir o aparelho |
+| 10 | **Régua e escala** | cubo de 1 cm e uma régua de 10 cm | **Régua**, medir com exatidão, **escala** (a peça maior ou menor) |
+| 11 | **Peça que encaixa** | pino e furo que se encaixam | folga/tolerância, encaixe macho e fêmea |
+| 12 | **Projeto livre e mostra** | a peça do aluno | escolher, montar com o kit das 11 aulas, **compartilhar** |
 
 **Por que nesta ordem:** a 1 e a 2 são o mesmo truque (um buraco dentro de um
-corpo) em escala maior. 3 a 6 são as ações que sustentam qualquer modelo
-(alinhar, girar, duplicar, repetir, pintar). 7 a 10 são as que pedem precisão
-(furo certo, ângulo, medida, folga) — o que separa «um desenho bonito» de uma
-peça que **daria para imprimir**. 11 junta tudo num cenário, 12 fecha como a
-Aula 12 do Flowlab: projeto próprio e mostra.
+corpo) em escala maior; a 3 acrescenta a alça (girar e posicionar). 4 a 7 são
+as ações que sustentam qualquer modelo (furos de parede, duplicar, repetir,
+pintar). 8 a 11 são as que pedem precisão (furo certo, ângulo, medida, folga)
+— o que separa «um desenho bonito» de uma peça que **daria para imprimir**.
+12 fecha como a Aula 12 do Flowlab: projeto próprio e mostra.
+
+*(Em 25-10: a «Caneca e porta-lápis» virou DUAS aulas — a alça pede girar e
+posicionar, e junto com o corpo passava de 21 passos —, e a «Pequena cidade»
+saiu para o plano continuar em 12.)*
 
 ---
 

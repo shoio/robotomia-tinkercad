@@ -1,0 +1,222 @@
+{
+ "caixa": {
+  "antes": "g02_antes.jpg",
+  "depois": "g02_depois.jpg",
+  "alvo": [
+   1215,
+   375
+  ],
+  "rotulo": "Caixa",
+  "tipo": "arrasto",
+  "ate": [
+   600,
+   560
+  ]
+ },
+ "medidas_casa": {
+  "antes": "g03_antes.jpg",
+  "depois": "g03_depois.jpg",
+  "alvo": [
+   950,
+   570
+  ],
+  "rotulo": "Altura",
+  "tipo": "clique"
+ },
+ "telhado": {
+  "antes": "g04_antes.jpg",
+  "depois": "g04_depois.jpg",
+  "alvo": [
+   1389,
+   583
+  ],
+  "rotulo": "Telhado",
+  "tipo": "arrasto",
+  "ate": [
+   596,
+   439
+  ]
+ },
+ "medidas_telhado": {
+  "antes": "g05_antes.jpg",
+  "depois": "g05_depois.jpg",
+  "alvo": [
+   554,
+   439
+  ],
+  "rotulo": "alça do canto",
+  "tipo": "clique"
+ },
+ "seleciona": {
+  "antes": "g06_antes.jpg",
+  "depois": "g06_depois.jpg",
+  "alvo": [
+   600,
+   520
+  ],
+  "rotulo": "Ctrl + A",
+  "tipo": "tecla",
+  "teclas": [
+   "Ctrl",
+   "A"
+  ]
+ },
+ "alinhar": {
+  "antes": "g07_antes.jpg",
+  "depois": "g07_depois.jpg",
+  "alvo": [
+   892,
+   72
+  ],
+  "rotulo": "Alinhar",
+  "tipo": "clique"
+ },
+ "fixa": {
+  "antes": "g08_antes.jpg",
+  "depois": "g08_depois.jpg",
+  "alvo": [
+   599,
+   566
+  ],
+  "rotulo": "casa",
+  "tipo": "clique"
+ },
+ "alinha_x": {
+  "antes": "g09_antes.jpg",
+  "depois": "g09_depois.jpg",
+  "alvo": [
+   599,
+   667
+  ],
+  "rotulo": "bolinha do meio embaixo",
+  "tipo": "clique"
+ },
+ "alinha_y": {
+  "antes": "g10_antes.jpg",
+  "depois": "g10_depois.jpg",
+  "alvo": [
+   448,
+   560
+  ],
+  "rotulo": "bolinha do meio esquerda",
+  "tipo": "clique"
+ },
+ "caixa_porta": {
+  "antes": "g11_antes.jpg",
+  "depois": "g11_depois.jpg",
+  "alvo": [
+   1215,
+   375
+  ],
+  "rotulo": "Caixa",
+  "tipo": "arrasto",
+  "ate": [
+   820,
+   720
+  ]
+ },
+ "orificio": {
+  "antes": "g12_antes.jpg",
+  "depois": "g12_depois.jpg",
+  "alvo": [
+   1072,
+   234
+  ],
+  "rotulo": "Orifício",
+  "tipo": "clique"
+ },
+ "medidas_porta": {
+  "antes": "g13_antes.jpg",
+  "depois": "g13_depois.jpg",
+  "alvo": [
+   950,
+   570
+  ],
+  "rotulo": "Altura",
+  "tipo": "clique"
+ },
+ "duas": {
+  "antes": "g14_antes.jpg",
+  "depois": "g14_depois.jpg",
+  "alvo": [
+   825,
+   719
+  ],
+  "rotulo": "porta",
+  "tipo": "tecla",
+  "teclas": [
+   "Shift",
+   "clique"
+  ]
+ },
+ "alinhar2": {
+  "antes": "g15_antes.jpg",
+  "depois": "g15_depois.jpg",
+  "alvo": [
+   892,
+   72
+  ],
+  "rotulo": "Alinhar",
+  "tipo": "clique"
+ },
+ "fixa2": {
+  "antes": "g16_antes.jpg",
+  "depois": "g16_depois.jpg",
+  "alvo": [
+   599,
+   566
+  ],
+  "rotulo": "casa",
+  "tipo": "clique"
+ },
+ "alinha_x2": {
+  "antes": "g17_antes.jpg",
+  "depois": "g17_depois.jpg",
+  "alvo": [
+   599,
+   668
+  ],
+  "rotulo": "bolinha do meio embaixo",
+  "tipo": "clique"
+ },
+ "alinha_frente": {
+  "antes": "g18_antes.jpg",
+  "depois": "g18_depois.jpg",
+  "alvo": [
+   437,
+   643
+  ],
+  "rotulo": "bolinha de baixo esquerda",
+  "tipo": "clique"
+ },
+ "uniao": {
+  "antes": "g19_antes.jpg",
+  "depois": "g19_depois.jpg",
+  "alvo": [
+   796,
+   72
+  ],
+  "rotulo": "Grupo de união",
+  "tipo": "clique"
+ },
+ "vista_frente": {
+  "antes": "g20_antes.jpg",
+  "depois": "g20_depois.jpg",
+  "alvo": [
+   63,
+   180
+  ],
+  "rotulo": "cubo FRONTAL",
+  "tipo": "clique"
+ },
+ "batiza": {
+  "antes": "g21_antes.jpg",
+  "depois": "g21_depois.jpg",
+  "alvo": [
+   178,
+   24
+  ],
+  "rotulo": "nome do projeto",
+  "tipo": "clique"
+ }
+}

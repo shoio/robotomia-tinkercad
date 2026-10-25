@@ -22,7 +22,7 @@ PLANO = [
     (3, "Caneca com alça",
      "O porta-lápis ganha uma alça: copiar para outro projeto, girar um anel em pé e empurrá-lo até colar.", True),
     (4, "Casinha",
-     "Telhado, porta e janelas: formas novas e furos que cavam a parede.", False),
+     "Uma caixa vira casa: telhado de duas águas centrado em cima e um vão de porta na parede da frente.", True),
     (5, "Carrinho",
      "Quatro rodas iguais: duplicar, espelhar e girar.", False),
     (6, "Foguete",

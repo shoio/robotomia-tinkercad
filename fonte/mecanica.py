@@ -74,9 +74,12 @@ def classifica_alcas(alcas):
 
 def rotulos_de_medida(pg):
     """Os números de tamanho visíveis no canvas: [(texto, x, y)] (centros)."""
+    # ⛔ O transferidor de girar (`0°`) usa a MESMA classe dos números de tamanho e
+    #    fica no DOM, invisível, em (0, 0): só vale o que é número puro.
     return pg.evaluate("""() => [...document.querySelectorAll('.dimension-label-view.visible')]
         .map(e => { const r = e.getBoundingClientRect();
-                    return [(e.textContent||'').trim(), r.x + r.width/2, r.y + r.height/2]; })""")
+                    return [(e.textContent||'').trim(), r.x + r.width/2, r.y + r.height/2]; })
+        .filter(t => /^-?\\d+(\\.\\d+)?$/.test(t[0]))""")
 
 
 def _campo_em(pg, x, y, tol=45):

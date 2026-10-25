@@ -207,3 +207,15 @@ As ferramentas novas vivem em `mecanica.py` e valem para todas as aulas.
    do Flowlab / memória do projeto): entrar com a opção
    `--disable-blink-features=AutomationControlled` na janela de login, e fechar
    o script com `SIGINT` (senão os cookies de sessão não são gravados).
+
+9. **Telhado e porta (Aula 4).** O Telhado não tem campo de medida (só alças) e,
+   solto na tampa de uma forma, nasce NA ALTURA DELA — as medidas por alça o
+   deixam torto (cresce a partir do canto da frente), e o Alinhar com a casa
+   FIXA (clique nela) o põe no meio. Para alinhar só duas formas entre três:
+   clique numa e **Shift + clique** na outra. O buraco da porta fica RENTE à
+   parede quando se alinha em «frente» (bolinha de baixo da coluna da
+   esquerda). A prova do vão: na vista inicial, dentro do furo se vê o chão —
+   0 px vermelhos ali, contra ~170 na parede ao lado (controle negativo).
+10. **O número de tamanho tem classe repetida.** O transferidor de girar usa a
+    mesma classe `.dimension-label-view.visible` dos números de medida e fica no
+    DOM em (0,0) com texto `0°`: filtra-se por número puro.

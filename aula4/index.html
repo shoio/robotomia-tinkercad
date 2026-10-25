@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Casinha — Robotomia</title>
+<meta name="description" content="Uma caixa vira casa: ganha um telhado de duas águas, centrado em cima, e um vão de porta na parede da frente.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>&#129302;</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800&family=Atkinson+Hyperlegible:wght@400;700&display=swap">
+<style>
+:root{
+  --papel:#FBFAF7; --carta:#FFFFFF; --tinta:#14161C; --tinta2:#4E525C;
+  --linha:#E3E0D8; --azul:#1B62DC; --azul-fraco:#EAF0FC;
+  --verde:#147A38; --verde-fraco:#E7F4EC;
+  --laranja:#C2560A; --laranja-fraco:#FDF0E4;
+  --roxo:#5B2E9E; --roxo-fraco:#F2ECFB;
+  --codigo:#12151C; --codigo-tinta:#E8EBF0;
+  --sombra:0 1px 2px rgba(20,22,28,.05), 0 8px 24px rgba(20,22,28,.06);
+  --raio:14px;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-tema="claro"]){
+    --papel:#12141A; --carta:#1A1D25; --tinta:#ECEEF2; --tinta2:#A4AAB6;
+    --linha:#2C313C; --azul:#6C9BF0; --azul-fraco:#1B2436;
+    --verde:#5CC183; --verde-fraco:#15271C;
+    --laranja:#F0964E; --laranja-fraco:#2A1E14;
+    --roxo:#B995F0; --roxo-fraco:#221A33;
+    --codigo:#0D1016; --codigo-tinta:#E8EBF0;
+    --sombra:0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35);
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:68px}
+body{margin:0;background:var(--papel);color:var(--tinta);
+  font-family:"Atkinson Hyperlegible","Helvetica Neue",Arial,sans-serif;
+  font-size:17px;line-height:1.6;-webkit-text-size-adjust:100%}
+h1,h2,h3{font-family:Archivo,"Helvetica Neue",Arial,sans-serif;
+  font-weight:800;letter-spacing:-.015em;text-wrap:balance}
+img{max-width:100%;display:block}
+[hidden]{display:none!important}
+a{color:var(--azul)}
+
+.barra{position:sticky;top:0;z-index:40;background:color-mix(in srgb,var(--papel) 88%,transparent);
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--linha)}
+.barra-in{max-width:1180px;margin:0 auto;padding:11px 20px;display:flex;align-items:center;gap:14px}
+.marca{font-family:Archivo,sans-serif;font-weight:800;font-size:15px;white-space:nowrap}
+.marca a{color:inherit;text-decoration:none}
+.marca span{color:var(--azul)}
+.conta{margin-left:auto;font-size:13px;color:var(--tinta2);font-variant-numeric:tabular-nums;white-space:nowrap}
+.trilho{position:absolute;left:0;bottom:-1px;height:3px;width:100%;background:transparent}
+.trilho i{display:block;height:100%;width:0;background:var(--azul);transition:width .25s ease}
+
+.capa{max-width:1180px;margin:0 auto;padding:46px 20px 10px}
+.etiqueta{display:inline-block;background:var(--azul);color:#fff;font-family:Archivo,sans-serif;
+  font-weight:700;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;
+  padding:5px 13px;border-radius:99px}
+.capa h1{font-size:clamp(34px,6.2vw,58px);margin:16px 0 10px;line-height:1.02}
+.capa .linha-fina{font-size:19px;color:var(--tinta2);max-width:62ch;margin:0}
+.avisos{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));margin:26px 0 8px}
+.aviso{background:var(--carta);border:1px solid var(--linha);border-radius:var(--raio);
+  padding:14px 16px;font-size:15px;box-shadow:var(--sombra)}
+.aviso b{font-family:Archivo,sans-serif;display:block;font-size:12px;letter-spacing:.09em;
+  text-transform:uppercase;margin-bottom:5px;color:var(--azul)}
+.baixar{display:inline-flex;align-items:center;gap:8px;margin-top:6px;font-size:14.5px;
+  text-decoration:none;border:1px solid var(--linha);background:var(--carta);
+  padding:9px 15px;border-radius:99px;color:var(--tinta);font-weight:700}
+.baixar:hover{border-color:var(--azul);color:var(--azul)}
+
+main{max-width:1180px;margin:0 auto;padding:10px 20px 70px}
+.passo{background:var(--carta);border:1px solid var(--linha);border-radius:var(--raio);
+  padding:20px;margin:22px 0;box-shadow:var(--sombra);scroll-margin-top:70px}
+.passo.feito{border-color:var(--verde)}
+.cab{display:flex;align-items:flex-start;gap:13px;padding-bottom:13px;border-bottom:2px solid var(--linha)}
+.passo.feito .cab{border-bottom-color:var(--verde)}
+.bolha{flex:none;width:40px;height:40px;border-radius:11px;background:var(--azul);color:#fff;
+  font-family:Archivo,sans-serif;font-weight:800;font-size:19px;
+  display:flex;align-items:center;justify-content:center;font-variant-numeric:tabular-nums}
+.passo.feito .bolha{background:var(--verde)}
+.cab h2{font-size:clamp(20px,2.7vw,26px);margin:3px 0 0;flex:1}
+.risca{display:flex;align-items:center;gap:7px;font-size:13.5px;color:var(--tinta2);
+  cursor:pointer;user-select:none;flex:none;padding-top:8px;white-space:nowrap}
+.risca input{width:19px;height:19px;accent-color:var(--verde);cursor:pointer}
+
+.corpo{display:grid;gap:20px;grid-template-columns:1fr;margin-top:16px}
+@media (min-width:920px){ .corpo{grid-template-columns:1.35fr 1fr;align-items:start} }
+.midia{margin:0}
+.moldura{border:1px solid var(--linha);border-radius:10px;overflow:hidden;background:var(--papel)}
+.abas{display:flex;gap:6px;margin-bottom:9px}
+.aba{font-family:Archivo,sans-serif;font-size:12.5px;font-weight:700;letter-spacing:.04em;
+  border:1px solid var(--linha);background:var(--carta);color:var(--tinta2);
+  padding:6px 13px;border-radius:99px;cursor:pointer}
+.aba[aria-pressed="true"]{background:var(--roxo-fraco);border-color:var(--roxo);color:var(--roxo)}
+.legenda{font-size:13px;color:var(--tinta2);margin:8px 2px 0}
+
+.texto>p{margin:0 0 14px}
+.ui{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:.86em;
+  background:var(--azul-fraco);border:1px solid color-mix(in srgb,var(--azul) 25%,transparent);
+  border-radius:5px;padding:1px 6px;white-space:nowrap;color:var(--tinta)}
+.certo,.socorro{border-radius:0 10px 10px 0;padding:12px 15px;margin-top:14px;font-size:15.5px}
+.certo{background:var(--verde-fraco);border-left:5px solid var(--verde)}
+.socorro{background:var(--laranja-fraco);border-left:5px solid var(--laranja)}
+.certo>b:first-child,.socorro>b:first-child{font-family:Archivo,sans-serif;display:block;
+  font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:5px}
+.certo>b:first-child{color:var(--verde)}
+.socorro>b:first-child{color:var(--laranja)}
+.socorro dl{margin:0}
+.socorro dt{font-weight:700;margin-top:10px}
+.socorro dt:first-of-type{margin-top:2px}
+.socorro dd{margin:2px 0 0;color:var(--tinta2)}
+
+.codigo{margin:14px 0;border-radius:10px;overflow:hidden;border:1px solid var(--linha)}
+.codigo .titulo{display:flex;align-items:center;gap:8px;background:var(--roxo-fraco);
+  color:var(--roxo);font-family:Archivo,sans-serif;font-weight:700;font-size:11.5px;
+  letter-spacing:.1em;text-transform:uppercase;padding:7px 13px;border-bottom:1px solid var(--linha)}
+.codigo pre{margin:0;background:var(--codigo);color:var(--codigo-tinta);padding:14px 16px;
+  overflow-x:auto;font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:14.5px;line-height:1.7}
+.codigo ol{margin:0;padding:0 0 0 46px;background:var(--codigo);color:var(--codigo-tinta);
+  font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:14.5px;line-height:1.75;
+  overflow-x:auto}
+.codigo li{border-left:1px solid color-mix(in srgb,var(--codigo-tinta) 18%,transparent);
+  padding:0 16px 0 10px;white-space:pre}
+.codigo li::marker{color:color-mix(in srgb,var(--codigo-tinta) 40%,transparent);font-size:12px}
+.codigo li.auto{color:color-mix(in srgb,var(--codigo-tinta) 42%,transparent);font-style:italic}
+.codigo .rodape{background:var(--codigo);color:color-mix(in srgb,var(--codigo-tinta) 55%,transparent);
+  font-family:"Atkinson Hyperlegible",sans-serif;font-size:12.5px;padding:8px 16px 12px;
+  border-top:1px solid color-mix(in srgb,var(--codigo-tinta) 15%,transparent)}
+.codigo .rodape b{color:color-mix(in srgb,var(--codigo-tinta) 85%,transparent)}
+.codigo .rodape code{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:13px;
+  color:color-mix(in srgb,var(--codigo-tinta) 92%,transparent);
+  background:color-mix(in srgb,var(--codigo-tinta) 12%,transparent);
+  padding:1px 5px;border-radius:4px}
+.codigo .rodape+.rodape{padding-top:10px}
+.so-papel{display:none}
+
+.fim{max-width:1180px;margin:0 auto;padding:0 20px 40px;text-align:center;color:var(--tinta2);font-size:15px}
+.fim strong{color:var(--tinta)}
+.navega{max-width:1180px;margin:0 auto;padding:0 20px 80px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.navega a{text-decoration:none;border:1px solid var(--linha);background:var(--carta);
+  padding:11px 18px;border-radius:99px;color:var(--tinta);font-weight:700;font-size:15px}
+.navega a:hover{border-color:var(--azul);color:var(--azul)}
+
+/* indice */
+.grade{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+  max-width:1180px;margin:0 auto;padding:10px 20px 80px}
+.cartao{display:block;text-decoration:none;color:inherit;background:var(--carta);
+  border:1px solid var(--linha);border-radius:var(--raio);padding:18px 20px;box-shadow:var(--sombra)}
+.cartao:hover{border-color:var(--azul)}
+.cartao .num{font-family:Archivo,sans-serif;font-weight:800;font-size:12px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--azul)}
+.cartao h3{margin:6px 0 6px;font-size:21px}
+.cartao p{margin:0;color:var(--tinta2);font-size:15px}
+.cartao.embreve{opacity:.55}
+.cartao.embreve .num{color:var(--tinta2)}
+
+@media print{
+  .barra,.abas,.risca,.baixar,.navega{display:none}
+  body{background:#fff}
+  .gif{display:none!important}
+  .foto{display:block!important}
+  /* quebrar DENTRO do passo e nao antes dele: com page-break-inside:avoid num
+     passo alto o Chrome pulava a folha inteira e sobravam paginas em branco. */
+  .passo{break-inside:auto;box-shadow:none;border-color:#ccc;margin:0 0 16px;padding:16px 18px}
+  .cab{break-after:avoid}
+  .midia,.certo,.socorro,.codigo{break-inside:avoid}
+  .legenda{display:none}
+  .legenda.so-papel{display:block}
+  .midia img{max-height:11cm;width:auto;margin:0 auto}
+  .capa{break-after:page}
+}
+</style>
+</head>
+<body data-aula="aula4">
+
+<header class="barra"><div class="barra-in">
+  <div class="marca"><a href="../">Robotomia</a> <span>· Tinkercad · Aula 4</span></div>
+  <div class="conta" id="conta">0 de 21 passos prontos</div>
+</div><div class="trilho"><i id="trilho"></i></div></header>
+
+<div class="capa">
+  <span class="etiqueta">Aula 4 · telhado e porta</span>
+  <h1>Casinha</h1>
+  <p class="linha-fina">Uma caixa vira casa: ganha um telhado de duas águas, centrado em cima, e um vão de porta na parede da frente. São 21 passos, 50 minutos.
+  Faça um de cada vez e só passe adiante depois de conferir o quadro verde.</p>
+  <div class="avisos"><div class="aviso"><b>Projeto novo</b>Esta aula começa num projeto novo, vazio. As peças das aulas anteriores continuam guardadas na sua conta.</div><div class="aviso"><b>Milímetros</b>Todo número é em milímetro. A casinha cabe na palma da mão: <b>60 mm</b> é a largura de um cartão de crédito dobrada ao meio, mais ou menos.</div><div class="aviso"><b>O que você já sabe</b>As formas, as medidas pelos campos e pelas alças, o <span class=ui>Ctrl + A</span>, o <span class=ui>Alinhar</span> e o <span class=ui>Grupo de união</span> são das aulas 1 a 3. Hoje eles aparecem juntos.</div><div class="aviso"><b>Os clipes</b>Os passos com animação mostram o gesto inteiro: o mouse andando, o <b>botão certo acendendo</b> e as <b>teclas acesas</b> quando o gesto é de teclado.</div><div class="aviso"><b>Travou?</b>Todo passo tem um quadro laranja embaixo com o conserto dos erros mais comuns.</div></div>
+  <a class="baixar" href="aula4.pdf">⤓ Baixar esta aula em PDF (para imprimir)</a>
+</div>
+
+<main>
+<section class="passo" id="passo1">
+  <div class="cab"><div class="bolha">1</div><h2>Abra o Tinkercad e crie um Projeto 3D</h2>
+  <label class="risca"><input type="checkbox" data-passo="1"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/criar.gif" alt="Animação do passo 1: Clipe" loading="lazy"><img hidden class="foto" src="fotos/p01_vazio.jpg" alt="Tela do Tinkercad no passo 1" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>Entre no Tinkercad com a sua conta, como nas aulas anteriores. No canto de cima à direita, clique em <span class=ui>+ Criar</span> e, na primeira linha, em <span class=ui>Projeto 3D</span>.<br><br>Abre o editor com o plano azul quadriculado <b>vazio</b> e um nome sorteado — deixe assim, no último passo você troca.</p>
+      <div class="certo"><b>Está certo se</b>O editor abriu com o plano azul claro quadriculado vazio.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>Não sei entrar</dt><dd>Chame o professor. Não crie conta nova: os seus projetos estão na antiga.</dd><dt>Abriu outra coisa</dt><dd>Volte com a seta ⟵ do navegador e clique de novo em <span class=ui>+ Criar</span>, escolhendo a primeira linha.</dd><dt>A tela ficou branca</dt><dd>O Tinkercad é pesado. Espere até meio minuto. Se continuar branca, recarregue com <span class=ui>F5</span>.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo2">
+  <div class="cab"><div class="bolha">2</div><h2>Arraste uma Caixa para o plano</h2>
+  <label class="risca"><input type="checkbox" data-passo="2"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/caixa.gif" alt="Animação do passo 2: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g02_depois.jpg" alt="Tela do Tinkercad no passo 2" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>Na coluna da direita, a forma <b>vermelha</b> do meio da segunda fileira, à esquerda, é a <span class=ui>Caixa</span>. Segure o botão esquerdo nela, <b>arraste até o meio do plano</b> e solte.<br><br>É a <b>parede</b> da casa.</p>
+      <div class="certo"><b>Está certo se</b>Tem um cubo vermelho no meio do plano, com quadradinhos brancos em volta, e o painel branco escrito <span class=ui>Caixa</span> no alto.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>Peguei a caixa cinza listrada</dt><dd>Essa é o <b>buraco</b>. Aperte <span class=ui>Delete</span> e arraste a vermelha, a da segunda fileira.</dd><dt>Não apareceu o painel</dt><dd>Clique uma vez na caixa: o painel abre quando ela está selecionada.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo3">
+  <div class="cab"><div class="bolha">3</div><h2>Comprimento 50, Largura 60, Altura 40</h2>
+  <label class="risca"><input type="checkbox" data-passo="3"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/medidas_casa.gif" alt="Animação do passo 3: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g03_depois.jpg" alt="Tela do Tinkercad no passo 3" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>No painel, clique no campo <span class=ui>Comprimento</span>, apague, escreva <b>50</b> e aperte <span class=ui>Enter</span>. Faça o mesmo em <span class=ui>Largura</span> com <b>60</b> e em <span class=ui>Altura</span> com <b>40</b>.<br><br>O número <b>grande</b> vai em <span class=ui>Largura</span>: é a direção que corre da esquerda para a direita na tela. A casa fica <b>mais larga que funda</b>.</p>
+      <div class="certo"><b>Está certo se</b>Os três campos mostram <b>50</b>, <b>60</b> e <b>40</b>, e a caixa virou um bloco largo, de frente para você.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>O bloco ficou fundo e estreito</dt><dd>O 60 foi parar em <span class=ui>Comprimento</span>. Troque: <b>50</b> em Comprimento e <b>60</b> em Largura.</dd><dt>Digitei e nada mudou</dt><dd>Falta o <span class=ui>Enter</span> depois de cada número.</dd><dt>O campo ficou com número estranho</dt><dd>Clique no campo, aperte Ctrl + A (no Mac, Cmd + A) e escreva de novo.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo4">
+  <div class="cab"><div class="bolha">4</div><h2>Solte o Telhado em cima da casa</h2>
+  <label class="risca"><input type="checkbox" data-passo="4"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/telhado.gif" alt="Animação do passo 4: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g04_depois.jpg" alt="Tela do Tinkercad no passo 4" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>Na coluna da direita, na fileira do cone e da pirâmide, a forma <b>verde</b> com o nome <span class=ui>Telhado</span> é um prisma de duas águas. Segure o botão esquerdo nela e <b>solte bem no meio da tampa</b> da casa.<br><br>O telhado nasce <b>em cima</b> da casa, na altura da tampa — e aparece um <b>quadrado verde</b>: o plano de trabalho foi para o alto da caixa. Ele ainda é pequenininho e está fora do lugar.</p>
+      <div class="certo"><b>Está certo se</b>Um telhado verde pequeno está <b>pousado na tampa</b> da casa, com quadradinhos brancos em volta, e o painel diz <span class=ui>Telhado</span>.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>Não acho o Telhado</dt><dd>Fica na fileira do <b>cone</b> (roxo) e da <b>pirâmide</b> (amarela): é o verde, o terceiro dessa fileira.</dd><dt>O telhado caiu no chão, ao lado</dt><dd>Você soltou fora da casa. Arraste-o de novo, soltando em cima da <b>tampa</b>.</dd><dt>Peguei a pirâmide</dt><dd>Serve para outra aula. Aperte <span class=ui>Delete</span> e pegue o verde.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo5">
+  <div class="cab"><div class="bolha">5</div><h2>Telhado 66 × 56 × 24, pelas alças</h2>
+  <label class="risca"><input type="checkbox" data-passo="5"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/medidas_telhado.gif" alt="Animação do passo 5: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g05_depois.jpg" alt="Tela do Tinkercad no passo 5" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>O telhado <b>não tem campo de medida</b>, como o cilindro da Aula 2: o tamanho vem das <b>alças</b>.<br><br><b>1.</b> Clique na <b>alça do canto</b> de cima à esquerda da base do telhado. Clique no número da <b>esquerda</b> e escreva <b>56</b> (<span class=ui>Enter</span>); clique no número de <b>cima</b> e escreva <b>66</b> (<span class=ui>Enter</span>).<br><b>2.</b> Clique na alça do <b>meio da ponta</b> (a de cima) e escreva <b>24</b> no número da altura.<br><br>O telhado cresce <b>3 mm para cada lado</b> além da casa (66 − 60 = 6, e 6 ÷ 2 = 3): é o <b>beiral</b>. Ele vai ficar torto, para um lado: o Alinhar arruma já.</p>
+      <div class="certo"><b>Está certo se</b>O telhado ficou grande, <b>mais largo</b> que a casa, e cobre a tampa — mas não está centrado: sobra mais de um lado do que do outro.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>Os números sumiram</dt><dd>Clique no telhado e de novo na alça do canto: eles reaparecem.</dd><dt>Apareceu um número só</dt><dd>Você clicou na alça do <b>meio</b>: ela mede a altura. A do <b>canto</b> mostra dois números.</dd><dt>O telhado afundou na casa</dt><dd>Aperte Ctrl + Z e confira se o telhado ainda está em cima da tampa antes de mexer nas alças.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo6">
+  <div class="cab"><div class="bolha">6</div><h2>Selecione tudo: Ctrl + A</h2>
+  <label class="risca"><input type="checkbox" data-passo="6"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/seleciona.gif" alt="Animação do passo 6: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g06_depois.jpg" alt="Tela do Tinkercad no passo 6" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>Clique num <b>lugar vazio</b> do plano e aperte <span class=ui>Ctrl</span> + <span class=ui>A</span> (no Mac, <span class=ui>Cmd</span> + <span class=ui>A</span>).<br><br>A casa e o telhado ficam selecionados juntos: o painel diz <span class=ui>Shapes(2)</span>.</p>
+      <div class="certo"><b>Está certo se</b>A casa e o telhado têm contorno azul, e o painel diz <span class=ui>Shapes(2)</span>.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>Selecionou só um</dt><dd>Clique num lugar vazio do plano e aperte Ctrl + A de novo.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo7">
+  <div class="cab"><div class="bolha">7</div><h2>Abra o Alinhar</h2>
+  <label class="risca"><input type="checkbox" data-passo="7"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/alinhar.gif" alt="Animação do passo 7: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g07_depois.jpg" alt="Tela do Tinkercad no passo 7" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>Na barra de cima, clique no botão <span class=ui>Alinhar</span> (o ícone com linhas de tamanhos diferentes, ao lado do espelho).<br><br>Aparecem as nove bolinhas pretas em volta das duas peças, como nas aulas 2 e 3.</p>
+      <div class="certo"><b>Está certo se</b>Apareceram as bolinhas pretas em volta da casa e do telhado, e no alto a frase <i>Clique nas alças para alinhar as formas</i>.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>As bolinhas não apareceram</dt><dd>O Alinhar só abre com <b>duas ou mais</b> peças selecionadas. Volte ao passo 6.</dd><dt>Não acho o botão</dt><dd>Fica na barra de cima, no meio, ao lado do espelho. Passe o mouse e espere o nome aparecer.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo8">
+  <div class="cab"><div class="bolha">8</div><h2>FIXE a casa: clique nela</h2>
+  <label class="risca"><input type="checkbox" data-passo="8"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/fixa.gif" alt="Animação do passo 8: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g08_depois.jpg" alt="Tela do Tinkercad no passo 8" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>O Alinhar <b>move todas as peças</b> até uma linha comum. Se você alinhar assim, quem se mexe pode ser a <b>casa</b>, e não o telhado.<br><br>Clique <b>no corpo vermelho da casa</b> (uma forma selecionada): ela fica <b>fixa</b>, e só o telhado vai andar.</p>
+      <div class="certo"><b>Está certo se</b>A casa foi clicada e as bolinhas continuam na tela; daqui em diante só o telhado vai se mexer.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>A seleção sumiu</dt><dd>Você clicou fora da casa. Aperte Ctrl + Z, abra o Alinhar de novo e clique <b>em cima do vermelho</b> da casa.</dd><dt>Não sei se fixou</dt><dd>Siga os próximos passos: se a casa andar, volte ao passo 7 e fixe antes de clicar nas bolinhas.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo9">
+  <div class="cab"><div class="bolha">9</div><h2>Centro em X: a bolinha do meio, embaixo</h2>
+  <label class="risca"><input type="checkbox" data-passo="9"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/alinha_x.gif" alt="Animação do passo 9: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g09_depois.jpg" alt="Tela do Tinkercad no passo 9" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>Clique na <b>bolinha do meio</b> da fileira de <b>baixo</b>.<br><br>O telhado <b>desliza</b> e se centra na casa, <b>da esquerda para a direita</b>: o beiral fica igual dos dois lados.</p>
+      <div class="certo"><b>Está certo se</b>O telhado ficou centrado na casa da esquerda para a direita; a casa não se mexeu.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>As bolinhas mudaram de lugar</dt><dd>É normal: depois de cada clique elas se reposicionam. Procure de novo a do meio de baixo.</dd><dt>A casa é que andou</dt><dd>Você não fixou a casa. Aperte Ctrl + Z e volte ao passo 8.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo10">
+  <div class="cab"><div class="bolha">10</div><h2>Centro em Y: a bolinha do meio, à esquerda</h2>
+  <label class="risca"><input type="checkbox" data-passo="10"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/alinha_y.gif" alt="Animação do passo 10: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g10_depois.jpg" alt="Tela do Tinkercad no passo 10" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>Clique na <b>bolinha do meio</b> da coluna da <b>esquerda</b>.<br><br>Agora o telhado também está centrado de <b>frente para trás</b>: o beiral é igual na frente e atrás. Aperte <span class=ui>Esc</span> para fechar o Alinhar.</p>
+      <div class="certo"><b>Está certo se</b>O telhado está <b>centrado</b> em cima da casa, com beiral igual em volta.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>O telhado ainda está torto</dt><dd>Faça os dois: o do meio embaixo (passo 9) e o do meio à esquerda (este).</dd><dt>Sobrou o Alinhar na tela</dt><dd>Aperte <span class=ui>Esc</span>.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo11">
+  <div class="cab"><div class="bolha">11</div><h2>Traga outra Caixa: a porta</h2>
+  <label class="risca"><input type="checkbox" data-passo="11"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/caixa_porta.gif" alt="Animação do passo 11: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g11_depois.jpg" alt="Tela do Tinkercad no passo 11" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>Clique num lugar vazio do plano, para soltar a seleção. Arraste <b>outra Caixa vermelha</b> da coluna da direita e solte <b>no plano, à frente e ao lado da casa</b> — não em cima dela.<br><br>Essa caixa vai virar o <b>buraco da porta</b>.</p>
+      <div class="certo"><b>Está certo se</b>Tem uma caixinha vermelha no plano, fora da casa, e o painel diz <span class=ui>Caixa</span>.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>A caixa nasceu em cima do telhado</dt><dd>Arraste-a de novo para o <b>plano</b>, longe da casa. Ela precisa estar no chão.</dd><dt>Peguei a caixa cinza listrada</dt><dd>Essa já é o buraco: pule o próximo passo. Mas ela nasce no tamanho padrão.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo12">
+  <div class="cab"><div class="bolha">12</div><h2>Transforme a caixa em Orifício</h2>
+  <label class="risca"><input type="checkbox" data-passo="12"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/orificio.gif" alt="Animação do passo 12: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g12_depois.jpg" alt="Tela do Tinkercad no passo 12" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>Com a caixinha selecionada, no painel clique em <span class=ui>Orifício</span> (a bolinha cinza listrada, ao lado de <span class=ui>Sólido</span>).<br><br>A caixa fica <b>cinza e listrada</b>: agora é um <b>buraco</b>.</p>
+      <div class="certo"><b>Está certo se</b>A caixinha ficou cinza e listrada, e no painel o <span class=ui>Orifício</span> está marcado.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>Nada mudou de cor</dt><dd>Confira que a caixinha está selecionada (com as alças) e clique na bolinha do <span class=ui>Orifício</span>.</dd><dt>A casa é que ficou listrada</dt><dd>Você estava com a casa selecionada. Clique no <span class=ui>Sólido</span> para desfazer e selecione a caixinha.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo13">
+  <div class="cab"><div class="bolha">13</div><h2>Porta: Comprimento 12, Largura 16, Altura 28</h2>
+  <label class="risca"><input type="checkbox" data-passo="13"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/medidas_porta.gif" alt="Animação do passo 13: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g13_depois.jpg" alt="Tela do Tinkercad no passo 13" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>No painel, escreva <b>12</b> em <span class=ui>Comprimento</span>, <b>16</b> em <span class=ui>Largura</span> e <b>28</b> em <span class=ui>Altura</span> (<span class=ui>Enter</span> depois de cada).<br><br>A porta tem <b>16 mm de largura</b> e <b>28 de altura</b>, e o <b>12</b> é a <b>profundidade</b>: é o quanto o buraco vai entrar na parede.</p>
+      <div class="certo"><b>Está certo se</b>Os campos mostram <b>12</b>, <b>16</b> e <b>28</b>, e o buraco ficou do tamanho de uma portinha em pé.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>A porta ficou deitada</dt><dd>Confira: a <b>altura</b> (28) é o maior número, e a largura (16) é maior que o comprimento (12).</dd><dt>O número ficou estranho</dt><dd>Clique no campo, aperte Ctrl + A (no Mac, Cmd + A) e escreva de novo.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo14">
+  <div class="cab"><div class="bolha">14</div><h2>Escolha só a casa e a porta: clique e Shift + clique</h2>
+  <label class="risca"><input type="checkbox" data-passo="14"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/duas.gif" alt="Animação do passo 14: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g14_depois.jpg" alt="Tela do Tinkercad no passo 14" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>Clique num lugar vazio do plano. Clique <b>na casa</b> (no vermelho da parede). Agora segure <span class=ui>Shift</span> e clique <b>na porta</b> (a caixinha listrada): o Shift <b>junta</b> a segunda peça à seleção, sem soltar a primeira.<br><br>O telhado fica de fora: <b>só a casa e a porta</b> vão ser alinhadas.</p>
+      <div class="certo"><b>Está certo se</b>A casa e a porta têm contorno azul, e o painel diz <span class=ui>Shapes(2)</span>. O telhado não tem contorno.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>O painel diz Shapes(3)</dt><dd>O telhado entrou na seleção. Clique num lugar vazio e refaça: primeiro a casa, depois Shift + clique na porta.</dd><dt>Só a porta ficou selecionada</dt><dd>Você soltou o Shift antes do clique, ou não clicou na casa primeiro. Refaça.</dd><dt>Não consigo clicar na porta</dt><dd>Ela é cinza listrada, na frente da casa. Clique bem no meio dela.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo15">
+  <div class="cab"><div class="bolha">15</div><h2>Abra o Alinhar de novo</h2>
+  <label class="risca"><input type="checkbox" data-passo="15"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/alinhar2.gif" alt="Animação do passo 15: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g15_depois.jpg" alt="Tela do Tinkercad no passo 15" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>Na barra de cima, clique no botão <span class=ui>Alinhar</span>.<br><br>As bolinhas pretas aparecem em volta da casa e da porta — só das duas.</p>
+      <div class="certo"><b>Está certo se</b>Apareceram as bolinhas pretas em volta da casa e da porta.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>As bolinhas não apareceram</dt><dd>Você precisa de duas peças selecionadas. Volte ao passo 14.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo16">
+  <div class="cab"><div class="bolha">16</div><h2>FIXE a casa de novo</h2>
+  <label class="risca"><input type="checkbox" data-passo="16"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/fixa2.gif" alt="Animação do passo 16: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g16_depois.jpg" alt="Tela do Tinkercad no passo 16" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>Clique em cima do <b>corpo vermelho da casa</b>: ela fica <b>fixa</b> e só a porta vai andar.</p>
+      <div class="certo"><b>Está certo se</b>A casa foi clicada e as bolinhas continuam na tela.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>A seleção sumiu</dt><dd>Você clicou fora da casa. Aperte Ctrl + Z e refaça os passos 14 a 16.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo17">
+  <div class="cab"><div class="bolha">17</div><h2>Centro em X: a bolinha do meio, embaixo</h2>
+  <label class="risca"><input type="checkbox" data-passo="17"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/alinha_x2.gif" alt="Animação do passo 17: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g17_depois.jpg" alt="Tela do Tinkercad no passo 17" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>Clique na <b>bolinha do meio</b> da fileira de <b>baixo</b>.<br><br>A porta <b>desliza</b> para o <b>meio</b> da parede da frente, da esquerda para a direita.</p>
+      <div class="certo"><b>Está certo se</b>A porta ficou no meio da parede da frente; a casa não se mexeu.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>A casa é que andou</dt><dd>Você não fixou a casa no passo 16. Aperte Ctrl + Z e refaça.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo18">
+  <div class="cab"><div class="bolha">18</div><h2>Rente à frente: a bolinha de baixo, à esquerda</h2>
+  <label class="risca"><input type="checkbox" data-passo="18"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/alinha_frente.gif" alt="Animação do passo 18: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g18_depois.jpg" alt="Tela do Tinkercad no passo 18" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>Clique na <b>bolinha de baixo</b> da coluna da <b>esquerda</b> (a mais perto de você, que alinha <b>na frente</b>).<br><br>A porta encosta na parede da frente: <b>a frente dela fica rente à frente da casa</b>, e os 12 mm de profundidade entram parede adentro. É assim que o buraco cava a parede.</p>
+      <div class="certo"><b>Está certo se</b>A porta está <b>rente à parede da frente</b>, com o corpo dela dentro da casa. Aperte <span class=ui>Esc</span> para fechar o Alinhar.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>Alinhou no meio e a porta sumiu</dt><dd>Você clicou na bolinha do <b>meio</b> da coluna. A que alinha na <b>frente</b> é a de baixo.</dd><dt>A porta ficou toda dentro</dt><dd>Pode acontecer se alinhar no meio: só a de baixo deixa a porta rente à frente.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo19">
+  <div class="cab"><div class="bolha">19</div><h2>Esc, Ctrl + A e Grupo de união</h2>
+  <label class="risca"><input type="checkbox" data-passo="19"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/uniao.gif" alt="Animação do passo 19: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g19_depois.jpg" alt="Tela do Tinkercad no passo 19" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>Aperte <span class=ui>Esc</span>. Clique num lugar vazio e aperte <span class=ui>Ctrl</span> + <span class=ui>A</span> (Mac: <span class=ui>Cmd</span> + <span class=ui>A</span>): agora são <b>três</b> peças selecionadas, <span class=ui>Shapes(3)</span>.<br><br>Na barra de cima, clique no do <b>meio</b> dos três botõezinhos de juntar, o <span class=ui>Grupo de união</span>.<br><br>O buraco da porta <b>cava a parede</b>, e a casa, o telhado e a porta viram <b>uma peça só</b>, toda de uma cor.</p>
+      <div class="certo"><b>Está certo se</b>A casa virou <b>uma peça só</b>, toda vermelha, com um <b>vão de porta</b> na parede da frente, e o painel diz <span class=ui>Union</span>.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>O painel diz Shapes(2)</dt><dd>Faltou uma peça. Clique num lugar vazio do plano e aperte Ctrl + A de novo.</dd><dt>A porta não cavou</dt><dd>O buraco ficou longe da parede. Aperte Ctrl + Z, desagrupe, e refaça o Alinhar da porta (passos 14 a 18).</dd><dt>Sumiu o telhado</dt><dd>O buraco encostou nele. Desagrupe com Ctrl + Shift + G e confira que a porta só toca a parede, não o telhado.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo20">
+  <div class="cab"><div class="bolha">20</div><h2>Olhe de frente: a porta e o telhado</h2>
+  <label class="risca"><input type="checkbox" data-passo="20"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/vista_frente.gif" alt="Animação do passo 20: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g20_depois.jpg" alt="Tela do Tinkercad no passo 20" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>Clique num <b>lugar vazio</b> do plano. No canto de cima à esquerda, no <b>cubo</b> de vistas, clique na face escrita <span class=ui>FRONTAL</span>.<br><br>A câmera desce e você vê a casa <b>de frente</b>: o telhado <b>de duas águas</b> em cima, com o beiral dos dois lados, e a <b>porta</b> aberta no meio da parede, rente ao chão.</p>
+      <div class="certo"><b>Está certo se</b>De frente se vê o telhado de duas águas, as paredes vermelhas e, no meio, o <b>vão da porta</b> chegando ao chão.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>Não vejo a porta</dt><dd>Confira se não está olhando por trás. Para voltar à vista inicial, use a casinha da barra da esquerda.</dd><dt>A câmera não mudou</dt><dd>Clique <b>na palavra</b> FRONTAL do cubinho.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo21">
+  <div class="cab"><div class="bolha">21</div><h2>Dê um nome ao seu projeto</h2>
+  <label class="risca"><input type="checkbox" data-passo="21"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/batiza.gif" alt="Animação do passo 21: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g21_depois.jpg" alt="Tela do Tinkercad no passo 21" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>Clique na <b>casinha</b> da barra da esquerda para voltar à vista inicial. Depois clique no <b>nome do projeto</b>, no canto de cima à esquerda (o sorteado). Apague, escreva <b>Casinha da ANA</b> (ou o seu nome) e aperte <span class=ui>Enter</span>.<br><br>O Tinkercad salva sozinho. A casinha está guardada na sua conta.</p>
+      <div class="certo"><b>Está certo se</b>No canto de cima à esquerda aparece o <b>nome que você escreveu</b>, no lugar do sorteado.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>O nome não mudou</dt><dd>Falta o <span class=ui>Enter</span>. Clique no nome de novo e faça de novo.</dd><dt>Clicou e o campo não abriu</dt><dd>Clique <b>em cima das letras</b> do nome, e não ao lado.</dd></dl></div>
+    </div></div></section>
+</main>
+
+<p class="fim"><strong>Acabou a Aula 4. Você fez uma <b>casinha</b>: uma caixa de 60 × 50 × 40 mm, um <b>telhado</b> de duas águas centrado em cima e um <b>vão de porta</b> cavado na parede da frente. Aprendeu a usar o <b>Alinhar</b> com uma peça <b>fixa</b>, a escolher só duas peças com <b>Shift + clique</b> e a alinhar uma peça <b>rente à frente</b> da outra. A peça está salva na sua conta com o nome que você deu — é só abrir o Tinkercad e ela está lá.</strong></p>
+<div class="navega"><a href="../">⌂ Todas as aulas</a><a href="../aula3/">← Aula 3</a><a href="../aula5/">Aula 5 →</a></div>
+<script>
+(function(){
+  var chave = "robotomia-tinkercad-" + (document.body.dataset.aula || "x");
+  function ler(){ try{ return JSON.parse(localStorage.getItem(chave)||"[]"); }catch(e){ return []; } }
+  function gravar(v){ try{ localStorage.setItem(chave, JSON.stringify(v)); }catch(e){} }
+  var caixas = [].slice.call(document.querySelectorAll(".risca input"));
+  var conta  = document.getElementById("conta");
+  var trilho = document.getElementById("trilho");
+  if (!caixas.length) return;
+  var feitos = ler();
+  function pinta(){
+    var n = 0;
+    caixas.forEach(function(c){
+      var p = c.closest(".passo");
+      if (c.checked){ n++; p.classList.add("feito"); } else { p.classList.remove("feito"); }
+    });
+    if (conta)  conta.textContent = n + " de " + caixas.length + " passos prontos";
+    if (trilho) trilho.style.width = (100*n/caixas.length) + "%";
+  }
+  caixas.forEach(function(c){
+    c.checked = feitos.indexOf(c.dataset.passo) >= 0;
+    c.addEventListener("change", function(){
+      var v = ler().filter(function(x){ return x !== c.dataset.passo; });
+      if (c.checked) v.push(c.dataset.passo);
+      gravar(v); pinta();
+    });
+  });
+  pinta();
+  [].slice.call(document.querySelectorAll(".abas")).forEach(function(g){
+    g.addEventListener("click", function(e){
+      var b = e.target.closest(".aba"); if(!b) return;
+      var caixa = g.parentNode;
+      [].slice.call(g.children).forEach(function(x){ x.setAttribute("aria-pressed", x===b ? "true":"false"); });
+      caixa.querySelectorAll(".gif").forEach(function(g){
+        g.hidden = !g.classList.contains(b.dataset.ver);
+      });
+      caixa.querySelector(".foto").hidden = (b.dataset.ver !== "foto");
+      caixa.querySelector(".legenda").textContent = b.dataset.legenda;
+    });
+  });
+})();
+</script>
+</body></html>

@@ -20,7 +20,7 @@ PLANO = [
     (2, "Porta-lápis",
      "Um cilindro alto, esvaziado por dentro, com fundo: o truque do furo em escala maior, e o Alinhar.", True),
     (3, "Caneca com alça",
-     "A alça é um anel que se vira em pé e se gruda no lado: girar uma forma e posicioná-la.", False),
+     "O porta-lápis ganha uma alça: copiar para outro projeto, girar um anel em pé e empurrá-lo até colar.", True),
     (4, "Casinha",
      "Telhado, porta e janelas: formas novas e furos que cavam a parede.", False),
     (5, "Carrinho",

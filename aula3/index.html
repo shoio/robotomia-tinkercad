@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Caneca com alça — Robotomia</title>
+<meta name="description" content="O seu porta-lápis ganha uma alça — um anel que você vira em pé, centra com o Alinhar e empurra até colar na lateral.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>&#129302;</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800&family=Atkinson+Hyperlegible:wght@400;700&display=swap">
+<style>
+:root{
+  --papel:#FBFAF7; --carta:#FFFFFF; --tinta:#14161C; --tinta2:#4E525C;
+  --linha:#E3E0D8; --azul:#1B62DC; --azul-fraco:#EAF0FC;
+  --verde:#147A38; --verde-fraco:#E7F4EC;
+  --laranja:#C2560A; --laranja-fraco:#FDF0E4;
+  --roxo:#5B2E9E; --roxo-fraco:#F2ECFB;
+  --codigo:#12151C; --codigo-tinta:#E8EBF0;
+  --sombra:0 1px 2px rgba(20,22,28,.05), 0 8px 24px rgba(20,22,28,.06);
+  --raio:14px;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-tema="claro"]){
+    --papel:#12141A; --carta:#1A1D25; --tinta:#ECEEF2; --tinta2:#A4AAB6;
+    --linha:#2C313C; --azul:#6C9BF0; --azul-fraco:#1B2436;
+    --verde:#5CC183; --verde-fraco:#15271C;
+    --laranja:#F0964E; --laranja-fraco:#2A1E14;
+    --roxo:#B995F0; --roxo-fraco:#221A33;
+    --codigo:#0D1016; --codigo-tinta:#E8EBF0;
+    --sombra:0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35);
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:68px}
+body{margin:0;background:var(--papel);color:var(--tinta);
+  font-family:"Atkinson Hyperlegible","Helvetica Neue",Arial,sans-serif;
+  font-size:17px;line-height:1.6;-webkit-text-size-adjust:100%}
+h1,h2,h3{font-family:Archivo,"Helvetica Neue",Arial,sans-serif;
+  font-weight:800;letter-spacing:-.015em;text-wrap:balance}
+img{max-width:100%;display:block}
+[hidden]{display:none!important}
+a{color:var(--azul)}
+
+.barra{position:sticky;top:0;z-index:40;background:color-mix(in srgb,var(--papel) 88%,transparent);
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--linha)}
+.barra-in{max-width:1180px;margin:0 auto;padding:11px 20px;display:flex;align-items:center;gap:14px}
+.marca{font-family:Archivo,sans-serif;font-weight:800;font-size:15px;white-space:nowrap}
+.marca a{color:inherit;text-decoration:none}
+.marca span{color:var(--azul)}
+.conta{margin-left:auto;font-size:13px;color:var(--tinta2);font-variant-numeric:tabular-nums;white-space:nowrap}
+.trilho{position:absolute;left:0;bottom:-1px;height:3px;width:100%;background:transparent}
+.trilho i{display:block;height:100%;width:0;background:var(--azul);transition:width .25s ease}
+
+.capa{max-width:1180px;margin:0 auto;padding:46px 20px 10px}
+.etiqueta{display:inline-block;background:var(--azul);color:#fff;font-family:Archivo,sans-serif;
+  font-weight:700;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;
+  padding:5px 13px;border-radius:99px}
+.capa h1{font-size:clamp(34px,6.2vw,58px);margin:16px 0 10px;line-height:1.02}
+.capa .linha-fina{font-size:19px;color:var(--tinta2);max-width:62ch;margin:0}
+.avisos{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));margin:26px 0 8px}
+.aviso{background:var(--carta);border:1px solid var(--linha);border-radius:var(--raio);
+  padding:14px 16px;font-size:15px;box-shadow:var(--sombra)}
+.aviso b{font-family:Archivo,sans-serif;display:block;font-size:12px;letter-spacing:.09em;
+  text-transform:uppercase;margin-bottom:5px;color:var(--azul)}
+.baixar{display:inline-flex;align-items:center;gap:8px;margin-top:6px;font-size:14.5px;
+  text-decoration:none;border:1px solid var(--linha);background:var(--carta);
+  padding:9px 15px;border-radius:99px;color:var(--tinta);font-weight:700}
+.baixar:hover{border-color:var(--azul);color:var(--azul)}
+
+main{max-width:1180px;margin:0 auto;padding:10px 20px 70px}
+.passo{background:var(--carta);border:1px solid var(--linha);border-radius:var(--raio);
+  padding:20px;margin:22px 0;box-shadow:var(--sombra);scroll-margin-top:70px}
+.passo.feito{border-color:var(--verde)}
+.cab{display:flex;align-items:flex-start;gap:13px;padding-bottom:13px;border-bottom:2px solid var(--linha)}
+.passo.feito .cab{border-bottom-color:var(--verde)}
+.bolha{flex:none;width:40px;height:40px;border-radius:11px;background:var(--azul);color:#fff;
+  font-family:Archivo,sans-serif;font-weight:800;font-size:19px;
+  display:flex;align-items:center;justify-content:center;font-variant-numeric:tabular-nums}
+.passo.feito .bolha{background:var(--verde)}
+.cab h2{font-size:clamp(20px,2.7vw,26px);margin:3px 0 0;flex:1}
+.risca{display:flex;align-items:center;gap:7px;font-size:13.5px;color:var(--tinta2);
+  cursor:pointer;user-select:none;flex:none;padding-top:8px;white-space:nowrap}
+.risca input{width:19px;height:19px;accent-color:var(--verde);cursor:pointer}
+
+.corpo{display:grid;gap:20px;grid-template-columns:1fr;margin-top:16px}
+@media (min-width:920px){ .corpo{grid-template-columns:1.35fr 1fr;align-items:start} }
+.midia{margin:0}
+.moldura{border:1px solid var(--linha);border-radius:10px;overflow:hidden;background:var(--papel)}
+.abas{display:flex;gap:6px;margin-bottom:9px}
+.aba{font-family:Archivo,sans-serif;font-size:12.5px;font-weight:700;letter-spacing:.04em;
+  border:1px solid var(--linha);background:var(--carta);color:var(--tinta2);
+  padding:6px 13px;border-radius:99px;cursor:pointer}
+.aba[aria-pressed="true"]{background:var(--roxo-fraco);border-color:var(--roxo);color:var(--roxo)}
+.legenda{font-size:13px;color:var(--tinta2);margin:8px 2px 0}
+
+.texto>p{margin:0 0 14px}
+.ui{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:.86em;
+  background:var(--azul-fraco);border:1px solid color-mix(in srgb,var(--azul) 25%,transparent);
+  border-radius:5px;padding:1px 6px;white-space:nowrap;color:var(--tinta)}
+.certo,.socorro{border-radius:0 10px 10px 0;padding:12px 15px;margin-top:14px;font-size:15.5px}
+.certo{background:var(--verde-fraco);border-left:5px solid var(--verde)}
+.socorro{background:var(--laranja-fraco);border-left:5px solid var(--laranja)}
+.certo>b:first-child,.socorro>b:first-child{font-family:Archivo,sans-serif;display:block;
+  font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:5px}
+.certo>b:first-child{color:var(--verde)}
+.socorro>b:first-child{color:var(--laranja)}
+.socorro dl{margin:0}
+.socorro dt{font-weight:700;margin-top:10px}
+.socorro dt:first-of-type{margin-top:2px}
+.socorro dd{margin:2px 0 0;color:var(--tinta2)}
+
+.codigo{margin:14px 0;border-radius:10px;overflow:hidden;border:1px solid var(--linha)}
+.codigo .titulo{display:flex;align-items:center;gap:8px;background:var(--roxo-fraco);
+  color:var(--roxo);font-family:Archivo,sans-serif;font-weight:700;font-size:11.5px;
+  letter-spacing:.1em;text-transform:uppercase;padding:7px 13px;border-bottom:1px solid var(--linha)}
+.codigo pre{margin:0;background:var(--codigo);color:var(--codigo-tinta);padding:14px 16px;
+  overflow-x:auto;font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:14.5px;line-height:1.7}
+.codigo ol{margin:0;padding:0 0 0 46px;background:var(--codigo);color:var(--codigo-tinta);
+  font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:14.5px;line-height:1.75;
+  overflow-x:auto}
+.codigo li{border-left:1px solid color-mix(in srgb,var(--codigo-tinta) 18%,transparent);
+  padding:0 16px 0 10px;white-space:pre}
+.codigo li::marker{color:color-mix(in srgb,var(--codigo-tinta) 40%,transparent);font-size:12px}
+.codigo li.auto{color:color-mix(in srgb,var(--codigo-tinta) 42%,transparent);font-style:italic}
+.codigo .rodape{background:var(--codigo);color:color-mix(in srgb,var(--codigo-tinta) 55%,transparent);
+  font-family:"Atkinson Hyperlegible",sans-serif;font-size:12.5px;padding:8px 16px 12px;
+  border-top:1px solid color-mix(in srgb,var(--codigo-tinta) 15%,transparent)}
+.codigo .rodape b{color:color-mix(in srgb,var(--codigo-tinta) 85%,transparent)}
+.codigo .rodape code{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:13px;
+  color:color-mix(in srgb,var(--codigo-tinta) 92%,transparent);
+  background:color-mix(in srgb,var(--codigo-tinta) 12%,transparent);
+  padding:1px 5px;border-radius:4px}
+.codigo .rodape+.rodape{padding-top:10px}
+.so-papel{display:none}
+
+.fim{max-width:1180px;margin:0 auto;padding:0 20px 40px;text-align:center;color:var(--tinta2);font-size:15px}
+.fim strong{color:var(--tinta)}
+.navega{max-width:1180px;margin:0 auto;padding:0 20px 80px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.navega a{text-decoration:none;border:1px solid var(--linha);background:var(--carta);
+  padding:11px 18px;border-radius:99px;color:var(--tinta);font-weight:700;font-size:15px}
+.navega a:hover{border-color:var(--azul);color:var(--azul)}
+
+/* indice */
+.grade{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+  max-width:1180px;margin:0 auto;padding:10px 20px 80px}
+.cartao{display:block;text-decoration:none;color:inherit;background:var(--carta);
+  border:1px solid var(--linha);border-radius:var(--raio);padding:18px 20px;box-shadow:var(--sombra)}
+.cartao:hover{border-color:var(--azul)}
+.cartao .num{font-family:Archivo,sans-serif;font-weight:800;font-size:12px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--azul)}
+.cartao h3{margin:6px 0 6px;font-size:21px}
+.cartao p{margin:0;color:var(--tinta2);font-size:15px}
+.cartao.embreve{opacity:.55}
+.cartao.embreve .num{color:var(--tinta2)}
+
+@media print{
+  .barra,.abas,.risca,.baixar,.navega{display:none}
+  body{background:#fff}
+  .gif{display:none!important}
+  .foto{display:block!important}
+  /* quebrar DENTRO do passo e nao antes dele: com page-break-inside:avoid num
+     passo alto o Chrome pulava a folha inteira e sobravam paginas em branco. */
+  .passo{break-inside:auto;box-shadow:none;border-color:#ccc;margin:0 0 16px;padding:16px 18px}
+  .cab{break-after:avoid}
+  .midia,.certo,.socorro,.codigo{break-inside:avoid}
+  .legenda{display:none}
+  .legenda.so-papel{display:block}
+  .midia img{max-height:11cm;width:auto;margin:0 auto}
+  .capa{break-after:page}
+}
+</style>
+</head>
+<body data-aula="aula3">
+
+<header class="barra"><div class="barra-in">
+  <div class="marca"><a href="../">Robotomia</a> <span>· Tinkercad · Aula 3</span></div>
+  <div class="conta" id="conta">0 de 20 passos prontos</div>
+</div><div class="trilho"><i id="trilho"></i></div></header>
+
+<div class="capa">
+  <span class="etiqueta">Aula 3 · girar e posicionar</span>
+  <h1>Caneca com alça</h1>
+  <p class="linha-fina">O seu porta-lápis ganha uma alça — um anel que você vira em pé, centra com o Alinhar e empurra até colar na lateral. São 20 passos, 50 minutos.
+  Faça um de cada vez e só passe adiante depois de conferir o quadro verde.</p>
+  <div class="avisos"><div class="aviso"><b>Parte do porta-lápis</b>Hoje você começa do <b>porta-lápis da Aula 2</b>. Se o seu projeto não existe mais, refaça a Aula 2 antes (leva uns 25 minutos).</div><div class="aviso"><b>O original fica guardado</b>Você vai <b>copiar</b> o porta-lápis para um projeto novo. O da Aula 2 não muda: dá para brincar à vontade.</div><div class="aviso"><b>Milímetros</b>Todo número é em milímetro. A alça terá cerca de <b>36 mm</b> de ponta a ponta — o tamanho de um dedão grande.</div><div class="aviso"><b>Os clipes</b>Os passos com animação mostram o gesto inteiro: o mouse andando, o <b>botão certo acendendo</b> e as <b>teclas acesas</b> quando o gesto é de teclado.</div><div class="aviso"><b>Travou?</b>Todo passo tem um quadro laranja embaixo com o conserto dos erros mais comuns.</div></div>
+  <a class="baixar" href="aula3.pdf">⤓ Baixar esta aula em PDF (para imprimir)</a>
+</div>
+
+<main>
+<section class="passo" id="passo1">
+  <div class="cab"><div class="bolha">1</div><h2>Abra o seu porta-lápis</h2>
+  <label class="risca"><input type="checkbox" data-passo="1"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="moldura"><img class="foto" src="fotos/p01_porta_lapis.jpg" alt="Tela do Tinkercad no passo 1" loading="lazy"></div><p class="legenda">Foto da tela.</p></figure>
+    <div class="texto"><p>No Tinkercad, na lista dos seus projetos, clique no cartão do <b>porta-lápis</b> que você fez na Aula 2 (o que você batizou). Ele abre no editor.<br><br>A peça está lá: o copo laranja, alto, com o fundo e o vazio por dentro.</p>
+      <div class="certo"><b>Está certo se</b>O editor mostra o copo laranja do porta-lápis, com o nome do projeto no canto de cima à esquerda.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>Não acho o cartão</dt><dd>Procure pelo nome que você deu na Aula 2. Se der muito trabalho, chame o professor: todos os cartões novos têm um nome sorteado esquisito.</dd><dt>Abriu um projeto vazio</dt><dd>Você abriu outro cartão ou criou um projeto novo. Volte à lista e escolha o do porta-lápis.</dd><dt>O porta-lápis não está mais lá</dt><dd>Refaça a Aula 2 antes de seguir: hoje o ponto de partida é ele.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo2">
+  <div class="cab"><div class="bolha">2</div><h2>Selecione tudo e copie: Ctrl + A, depois Ctrl + C</h2>
+  <label class="risca"><input type="checkbox" data-passo="2"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/seleciona.gif" alt="Animação do passo 2: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g02_depois.jpg" alt="Tela do Tinkercad no passo 2" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>Clique num <b>lugar vazio do plano</b> para o teclado ir para lá. Segure <span class=ui>Ctrl</span> e aperte <span class=ui>A</span>: o porta-lápis fica selecionado, com contorno azul.<br><br>Agora, segure <span class=ui>Ctrl</span> e aperte <span class=ui>C</span>: ele foi <b>copiado</b>. <b>Nada muda na tela</b> — é como copiar um texto: a cópia está guardada e espera.<br><br>Em computador Mac, use <span class=ui>Cmd</span> no lugar de <span class=ui>Ctrl</span>.</p>
+      <div class="certo"><b>Está certo se</b>O porta-lápis tem contorno azul. (Depois do Ctrl + C não aparece nada: está certo.)</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>Ctrl + A não faz nada</dt><dd>Clique uma vez num lugar vazio do plano antes: o atalho só funciona com o editor em foco.</dd><dt>Selecionou e eu não sei se copiei</dt><dd>Aperte Ctrl + C de novo. Copiar duas vezes não faz mal.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo3">
+  <div class="cab"><div class="bolha">3</div><h2>Crie um projeto novo</h2>
+  <label class="risca"><input type="checkbox" data-passo="3"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/criar.gif" alt="Animação do passo 3: Clipe" loading="lazy"><img hidden class="foto" src="fotos/p04_novo_vazio.jpg" alt="Tela do Tinkercad no passo 3" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>Volte à lista de projetos (o <b>logotipo do Tinkercad</b>, no canto de cima à esquerda, leva para lá). No canto de cima à direita, clique em <span class=ui>+ Criar</span> e, na primeira linha, em <span class=ui>Projeto 3D</span>.<br><br>Abre um projeto <b>vazio</b>, com um nome sorteado (o seu será outro, diferente do da figura). O porta-lápis original continua guardado no projeto de antes.</p>
+      <div class="certo"><b>Está certo se</b>O editor abriu com o plano azul quadriculado <b>vazio</b>, e com um nome sorteado no canto de cima à esquerda.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>Perdi a cópia ao trocar de projeto</dt><dd>Não perde: a cópia fica guardada enquanto você não copiar outra coisa. Se tiver dúvida, volte ao porta-lápis e aperte Ctrl + A e Ctrl + C de novo.</dd><dt>Abriu o projeto antigo</dt><dd>Você clicou num cartão em vez do botão. Use o <span class=ui>+ Criar</span> do canto de cima à direita.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo4">
+  <div class="cab"><div class="bolha">4</div><h2>Cole: Ctrl + V</h2>
+  <label class="risca"><input type="checkbox" data-passo="4"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/cola.gif" alt="Animação do passo 4: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g05_depois.jpg" alt="Tela do Tinkercad no passo 4" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>Clique num <b>lugar vazio do plano</b> e aperte <span class=ui>Ctrl</span> + <span class=ui>V</span> (no Mac, <span class=ui>Cmd</span> + <span class=ui>V</span>).<br><br>O porta-lápis aparece no projeto novo, <b>inteiro</b>: o copo, o fundo e o vazio.</p>
+      <div class="certo"><b>Está certo se</b>O copo laranja apareceu no plano do projeto novo, já selecionado.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>Não colou nada</dt><dd>A cópia se perdeu. Volte ao porta-lápis, aperte Ctrl + A e Ctrl + C, abra o projeto novo e tente de novo.</dd><dt>Colou duas vezes</dt><dd>Aperte Ctrl + Z para desfazer uma. Ficou um copo em cima do outro e só um deve ficar.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo5">
+  <div class="cab"><div class="bolha">5</div><h2>Arraste um Tórulo para a esquerda do copo</h2>
+  <label class="risca"><input type="checkbox" data-passo="5"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/torulo.gif" alt="Animação do passo 5: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g06_depois.jpg" alt="Tela do Tinkercad no passo 5" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>Na coluna da direita, procure o <b>anel azul</b>, com o nome <span class=ui>Tórulo</span> (fica na fileira de baixo; role a coluna se precisar).<br><br>Segure o botão esquerdo em cima dele, <b>arraste para a esquerda do copo</b> — um pedaço vazio do plano — e solte.<br><br>O anel azul está <b>deitado</b>, como uma rosquinha na mesa. Abre o painel <span class=ui>Tórulo</span>, com <span class=ui>Raio</span> e <span class=ui>Tubo</span>.</p>
+      <div class="certo"><b>Está certo se</b>Tem um anel azul deitado ao lado esquerdo do copo, e o painel branco escrito <span class=ui>Tórulo</span> no alto.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>Não acho o Tórulo</dt><dd>Ele é azul e fica no fim da coluna de formas. Role a coluna com o mouse.</dd><dt>Soltei em cima do copo</dt><dd>Arraste o anel de novo para o plano vazio, ao lado. Em cima do copo ele nasceria lá no alto.</dd><dt>As alças ficaram escondidas</dt><dd>Aproxime com o <b>−</b> da barra da esquerda para o plano ficar menor, ou arraste o anel para um lugar com mais espaço.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo6">
+  <div class="cab"><div class="bolha">6</div><h2>Raio = 14 e Tubo = 4</h2>
+  <label class="risca"><input type="checkbox" data-passo="6"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/raio_tubo.gif" alt="Animação do passo 6: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g07_depois.jpg" alt="Tela do Tinkercad no passo 6" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>No painel do Tórulo, no campo <span class=ui>Raio</span>, apague e escreva <b>14</b>, aperte <span class=ui>Enter</span>. No campo <span class=ui>Tubo</span>, escreva <b>4</b> e <span class=ui>Enter</span>.<br><br><span class=ui>Raio</span> é o tamanho do círculo grande, do meio do anel até o meio do tubo. <span class=ui>Tubo</span> é a grossura do próprio anel.</p>
+      <div class="certo"><b>Está certo se</b>Os campos mostram <b>14</b> e <b>4</b>, e o anel ficou um pouco maior e mais grosso.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>Digitei e nada mudou</dt><dd>Falta o <span class=ui>Enter</span> depois de cada número.</dd><dt>O número ficou estranho</dt><dd>Clique no campo, aperte Ctrl + A (no Mac, Cmd + A) e escreva de novo.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo7">
+  <div class="cab"><div class="bolha">7</div><h2>Ponha o anel EM PÉ: a seta curva de cima</h2>
+  <label class="risca"><input type="checkbox" data-passo="7"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/gira_cima.gif" alt="Animação do passo 7: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g08_depois.jpg" alt="Tela do Tinkercad no passo 7" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>Acima do anel há uma <b>seta curva</b> pequenininha, em cima do triângulo preto. Segure o botão esquerdo nela e <b>arraste devagar</b> para a direita e para baixo.<br><br>Aparece um <b>transferidor</b> colorido, com um número em cima. Arraste <b>até o número mostrar 90°</b> (pode vir com sinal de menos: <b>−90°</b>) e solte.<br><br>O anel levanta: ele fica <b>em pé</b>, como uma roda de bicicleta, e de frente para a lateral do plano — fininho, visto de lado.</p>
+      <div class="certo"><b>Está certo se</b>O anel está <b>em pé</b>: visto da câmera, é uma <b>pílula</b> fina e alta, e o transferidor mostrou 90° (ou −90°).</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>O número não pára em 90</dt><dd>Arraste de pouquinho em pouquinho, olhando o número. Se passar, volte um pouco sem soltar.</dd><dt>Girou para o lado errado</dt><dd>Pode ficar −90° ou 90°: os dois servem. O que importa é o anel ficar em pé.</dd><dt>Não acho a seta curva</dt><dd>Ela fica acima do triângulo preto de <span class=ui>subir</span>. Aproxime a câmera com o <b>+</b> se estiver muito pequena.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo8">
+  <div class="cab"><div class="bolha">8</div><h2>Vire o anel DE FRENTE: a seta curva de baixo</h2>
+  <label class="risca"><input type="checkbox" data-passo="8"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/gira_baixo.gif" alt="Animação do passo 8: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g09_depois.jpg" alt="Tela do Tinkercad no passo 8" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>Abaixo do anel há <b>outra seta curva</b>, a de baixo. Segure o botão esquerdo nela e <b>arraste em volta do anel, num arco</b>, subindo para a direita (uma linha reta não chega nos 90°).<br><br>O transferidor aparece de novo. Arraste até o número mostrar <b>90°</b> (ou <b>−90°</b>) e solte.<br><br>O anel gira como uma porta e fica <b>de frente para você</b>: agora dá para ver o buraco do anel, como a roda de um carro visto de lado.</p>
+      <div class="certo"><b>Está certo se</b>O anel mostra o <b>buraco no meio</b>, de frente para você, em pé na mesa.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>O transferidor trava em 40 ou 50</dt><dd>Você está arrastando em linha reta. Faça um arco, como se desenhasse o pedaço de um círculo em volta do anel.</dd><dt>O anel voltou a ficar deitado</dt><dd>Você girou a seta de cima de novo. Aperte Ctrl + Z e use a <b>de baixo</b>.</dd><dt>Passei de 90</dt><dd>Continue arrastando até voltar ao número certo, ou aperte Ctrl + Z e recomece.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo9">
+  <div class="cab"><div class="bolha">9</div><h2>Selecione tudo: Ctrl + A</h2>
+  <label class="risca"><input type="checkbox" data-passo="9"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/seleciona2.gif" alt="Animação do passo 9: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g10_depois.jpg" alt="Tela do Tinkercad no passo 9" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>Clique num <b>lugar vazio</b> do plano, segure <span class=ui>Ctrl</span> e aperte <span class=ui>A</span> (no Mac, <span class=ui>Cmd</span> + <span class=ui>A</span>).<br><br>O copo e o anel ficam selecionados juntos: o painel passa a dizer <span class=ui>Shapes(2)</span>.</p>
+      <div class="certo"><b>Está certo se</b>O copo e o anel têm contorno azul, e o painel diz <span class=ui>Shapes(2)</span>.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>Selecionou só um</dt><dd>Clique num lugar vazio do plano e aperte Ctrl + A de novo.</dd><dt>O painel diz Shapes(3) ou mais</dt><dd>Sobrou uma peça no plano. Apague a que está sobrando (clique nela e <span class=ui>Delete</span>) e refaça.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo10">
+  <div class="cab"><div class="bolha">10</div><h2>Abra o Alinhar</h2>
+  <label class="risca"><input type="checkbox" data-passo="10"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/alinhar.gif" alt="Animação do passo 10: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g11_depois.jpg" alt="Tela do Tinkercad no passo 10" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>Na barra de cima, clique no botão <span class=ui>Alinhar</span> (ícone com linhas de tamanhos diferentes, ao lado do espelho).<br><br>Aparecem as <b>nove bolinhas pretas</b> em volta das duas peças, como na Aula 2: três embaixo, três do lado esquerdo e três do lado direito. E no alto, uma frase: <i>Clique nas alças para alinhar as formas</i>.</p>
+      <div class="certo"><b>Está certo se</b>Apareceram as bolinhas pretas em volta do copo e do anel.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>As bolinhas não apareceram</dt><dd>O Alinhar só abre com <b>duas ou mais</b> peças selecionadas. Volte ao passo 9.</dd><dt>Não acho o botão</dt><dd>Fica na barra de cima, no meio, ao lado do espelho. Passe o mouse e espere o nome aparecer.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo11">
+  <div class="cab"><div class="bolha">11</div><h2>FIXE o copo: clique nele</h2>
+  <label class="risca"><input type="checkbox" data-passo="11"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/fixa.gif" alt="Animação do passo 11: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g12_depois.jpg" alt="Tela do Tinkercad no passo 11" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>Este é o passo que ninguém adivinha. O Alinhar <b>move todas as peças</b> até uma linha comum: se você alinhar assim, é o <b>copo</b> que anda até o anel, e não o contrário.<br><br>A frase do alto avisa: <i>clique em uma forma selecionada para fixá-la no local</i>. Clique <b>no copo</b>: ele fica <b>parado</b>, e só o anel vai se mexer.</p>
+      <div class="certo"><b>Está certo se</b>O copo foi clicado e as bolinhas continuam na tela; daqui em diante só o anel vai andar.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>Cliquei e a seleção sumiu</dt><dd>Você clicou fora do copo. Aperte Ctrl + Z, abra o Alinhar de novo e clique bem <b>em cima do copo</b>.</dd><dt>Não sei se fixou</dt><dd>Siga os próximos passos: se o copo andar, volte ao passo 10 e fixe antes de clicar nas bolinhas.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo12">
+  <div class="cab"><div class="bolha">12</div><h2>Centro em Y: a bolinha do meio, à esquerda</h2>
+  <label class="risca"><input type="checkbox" data-passo="12"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/alinha_y.gif" alt="Animação do passo 12: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g13_depois.jpg" alt="Tela do Tinkercad no passo 12" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>Clique na <b>bolinha do meio</b> da coluna da <b>esquerda</b>.<br><br>O anel se <b>alinha</b> com o copo de <b>frente para trás</b>: o centro do anel passa a estar na mesma linha do centro do copo.</p>
+      <div class="certo"><b>Está certo se</b>O anel andou e ficou na mesma linha do copo de frente para trás; o copo não se mexeu.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>As bolinhas mudaram de lugar</dt><dd>É normal: depois de cada clique elas se reposicionam. Procure de novo a do meio da esquerda.</dd><dt>O copo é que andou</dt><dd>Você não fixou o copo. Aperte Ctrl + Z e volte ao passo 11.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo13">
+  <div class="cab"><div class="bolha">13</div><h2>Centro em Z: a bolinha do meio, à direita</h2>
+  <label class="risca"><input type="checkbox" data-passo="13"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/alinha_z.gif" alt="Animação do passo 13: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g14_depois.jpg" alt="Tela do Tinkercad no passo 13" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>Clique na <b>bolinha do meio</b> da coluna da <b>direita</b>.<br><br>O anel <b>sobe</b> e fica na <b>altura do meio</b> do copo — no ar, com uma sombra no plano embaixo. É a altura certa para uma alça.</p>
+      <div class="certo"><b>Está certo se</b>O anel está <b>no ar</b>, na altura do meio do copo, com a sombra dele no plano.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>Não vejo bolinha na direita</dt><dd>Elas ficam do lado direito, em fila inclinada. Se alguma estiver cinza, é a que você acabou de clicar.</dd><dt>O anel não subiu</dt><dd>Você clicou numa bolinha de outro lado. A do <b>meio da direita</b> é a que alinha na altura.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo14">
+  <div class="cab"><div class="bolha">14</div><h2>Centro em X: a bolinha do meio, embaixo</h2>
+  <label class="risca"><input type="checkbox" data-passo="14"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/alinha_x.gif" alt="Animação do passo 14: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g15_depois.jpg" alt="Tela do Tinkercad no passo 14" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>Clique na <b>bolinha do meio</b> da fileira de <b>baixo</b>.<br><br>O anel <b>desliza</b> para o meio do copo e <b>some lá dentro</b>: agora o centro dele está no mesmo ponto do centro do copo, nos três sentidos. Não se assuste: no próximo passo você o tira de lá, para o lado.</p>
+      <div class="certo"><b>Está certo se</b>O anel <b>sumiu para dentro do copo</b>; o contorno azul continua em volta das duas peças.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>O anel ficou do lado de fora</dt><dd>Você ainda não clicou na bolinha do meio de baixo. Clique nela.</dd><dt>O copo andou</dt><dd>Você não fixou o copo no passo 11. Aperte Ctrl + Z três vezes, fixe o copo e refaça.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo15">
+  <div class="cab"><div class="bolha">15</div><h2>Esc e Shift + clique: deixe só o anel selecionado</h2>
+  <label class="risca"><input type="checkbox" data-passo="15"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/so_o_anel.gif" alt="Animação do passo 15: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g16_depois.jpg" alt="Tela do Tinkercad no passo 15" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>Aperte <span class=ui>Esc</span>: o Alinhar fecha e as duas peças <b>continuam selecionadas</b>.<br><br>Segure <span class=ui>Shift</span> e <b>clique no copo</b>: o Shift <b>tira o copo da seleção</b>. O painel passa a dizer <span class=ui>Tórulo</span>: agora só o anel está selecionado, mesmo escondido dentro do copo.</p>
+      <div class="certo"><b>Está certo se</b>O painel do alto diz <span class=ui>Tórulo</span> (e não <span class=ui>Shapes(2)</span>): só o anel está selecionado.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>O painel ainda diz Shapes(2)</dt><dd>O clique não pegou no copo. Segure o Shift e clique bem no meio do corpo do copo.</dd><dt>Desmarcou tudo</dt><dd>Você soltou o Shift antes do clique. Aperte Ctrl + A de novo e refaça, com o Shift apertado <b>durante</b> o clique.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo16">
+  <div class="cab"><div class="bolha">16</div><h2>Empurre o anel: Shift + ←, quatro vezes</h2>
+  <label class="risca"><input type="checkbox" data-passo="16"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/empurra.gif" alt="Animação do passo 16: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g17_depois.jpg" alt="Tela do Tinkercad no passo 16" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>Com só o anel selecionado, segure <span class=ui>Shift</span> e aperte a <b>seta para a esquerda</b> <span class=ui>←</span> <b>quatro vezes</b>, uma de cada vez.<br><br>Cada toque com o Shift anda <b>10 mm</b> (a seta sem o Shift anda só 1). O anel sai de dentro do copo e para <b>do lado esquerdo</b>, com a ponta da direita <b>enfiada na parede</b> do copo: 4 × 10 = 40 mm.</p>
+      <div class="certo"><b>Está certo se</b>O anel apareceu do lado esquerdo do copo, <b>encostado nele</b>, na altura do meio.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>O anel foi demais ou de menos</dt><dd>Cada toque é 10 mm. Volte com Shift + → ou avance com Shift + ← até dar quatro no total.</dd><dt>A seta mexeu a câmera</dt><dd>O anel não estava selecionado. Volte ao passo 15.</dd><dt>O anel não se mexeu</dt><dd>Clique uma vez no plano para dar foco e refaça o passo 15.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo17">
+  <div class="cab"><div class="bolha">17</div><h2>Selecione tudo de novo: Ctrl + A</h2>
+  <label class="risca"><input type="checkbox" data-passo="17"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/seleciona3.gif" alt="Animação do passo 17: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g18_depois.jpg" alt="Tela do Tinkercad no passo 17" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>Clique num <b>lugar vazio</b> do plano, segure <span class=ui>Ctrl</span> e aperte <span class=ui>A</span> (no Mac, <span class=ui>Cmd</span> + <span class=ui>A</span>). O copo e o anel ficam selecionados juntos.</p>
+      <div class="certo"><b>Está certo se</b>O copo e o anel têm contorno azul, e o painel diz <span class=ui>Shapes(2)</span>.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>Só um ficou selecionado</dt><dd>Clique num lugar vazio do plano e aperte Ctrl + A de novo.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo18">
+  <div class="cab"><div class="bolha">18</div><h2>Agrupe: Grupo de união</h2>
+  <label class="risca"><input type="checkbox" data-passo="18"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/uniao.gif" alt="Animação do passo 18: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g19_depois.jpg" alt="Tela do Tinkercad no passo 18" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>Na barra de cima há três botõezinhos de juntar peças, à direita do meio. Clique no <b>do meio</b>, o <span class=ui>Grupo de união</span> (ao passar o mouse aparece o nome).<br><br>O anel e o copo viram <b>uma peça só</b>, de uma cor só: a <b>alça</b> está colada. O painel passa a dizer <span class=ui>Union</span>.</p>
+      <div class="certo"><b>Está certo se</b>O copo e a alça viraram <b>uma peça só</b>, toda laranja, e o painel diz <span class=ui>Union</span>.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>O anel ficou azul e solto</dt><dd>O grupo não fechou. Clique no botão do meio, o <span class=ui>Grupo de união</span>, e não no da esquerda.</dd><dt>Sumiu o anel</dt><dd>Ele ficou dentro do copo. Aperte Ctrl + Z, volte ao passo 16 e empurre o anel quatro vezes.</dd><dt>Não acho os botões</dt><dd>Ficam na barra de cima, no grupo do meio, perto do espelho e do alinhar.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo19">
+  <div class="cab"><div class="bolha">19</div><h2>Olhe de frente: a alça está colada?</h2>
+  <label class="risca"><input type="checkbox" data-passo="19"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/vista_frente.gif" alt="Animação do passo 19: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g20_depois.jpg" alt="Tela do Tinkercad no passo 19" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>Clique num <b>lugar vazio</b> do plano para soltar a peça. No canto de cima à esquerda, no <b>cubo</b> de vistas, clique na face escrita <span class=ui>FRONTAL</span>.<br><br>A câmera desce e você vê a caneca <b>de frente</b>: o copo e, do lado, o anel da alça <b>na altura do meio</b>, encostado no copo, sem fresta entre os dois.</p>
+      <div class="certo"><b>Está certo se</b>De frente se vê o copo e a alça em anel, no meio da altura, <b>encostada</b> na lateral — e não solta no ar.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>Dá para ver uma fresta entre o anel e o copo</dt><dd>O anel não chegou na parede. Desagrupe com Ctrl + Shift + G, clique só no anel (Shift + clique no copo) e empurre-o 1 mm com a seta ← sem o Shift.</dd><dt>A alça sumiu</dt><dd>Ela ficou dentro do copo. Volte ao passo 16.</dd><dt>A câmera não mudou</dt><dd>Clique <b>na palavra</b> FRONTAL do cubinho. Para voltar à vista inicial, use a casinha da barra da esquerda.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo20">
+  <div class="cab"><div class="bolha">20</div><h2>Dê um nome ao seu projeto</h2>
+  <label class="risca"><input type="checkbox" data-passo="20"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/batiza.gif" alt="Animação do passo 20: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g21_depois.jpg" alt="Tela do Tinkercad no passo 20" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>Clique na <b>casinha</b> da barra da esquerda para voltar à vista inicial. Depois clique no <b>nome do projeto</b>, no canto de cima à esquerda (o sorteado). Apague, escreva <b>Caneca da ANA</b> (ou o seu nome) e aperte <span class=ui>Enter</span>.<br><br>O Tinkercad salva sozinho. A caneca está guardada na sua conta, e o porta-lápis da Aula 2 também.</p>
+      <div class="certo"><b>Está certo se</b>No canto de cima à esquerda aparece o <b>nome que você escreveu</b>, no lugar do sorteado.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>O nome não mudou</dt><dd>Falta o <span class=ui>Enter</span>. Clique no nome de novo e faça de novo.</dd><dt>Clicou e o campo não abriu</dt><dd>Clique <b>em cima das letras</b> do nome, e não ao lado.</dd></dl></div>
+    </div></div></section>
+</main>
+
+<p class="fim"><strong>Acabou a Aula 3. O seu porta-lápis virou uma <b>caneca com alça</b>. Você aprendeu a <b>copiar uma peça para outro projeto</b>, a <b>girar</b> uma forma pelas setas curvas (com o transferidor mostrando o ângulo), a <b>fixar</b> uma peça no Alinhar para só a outra andar e a <b>empurrar</b> com o teclado: <b>Shift + seta</b> anda 10 mm, e a seta sozinha anda 1 mm. A peça está salva na sua conta com o nome que você deu — o porta-lápis da Aula 2 continua lá, intacto.</strong></p>
+<div class="navega"><a href="../">⌂ Todas as aulas</a><a href="../aula2/">← Aula 2</a><a href="../aula4/">Aula 4 →</a></div>
+<script>
+(function(){
+  var chave = "robotomia-tinkercad-" + (document.body.dataset.aula || "x");
+  function ler(){ try{ return JSON.parse(localStorage.getItem(chave)||"[]"); }catch(e){ return []; } }
+  function gravar(v){ try{ localStorage.setItem(chave, JSON.stringify(v)); }catch(e){} }
+  var caixas = [].slice.call(document.querySelectorAll(".risca input"));
+  var conta  = document.getElementById("conta");
+  var trilho = document.getElementById("trilho");
+  if (!caixas.length) return;
+  var feitos = ler();
+  function pinta(){
+    var n = 0;
+    caixas.forEach(function(c){
+      var p = c.closest(".passo");
+      if (c.checked){ n++; p.classList.add("feito"); } else { p.classList.remove("feito"); }
+    });
+    if (conta)  conta.textContent = n + " de " + caixas.length + " passos prontos";
+    if (trilho) trilho.style.width = (100*n/caixas.length) + "%";
+  }
+  caixas.forEach(function(c){
+    c.checked = feitos.indexOf(c.dataset.passo) >= 0;
+    c.addEventListener("change", function(){
+      var v = ler().filter(function(x){ return x !== c.dataset.passo; });
+      if (c.checked) v.push(c.dataset.passo);
+      gravar(v); pinta();
+    });
+  });
+  pinta();
+  [].slice.call(document.querySelectorAll(".abas")).forEach(function(g){
+    g.addEventListener("click", function(e){
+      var b = e.target.closest(".aba"); if(!b) return;
+      var caixa = g.parentNode;
+      [].slice.call(g.children).forEach(function(x){ x.setAttribute("aria-pressed", x===b ? "true":"false"); });
+      caixa.querySelectorAll(".gif").forEach(function(g){
+        g.hidden = !g.classList.contains(b.dataset.ver);
+      });
+      caixa.querySelector(".foto").hidden = (b.dataset.ver !== "foto");
+      caixa.querySelector(".legenda").textContent = b.dataset.legenda;
+    });
+  });
+})();
+</script>
+</body></html>

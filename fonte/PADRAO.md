@@ -168,3 +168,42 @@ ninguém. O guarda compara a data de cada quadro com esse arquivo.
 
 O nome do projeto é **devolvido ao nome sorteado** no começo de cada execução,
 senão o passo 20 (dar nome) não muda nada na tela e vira animação de nada.
+
+---
+
+## 9. Aulas 2 e 3 — o que a bancada ensinou (25-10-2026)
+
+As ferramentas novas vivem em `mecanica.py` e valem para todas as aulas.
+
+1. **O Cilindro não tem campo de medida.** O tamanho se muda nos NÚMEROS que
+   aparecem ao clicar numa alça (canto de cima à esquerda: largura em cima e
+   comprimento à esquerda; alça do meio da tampa: altura). O número é um
+   `<input>` DOM só depois do clique, e só entra com `fill()` — digitado, a peça
+   saiu com a altura de um poste.
+2. **As alças são do CANVAS.** Achar pela imagem: miolo cinza 220 de ~8 px. A de
+   ALTURA é a do MEIO em x (num cilindro baixo ela fica abaixo das de trás). A
+   alça recém-clicada fica VERMELHA e some da lista. O painel de propriedades
+   só cobre o alto da direita (até y ≈ 548): peça solta embaixo tem alça à
+   direita de x = 880.
+3. **Alinhar move TODAS as formas** até uma linha comum. Para só uma andar,
+   clique numa forma selecionada (a frase do alto diz «para fixá-la no local»).
+   As nove bolinhas são de cinza ~51, a clicada fica CINZA-claro e some, a linha
+   pontilhada da caixa pode cortar uma em duas fatias (fecha-se na vertical
+   antes de abrir), e a de X-direita cai em cima da de Z-base. Depois de cada
+   clique as bolinhas andam: achar de novo. **Esc sai do Alinhar mantendo a
+   seleção** — sem ele o botão de agrupar não responde.
+4. **Girar:** a seta curva de CIMA gira em torno do eixo de profundidade (põe o
+   anel em pé), a de BAIXO em torno do vertical. O ângulo é o do ponteiro em
+   volta da peça: a de baixo só chega a 90° num ARCO (elipse), em linha reta
+   trava em ~43°. O transferidor é DOM (`-90°`): o robô anda de pouquinho e
+   para quando o número é o do passo.
+5. **Setas do teclado:** 1 mm; Shift + seta: 10 mm. Ctrl + ↑/↓: 1 mm na altura.
+6. **Copiar e colar vale ENTRE projetos** (Ctrl+C num, Ctrl+V no outro). Ctrl+C
+   não muda nada na tela (0,00 %): não vira clipe, é metade de um passo.
+7. **Dois projetos fixos:** A (`TINK_PROJ`) e B (`TINK_PROJ_B`). Criar projeto
+   a cada execução encheria a conta do dono. A aula 3 refaz o porta-lápis em A,
+   calada, e cola em B.
+8. **Tinkercad na conta do Julio exige o perfil logado** (ver `ESTADO` do repo
+   do Flowlab / memória do projeto): entrar com a opção
+   `--disable-blink-features=AutomationControlled` na janela de login, e fechar
+   o script com `SIGINT` (senão os cookies de sessão não são gravados).

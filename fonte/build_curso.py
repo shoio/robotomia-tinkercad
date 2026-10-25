@@ -34,7 +34,7 @@ PLANO = [
     (9, "Porta-celular",
      "Base, encosto inclinado para trás e batente: a setinha do lado e o Alinhar com a base como régua.", True),
     (10, "Régua e escala",
-     "Medir com exatidão e fazer a mesma peça maior ou menor.", False),
+     "Dez cubinhos de 1 cm viram uma barra de 10 cm, conferida com a Régua; e o dobro do lado.", True),
     (11, "Peça que encaixa",
      "Pino e furo com folga: o que separa um desenho de uma peça imprimível.", False),
     (12, "Projeto livre e mostra",

@@ -119,7 +119,9 @@ def confere(pastas=None):
             if total < 200:
                 problemas.append(f"{pasta}/{chave}: a tela não mudou entre os "
                                  f"dois quadros ({total} px) — clipe sem gesto")
-            elif perto < MINIMO:
+            elif perto < MINIMO and not dados.get("abre_janela"):
+                # (gesto marcado `abre_janela`: o efeito acontece LONGE do ícone — a régua
+                #  some do plano, a paleta cobre as alças; `total` ainda exige mudança)
                 onde = "o fim do arrasto" if dados.get("ate") else "a seta"
                 problemas.append(f"{pasta}/{chave}: {onde} cai em {fim}, onde "
                                  f"quase nada mudou ({perto} px num raio de "

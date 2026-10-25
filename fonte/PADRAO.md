@@ -256,3 +256,12 @@ As ferramentas novas vivem em `mecanica.py` e valem para todas as aulas.
     mm as três bolinhas de Z se colam e somem na abertura 5×5: o detector aceita
     5 bolinhas e quem precisa de Z reclama. A base atrás do batente e debaixo do
     encosto só tem uma faixa de tampa clicável (97 px acima da quina da frente).
+16. **Régua (Aula 10).** O ícone do MEIO no alto da coluna da direita (1302,132):
+    1º clique liga o modo de colocar, clique no plano põe a ORIGEM (aro), e ao
+    selecionar uma peça aparecem as distâncias + as medidas (`100.00` para dez
+    cubos de 10). A régua fica SALVA no projeto e o `limpa` não a apaga: um
+    clique no ícone a TIRA (e liga o modo de colocar; Esc sai). O prelúdio da
+    `cap10` faz isso antes da primeira foto. A Caixa nova nasce com o tamanho
+    da ÚLTIMA mexida (o passo do «cubo de 10» confere os três campos). O
+    `conteudo_a10` lê os três passos iniciais de `_intro10.txt` (gerado do
+    `conteudo_a2`) — arquivo fonte, commitado.

@@ -36,7 +36,7 @@ PLANO = [
     (10, "Régua e escala",
      "Dez cubinhos de 1 cm viram uma barra de 10 cm, conferida com a Régua; e o dobro do lado.", True),
     (11, "Peça que encaixa",
-     "Pino e furo com folga: o que separa um desenho de uma peça imprimível.", False),
+     "Furo de 12 mm e pino de 10 mm: a conta da folga que faz duas peças se encaixarem.", True),
     (12, "Projeto livre e mostra",
      "A peça do aluno, com o kit das aulas anteriores.", False),
 ]

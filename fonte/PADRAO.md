@@ -265,3 +265,8 @@ As ferramentas novas vivem em `mecanica.py` e valem para todas as aulas.
     da ÚLTIMA mexida (o passo do «cubo de 10» confere os três campos). O
     `conteudo_a10` lê os três passos iniciais de `_intro10.txt` (gerado do
     `conteudo_a2`) — arquivo fonte, commitado.
+17. **Folga e encaixe (Aula 11).** Pino Ø10 em furo Ø12: de cima, o anel de folga
+    mede ~2 px a 4 px/mm (≈0,5 mm — o contorno da peça come metade); a prova mede
+    do fim do pino laranja ao começo da placa vermelha numa linha pelo centro e
+    aceita 0,5–1,8 mm (sem folga daria 0). O cilindro NASCE LARANJA: um passo
+    «pinte de laranja» não muda pixel e o guarda (corretamente) o reprova.

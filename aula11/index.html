@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Peça que encaixa — Robotomia</title>
+<meta name="description" content="Uma placa com um furo de 12 mm e um pino de 10 mm: a conta da folga que faz duas peças se encaixarem de verdade.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>&#129302;</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800&family=Atkinson+Hyperlegible:wght@400;700&display=swap">
+<style>
+:root{
+  --papel:#FBFAF7; --carta:#FFFFFF; --tinta:#14161C; --tinta2:#4E525C;
+  --linha:#E3E0D8; --azul:#1B62DC; --azul-fraco:#EAF0FC;
+  --verde:#147A38; --verde-fraco:#E7F4EC;
+  --laranja:#C2560A; --laranja-fraco:#FDF0E4;
+  --roxo:#5B2E9E; --roxo-fraco:#F2ECFB;
+  --codigo:#12151C; --codigo-tinta:#E8EBF0;
+  --sombra:0 1px 2px rgba(20,22,28,.05), 0 8px 24px rgba(20,22,28,.06);
+  --raio:14px;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-tema="claro"]){
+    --papel:#12141A; --carta:#1A1D25; --tinta:#ECEEF2; --tinta2:#A4AAB6;
+    --linha:#2C313C; --azul:#6C9BF0; --azul-fraco:#1B2436;
+    --verde:#5CC183; --verde-fraco:#15271C;
+    --laranja:#F0964E; --laranja-fraco:#2A1E14;
+    --roxo:#B995F0; --roxo-fraco:#221A33;
+    --codigo:#0D1016; --codigo-tinta:#E8EBF0;
+    --sombra:0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35);
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:68px}
+body{margin:0;background:var(--papel);color:var(--tinta);
+  font-family:"Atkinson Hyperlegible","Helvetica Neue",Arial,sans-serif;
+  font-size:17px;line-height:1.6;-webkit-text-size-adjust:100%}
+h1,h2,h3{font-family:Archivo,"Helvetica Neue",Arial,sans-serif;
+  font-weight:800;letter-spacing:-.015em;text-wrap:balance}
+img{max-width:100%;display:block}
+[hidden]{display:none!important}
+a{color:var(--azul)}
+
+.barra{position:sticky;top:0;z-index:40;background:color-mix(in srgb,var(--papel) 88%,transparent);
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--linha)}
+.barra-in{max-width:1180px;margin:0 auto;padding:11px 20px;display:flex;align-items:center;gap:14px}
+.marca{font-family:Archivo,sans-serif;font-weight:800;font-size:15px;white-space:nowrap}
+.marca a{color:inherit;text-decoration:none}
+.marca span{color:var(--azul)}
+.conta{margin-left:auto;font-size:13px;color:var(--tinta2);font-variant-numeric:tabular-nums;white-space:nowrap}
+.trilho{position:absolute;left:0;bottom:-1px;height:3px;width:100%;background:transparent}
+.trilho i{display:block;height:100%;width:0;background:var(--azul);transition:width .25s ease}
+
+.capa{max-width:1180px;margin:0 auto;padding:46px 20px 10px}
+.etiqueta{display:inline-block;background:var(--azul);color:#fff;font-family:Archivo,sans-serif;
+  font-weight:700;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;
+  padding:5px 13px;border-radius:99px}
+.capa h1{font-size:clamp(34px,6.2vw,58px);margin:16px 0 10px;line-height:1.02}
+.capa .linha-fina{font-size:19px;color:var(--tinta2);max-width:62ch;margin:0}
+.avisos{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));margin:26px 0 8px}
+.aviso{background:var(--carta);border:1px solid var(--linha);border-radius:var(--raio);
+  padding:14px 16px;font-size:15px;box-shadow:var(--sombra)}
+.aviso b{font-family:Archivo,sans-serif;display:block;font-size:12px;letter-spacing:.09em;
+  text-transform:uppercase;margin-bottom:5px;color:var(--azul)}
+.baixar{display:inline-flex;align-items:center;gap:8px;margin-top:6px;font-size:14.5px;
+  text-decoration:none;border:1px solid var(--linha);background:var(--carta);
+  padding:9px 15px;border-radius:99px;color:var(--tinta);font-weight:700}
+.baixar:hover{border-color:var(--azul);color:var(--azul)}
+
+main{max-width:1180px;margin:0 auto;padding:10px 20px 70px}
+.passo{background:var(--carta);border:1px solid var(--linha);border-radius:var(--raio);
+  padding:20px;margin:22px 0;box-shadow:var(--sombra);scroll-margin-top:70px}
+.passo.feito{border-color:var(--verde)}
+.cab{display:flex;align-items:flex-start;gap:13px;padding-bottom:13px;border-bottom:2px solid var(--linha)}
+.passo.feito .cab{border-bottom-color:var(--verde)}
+.bolha{flex:none;width:40px;height:40px;border-radius:11px;background:var(--azul);color:#fff;
+  font-family:Archivo,sans-serif;font-weight:800;font-size:19px;
+  display:flex;align-items:center;justify-content:center;font-variant-numeric:tabular-nums}
+.passo.feito .bolha{background:var(--verde)}
+.cab h2{font-size:clamp(20px,2.7vw,26px);margin:3px 0 0;flex:1}
+.risca{display:flex;align-items:center;gap:7px;font-size:13.5px;color:var(--tinta2);
+  cursor:pointer;user-select:none;flex:none;padding-top:8px;white-space:nowrap}
+.risca input{width:19px;height:19px;accent-color:var(--verde);cursor:pointer}
+
+.corpo{display:grid;gap:20px;grid-template-columns:1fr;margin-top:16px}
+@media (min-width:920px){ .corpo{grid-template-columns:1.35fr 1fr;align-items:start} }
+.midia{margin:0}
+.moldura{border:1px solid var(--linha);border-radius:10px;overflow:hidden;background:var(--papel)}
+.abas{display:flex;gap:6px;margin-bottom:9px}
+.aba{font-family:Archivo,sans-serif;font-size:12.5px;font-weight:700;letter-spacing:.04em;
+  border:1px solid var(--linha);background:var(--carta);color:var(--tinta2);
+  padding:6px 13px;border-radius:99px;cursor:pointer}
+.aba[aria-pressed="true"]{background:var(--roxo-fraco);border-color:var(--roxo);color:var(--roxo)}
+.legenda{font-size:13px;color:var(--tinta2);margin:8px 2px 0}
+
+.texto>p{margin:0 0 14px}
+.ui{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:.86em;
+  background:var(--azul-fraco);border:1px solid color-mix(in srgb,var(--azul) 25%,transparent);
+  border-radius:5px;padding:1px 6px;white-space:nowrap;color:var(--tinta)}
+.certo,.socorro{border-radius:0 10px 10px 0;padding:12px 15px;margin-top:14px;font-size:15.5px}
+.certo{background:var(--verde-fraco);border-left:5px solid var(--verde)}
+.socorro{background:var(--laranja-fraco);border-left:5px solid var(--laranja)}
+.certo>b:first-child,.socorro>b:first-child{font-family:Archivo,sans-serif;display:block;
+  font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:5px}
+.certo>b:first-child{color:var(--verde)}
+.socorro>b:first-child{color:var(--laranja)}
+.socorro dl{margin:0}
+.socorro dt{font-weight:700;margin-top:10px}
+.socorro dt:first-of-type{margin-top:2px}
+.socorro dd{margin:2px 0 0;color:var(--tinta2)}
+
+.codigo{margin:14px 0;border-radius:10px;overflow:hidden;border:1px solid var(--linha)}
+.codigo .titulo{display:flex;align-items:center;gap:8px;background:var(--roxo-fraco);
+  color:var(--roxo);font-family:Archivo,sans-serif;font-weight:700;font-size:11.5px;
+  letter-spacing:.1em;text-transform:uppercase;padding:7px 13px;border-bottom:1px solid var(--linha)}
+.codigo pre{margin:0;background:var(--codigo);color:var(--codigo-tinta);padding:14px 16px;
+  overflow-x:auto;font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:14.5px;line-height:1.7}
+.codigo ol{margin:0;padding:0 0 0 46px;background:var(--codigo);color:var(--codigo-tinta);
+  font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:14.5px;line-height:1.75;
+  overflow-x:auto}
+.codigo li{border-left:1px solid color-mix(in srgb,var(--codigo-tinta) 18%,transparent);
+  padding:0 16px 0 10px;white-space:pre}
+.codigo li::marker{color:color-mix(in srgb,var(--codigo-tinta) 40%,transparent);font-size:12px}
+.codigo li.auto{color:color-mix(in srgb,var(--codigo-tinta) 42%,transparent);font-style:italic}
+.codigo .rodape{background:var(--codigo);color:color-mix(in srgb,var(--codigo-tinta) 55%,transparent);
+  font-family:"Atkinson Hyperlegible",sans-serif;font-size:12.5px;padding:8px 16px 12px;
+  border-top:1px solid color-mix(in srgb,var(--codigo-tinta) 15%,transparent)}
+.codigo .rodape b{color:color-mix(in srgb,var(--codigo-tinta) 85%,transparent)}
+.codigo .rodape code{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:13px;
+  color:color-mix(in srgb,var(--codigo-tinta) 92%,transparent);
+  background:color-mix(in srgb,var(--codigo-tinta) 12%,transparent);
+  padding:1px 5px;border-radius:4px}
+.codigo .rodape+.rodape{padding-top:10px}
+.so-papel{display:none}
+
+.fim{max-width:1180px;margin:0 auto;padding:0 20px 40px;text-align:center;color:var(--tinta2);font-size:15px}
+.fim strong{color:var(--tinta)}
+.navega{max-width:1180px;margin:0 auto;padding:0 20px 80px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.navega a{text-decoration:none;border:1px solid var(--linha);background:var(--carta);
+  padding:11px 18px;border-radius:99px;color:var(--tinta);font-weight:700;font-size:15px}
+.navega a:hover{border-color:var(--azul);color:var(--azul)}
+
+/* indice */
+.grade{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+  max-width:1180px;margin:0 auto;padding:10px 20px 80px}
+.cartao{display:block;text-decoration:none;color:inherit;background:var(--carta);
+  border:1px solid var(--linha);border-radius:var(--raio);padding:18px 20px;box-shadow:var(--sombra)}
+.cartao:hover{border-color:var(--azul)}
+.cartao .num{font-family:Archivo,sans-serif;font-weight:800;font-size:12px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--azul)}
+.cartao h3{margin:6px 0 6px;font-size:21px}
+.cartao p{margin:0;color:var(--tinta2);font-size:15px}
+.cartao.embreve{opacity:.55}
+.cartao.embreve .num{color:var(--tinta2)}
+
+@media print{
+  .barra,.abas,.risca,.baixar,.navega{display:none}
+  body{background:#fff}
+  .gif{display:none!important}
+  .foto{display:block!important}
+  /* quebrar DENTRO do passo e nao antes dele: com page-break-inside:avoid num
+     passo alto o Chrome pulava a folha inteira e sobravam paginas em branco. */
+  .passo{break-inside:auto;box-shadow:none;border-color:#ccc;margin:0 0 16px;padding:16px 18px}
+  .cab{break-after:avoid}
+  .midia,.certo,.socorro,.codigo{break-inside:avoid}
+  .legenda{display:none}
+  .legenda.so-papel{display:block}
+  .midia img{max-height:11cm;width:auto;margin:0 auto}
+  .capa{break-after:page}
+}
+</style>
+</head>
+<body data-aula="aula11">
+
+<header class="barra"><div class="barra-in">
+  <div class="marca"><a href="../">Robotomia</a> <span>· Tinkercad · Aula 11</span></div>
+  <div class="conta" id="conta">0 de 20 passos prontos</div>
+</div><div class="trilho"><i id="trilho"></i></div></header>
+
+<div class="capa">
+  <span class="etiqueta">Aula 11 · folga e encaixe</span>
+  <h1>Peça que encaixa</h1>
+  <p class="linha-fina">Uma placa com um furo de 12 mm e um pino de 10 mm: a conta da folga que faz duas peças se encaixarem de verdade. São 20 passos, 50 minutos.
+  Faça um de cada vez e só passe adiante depois de conferir o quadro verde.</p>
+  <div class="avisos"><div class="aviso"><b>Projeto novo</b>Esta aula começa num projeto novo, vazio. As peças das aulas anteriores continuam guardadas na sua conta.</div><div class="aviso"><b>Folga</b><b>Folga</b> é o espaço que sobra entre duas peças que se encaixam. Sem ela, a peça impressa <b>trava</b>: a impressora nunca acerta o milímetro exato.</div><div class="aviso"><b>O que você já sabe</b>Cilindro pelas alças (Aula 2), Orifício e União (Aulas 1 e 2), Alinhar com uma peça fixa e Shift + clique (aulas 3 e 4).</div><div class="aviso"><b>Os clipes</b>Os passos com animação mostram o gesto inteiro: o mouse andando, o <b>botão certo acendendo</b> e as <b>teclas acesas</b> quando o gesto é de teclado.</div><div class="aviso"><b>Travou?</b>Todo passo tem um quadro laranja embaixo com o conserto dos erros mais comuns.</div></div>
+  <a class="baixar" href="aula11.pdf">⤓ Baixar esta aula em PDF (para imprimir)</a>
+</div>
+
+<main>
+<section class="passo" id="passo1">
+  <div class="cab"><div class="bolha">1</div><h2>Abra o Tinkercad</h2>
+  <label class="risca"><input type="checkbox" data-passo="1"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="moldura"><img class="foto" src="fotos/d01_site.jpg" alt="Tela do Tinkercad no passo 1" loading="lazy"></div><p class="legenda">Foto da tela.</p></figure>
+    <div class="texto"><p>No navegador, vá para <span class=ui>tinkercad.com</span> e entre com a sua conta, como na Aula 1.<br><br>Sem entrar, você até consegue mexer, mas <b>nada fica salvo</b>: ao fechar a aba, a peça some.</p>
+      <div class="certo"><b>Está certo se</b>Você entrou: no canto de cima à direita aparece a bolinha da sua conta.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>Não tenho conta</dt><dd>Chame o professor. Se a escola te deu um código de turma, ele vai te dizer onde usá-lo — não clique em <span class=ui>Inscrever-se</span> por conta própria.</dd><dt>Esqueci minha senha</dt><dd>Chame o professor antes de criar outra conta. Conta nova começa vazia, e o que você fez na aula passada fica na antiga.</dd><dt>Minha página abriu em inglês</dt><dd>Role até o rodapé da página e troque o idioma para <b>Português</b>: todos os nomes desta aula são os de português.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo2">
+  <div class="cab"><div class="bolha">2</div><h2>Clique no botão Criar</h2>
+  <label class="risca"><input type="checkbox" data-passo="2"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/criar.gif" alt="Animação do passo 2: Clipe" loading="lazy"><img hidden class="foto" src="fotos/d02_depois.jpg" alt="Tela do Tinkercad no passo 2" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>No canto de cima à direita, ao lado da bolinha da sua conta, clique no botão branco <span class=ui>+ Criar</span>.<br><br>Abre um menuzinho com três linhas.</p>
+      <div class="certo"><b>Está certo se</b>Abriu um quadro branco embaixo do botão, com três opções escritas: <span class=ui>Projeto 3D</span>, <span class=ui>Circuitos</span> e <span class=ui>Codeblocks</span>.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>Não acho o botão Criar</dt><dd>Ele fica na <b>faixa azul</b> do alto da página, bem à direita, logo antes da bolinha da sua conta.</dd><dt>Cliquei e não abriu nada</dt><dd>Clique uma vez só, em cima da palavra <span class=ui>Criar</span>. Dois cliques rápidos abrem e fecham o menu na mesma hora.</dd><dt>Abriu outra coisa</dt><dd>Você clicou na bolinha da conta, que fica ao lado. Feche apertando <span class=ui>Esc</span> e clique um pouco mais para a esquerda.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo3">
+  <div class="cab"><div class="bolha">3</div><h2>Escolha Projeto 3D</h2>
+  <label class="risca"><input type="checkbox" data-passo="3"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="moldura"><img class="foto" src="fotos/d03_marcado.jpg" alt="Tela do Tinkercad no passo 3" loading="lazy"></div><p class="legenda">Foto da tela.</p></figure>
+    <div class="texto"><p>No menuzinho que abriu, clique na <b>primeira linha</b>: <span class=ui>Projeto 3D</span> — a do desenho de cubo, marcada de vermelho na figura.<br><br>O Tinkercad abre o editor e dá ao projeto um <b>nome sorteado</b>, meio esquisito. Deixe assim: no último passo você troca.</p>
+      <div class="certo"><b>Está certo se</b>A página mudou: sumiu a faixa azul e apareceu um <b>plano azul claro quadriculado</b> no meio da tela.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>Cliquei em Circuitos sem querer</dt><dd>Volte com a seta ⟵ do navegador e clique de novo em <span class=ui>+ Criar</span>, escolhendo a primeira linha.</dd><dt>A tela ficou branca e não carrega</dt><dd>O Tinkercad é pesado. Espere até meio minuto. Se continuar branca, recarregue com <span class=ui>F5</span>.</dd><dt>Abriu um projeto que eu já tinha</dt><dd>Você clicou numa capa da lista em vez do botão. Volte e use o <span class=ui>+ Criar</span> do canto de cima.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo4">
+  <div class="cab"><div class="bolha">4</div><h2>Arraste uma Caixa para o plano: a placa</h2>
+  <label class="risca"><input type="checkbox" data-passo="4"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/caixa.gif" alt="Animação do passo 4: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g02_depois.jpg" alt="Tela do Tinkercad no passo 4" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>Na coluna da direita, a forma <b>vermelha</b> do meio da segunda fileira, à esquerda, é a <span class=ui>Caixa</span>. Segure o botão esquerdo nela, <b>arraste até o meio do plano</b> e solte.</p>
+      <div class="certo"><b>Está certo se</b>Tem um cubo vermelho no meio do plano e o painel diz <span class=ui>Caixa</span>.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>Peguei a caixa cinza listrada</dt><dd>Essa é o <b>buraco</b>. Aperte <span class=ui>Delete</span> e arraste a vermelha.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo5">
+  <div class="cab"><div class="bolha">5</div><h2>Placa: Comprimento 40, Largura 40, Altura 8</h2>
+  <label class="risca"><input type="checkbox" data-passo="5"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/medidas_placa.gif" alt="Animação do passo 5: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g03_depois.jpg" alt="Tela do Tinkercad no passo 5" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>No painel, escreva <b>40</b> em <span class=ui>Comprimento</span>, <b>40</b> em <span class=ui>Largura</span> e <b>8</b> em <span class=ui>Altura</span> (<span class=ui>Enter</span> depois de cada). Uma <b>placa quadrada</b> fininha.</p>
+      <div class="certo"><b>Está certo se</b>O cubo virou uma placa quadrada e baixa.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>Digitei e nada mudou</dt><dd>Falta o <span class=ui>Enter</span> depois de cada número.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo6">
+  <div class="cab"><div class="bolha">6</div><h2>Arraste um Cilindro para a esquerda: o furo</h2>
+  <label class="risca"><input type="checkbox" data-passo="6"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/cilindro.gif" alt="Animação do passo 6: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g04_depois.jpg" alt="Tela do Tinkercad no passo 6" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>Na coluna da direita, a forma <b>laranja</b> do meio da segunda fileira é o <span class=ui>Cilindro</span>. Arraste-o e solte <b>no plano, à esquerda da placa</b>, fora dela.</p>
+      <div class="certo"><b>Está certo se</b>Tem um cilindro laranja no plano, à esquerda da placa, e o painel diz <span class=ui>Cilindro</span>.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>Peguei o cilindro cinza listrado</dt><dd>Esse já é o buraco. Pule o passo 8, mas siga as medidas.</dd><dt>Soltei em cima da placa</dt><dd>Arraste-o de novo para o plano vazio, ao lado.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo7">
+  <div class="cab"><div class="bolha">7</div><h2>Furo: 12 × 12 × 12, pelas alças</h2>
+  <label class="risca"><input type="checkbox" data-passo="7"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/medidas_furo.gif" alt="Animação do passo 7: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g05_depois.jpg" alt="Tela do Tinkercad no passo 7" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>O cilindro não tem campo de medida: use as <b>alças</b>. Clique na <b>alça do canto</b> de cima à esquerda; no número da <b>esquerda</b> escreva <b>12</b> e <span class=ui>Enter</span>; no de <b>cima</b> escreva <b>12</b> e <span class=ui>Enter</span>. Depois clique na alça do <b>meio da tampa</b> e escreva <b>12</b> na altura.<br><br>O diâmetro do furo é <b>12 mm</b>; a altura 12 é mais que os 8 da placa, para o buraco <b>atravessar</b>.</p>
+      <div class="certo"><b>Está certo se</b>O cilindro virou um disco de 12 mm, mais alto que a placa.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>O número ficou estranho</dt><dd>Clique no número, aperte Ctrl + A (no Mac, Cmd + A) e escreva de novo.</dd><dt>Os números sumiram</dt><dd>Clique no cilindro e na alça do canto de novo.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo8">
+  <div class="cab"><div class="bolha">8</div><h2>Transforme em Orifício</h2>
+  <label class="risca"><input type="checkbox" data-passo="8"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/orificio.gif" alt="Animação do passo 8: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g06_depois.jpg" alt="Tela do Tinkercad no passo 8" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>Com o cilindro selecionado, no painel clique em <span class=ui>Orifício</span> (a bolinha cinza listrada, ao lado de <span class=ui>Sólido</span>). O cilindro fica <b>cinza e listrado</b>: agora é um buraco.</p>
+      <div class="certo"><b>Está certo se</b>O cilindro ficou cinza e listrado, e no painel o <span class=ui>Orifício</span> está marcado.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>Nada mudou de cor</dt><dd>Confirme que o cilindro está selecionado (com as alças) e clique na bolinha do <span class=ui>Orifício</span>.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo9">
+  <div class="cab"><div class="bolha">9</div><h2>Ctrl + A, Alinhar e fixe a placa</h2>
+  <label class="risca"><input type="checkbox" data-passo="9"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/alinhar.gif" alt="Animação do passo 9: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g07_depois.jpg" alt="Tela do Tinkercad no passo 9" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>Clique num lugar vazio, aperte <span class=ui>Ctrl</span> + <span class=ui>A</span> (Mac: <span class=ui>Cmd</span> + <span class=ui>A</span>) e, na barra de cima, clique no botão <span class=ui>Alinhar</span> (ícone com linhas de tamanhos diferentes, ao lado do espelho). Aparecem as bolinhas pretas.<br><br>Depois <b>clique na placa vermelha</b>: ela fica <b>fixa</b>, e só o furo vai andar.</p>
+      <div class="certo"><b>Está certo se</b>Apareceram as bolinhas pretas, e a placa foi clicada (ela fica fixa).</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>As bolinhas não apareceram</dt><dd>O Alinhar só abre com <b>duas ou mais</b> peças selecionadas. Aperte Ctrl + A de novo.</dd><dt>A seleção sumiu</dt><dd>Você clicou fora das peças. Aperte Ctrl + Z, abra o Alinhar de novo e clique <b>em cima do vermelho</b>.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo10">
+  <div class="cab"><div class="bolha">10</div><h2>Centro em X: a bolinha do meio, embaixo</h2>
+  <label class="risca"><input type="checkbox" data-passo="10"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/alinha_x.gif" alt="Animação do passo 10: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g08_depois.jpg" alt="Tela do Tinkercad no passo 10" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>Clique na <b>bolinha do meio</b> da fileira de <b>baixo</b>. O furo <b>desliza</b> para o meio da placa, da esquerda para a direita.</p>
+      <div class="certo"><b>Está certo se</b>O furo ficou no meio da placa, da esquerda para a direita.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>A placa andou</dt><dd>Você não fixou a placa. Aperte Ctrl + Z e volte ao passo 9.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo11">
+  <div class="cab"><div class="bolha">11</div><h2>Centro em Y: a bolinha do meio, à esquerda</h2>
+  <label class="risca"><input type="checkbox" data-passo="11"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/alinha_y.gif" alt="Animação do passo 11: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g09_depois.jpg" alt="Tela do Tinkercad no passo 11" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>Clique na <b>bolinha do meio</b> da coluna da <b>esquerda</b>. O furo agora também está no meio da placa, de frente para trás: aparece <b>dentro</b> dela.</p>
+      <div class="certo"><b>Está certo se</b>O furo aparece no centro da placa.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>O furo não entrou na placa</dt><dd>Faltou um dos dois alinhamentos. Faça o do meio de baixo (passo 10) e o do meio da esquerda (este).</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo12">
+  <div class="cab"><div class="bolha">12</div><h2>Esc e Grupo de união: o furo cava a placa</h2>
+  <label class="risca"><input type="checkbox" data-passo="12"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/uniao.gif" alt="Animação do passo 12: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g10_depois.jpg" alt="Tela do Tinkercad no passo 12" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>Aperte <span class=ui>Esc</span>. Na barra de cima há três botõezinhos de juntar peças: clique no do <b>meio</b>, o <span class=ui>Grupo de união</span>.<br><br>O buraco <b>cava</b> a placa e as duas peças viram <b>uma só</b>: o painel diz <span class=ui>Union</span>. Agora a placa tem um <b>furo de 12 mm</b> no meio.</p>
+      <div class="certo"><b>Está certo se</b>A placa tem um furo redondo no meio, e o painel diz <span class=ui>Union</span>.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>O furo não apareceu</dt><dd>O furo não estava dentro da placa. Aperte Ctrl + Z, refaça os passos 10 e 11 e agrupe.</dd><dt>Esqueci o Esc</dt><dd>Se as bolinhas pretas ainda estão na tela, aperte <span class=ui>Esc</span> antes de agrupar.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo13">
+  <div class="cab"><div class="bolha">13</div><h2>Outro Cilindro, ao lado: o pino</h2>
+  <label class="risca"><input type="checkbox" data-passo="13"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/cilindro2.gif" alt="Animação do passo 13: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g11_depois.jpg" alt="Tela do Tinkercad no passo 13" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>Clique num lugar vazio do plano. Arraste <b>outro Cilindro laranja</b> e solte <b>no plano, à esquerda da placa</b>, fora dela.</p>
+      <div class="certo"><b>Está certo se</b>Tem um cilindro laranja no plano, à esquerda da placa furada.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>Soltei em cima da placa</dt><dd>Arraste-o de novo para o plano vazio, ao lado.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo14">
+  <div class="cab"><div class="bolha">14</div><h2>Pino: 10 × 10 × 20, pelas alças</h2>
+  <label class="risca"><input type="checkbox" data-passo="14"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/medidas_pino.gif" alt="Animação do passo 14: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g12_depois.jpg" alt="Tela do Tinkercad no passo 14" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>Pelas alças: <b>10</b> nos dois números da base (alça do canto) e <b>20</b> na altura (alça do meio da tampa).<br><br>O pino tem <b>10 mm</b> de diâmetro: <b>2 mm a menos</b> que o furo (12). Esses 2 mm viram <b>1 mm de folga</b> de cada lado (2 ÷ 2 = 1).</p>
+      <div class="certo"><b>Está certo se</b>O cilindro virou um pino fino e alto: um pouco mais fino que o furo.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>O número ficou estranho</dt><dd>Clique no número, aperte Ctrl + A (no Mac, Cmd + A) e escreva de novo.</dd><dt>Os números sumiram</dt><dd>Clique no cilindro e na alça do canto de novo.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo15">
+  <div class="cab"><div class="bolha">15</div><h2>Escolha a placa e o pino: clique e Shift + clique</h2>
+  <label class="risca"><input type="checkbox" data-passo="15"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/duas.gif" alt="Animação do passo 15: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g14_depois.jpg" alt="Tela do Tinkercad no passo 15" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>Clique num lugar vazio. Clique <b>na placa</b> (no vermelho) e, segurando <span class=ui>Shift</span>, clique <b>no pino</b>.<br><br>O painel diz <span class=ui>Shapes(2)</span>: a placa e o pino.</p>
+      <div class="certo"><b>Está certo se</b>A placa e o pino têm contorno azul, e o painel diz <span class=ui>Shapes(2)</span>.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>O painel diz outra coisa</dt><dd>Clique num lugar vazio e refaça: primeiro a placa, depois Shift + clique no pino.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo16">
+  <div class="cab"><div class="bolha">16</div><h2>Abra o Alinhar e fixe a placa</h2>
+  <label class="risca"><input type="checkbox" data-passo="16"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/alinhar2.gif" alt="Animação do passo 16: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g15_depois.jpg" alt="Tela do Tinkercad no passo 16" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>Na barra de cima, clique no botão <span class=ui>Alinhar</span>. Depois clique <b>na placa</b>: ela fica fixa, e só o pino vai andar.</p>
+      <div class="certo"><b>Está certo se</b>Apareceram as bolinhas pretas, e a placa foi clicada.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>As bolinhas não apareceram</dt><dd>Você precisa de duas peças selecionadas. Volte ao passo 15.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo17">
+  <div class="cab"><div class="bolha">17</div><h2>Pino: centro em X, a bolinha do meio embaixo</h2>
+  <label class="risca"><input type="checkbox" data-passo="17"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/alinha_x2.gif" alt="Animação do passo 17: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g16_depois.jpg" alt="Tela do Tinkercad no passo 17" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>Clique na <b>bolinha do meio</b> da fileira de <b>baixo</b>. O pino vai para o meio da placa, da esquerda para a direita.</p>
+      <div class="certo"><b>Está certo se</b>O pino ficou na mesma coluna do furo.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>A placa andou</dt><dd>Você não fixou a placa. Aperte Ctrl + Z e refaça o passo 16.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo18">
+  <div class="cab"><div class="bolha">18</div><h2>Pino: centro em Y — ele encaixa</h2>
+  <label class="risca"><input type="checkbox" data-passo="18"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/alinha_y2.gif" alt="Animação do passo 18: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g17_depois.jpg" alt="Tela do Tinkercad no passo 18" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>Clique na <b>bolinha do meio</b> da coluna da <b>esquerda</b>. O pino <b>desce dentro do furo</b>: ele <b>encaixou</b>. Aperte <span class=ui>Esc</span> para fechar o Alinhar.</p>
+      <div class="certo"><b>Está certo se</b>O pino está dentro do furo da placa, no meio, e o Alinhar já pode fechar.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>O pino não entrou</dt><dd>Faltou um dos alinhamentos: o do meio de baixo (passo 17) e o do meio da esquerda (este).</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo19">
+  <div class="cab"><div class="bolha">19</div><h2>Olhe de cima: a folga</h2>
+  <label class="risca"><input type="checkbox" data-passo="19"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/vista_cima.gif" alt="Animação do passo 19: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g18_depois.jpg" alt="Tela do Tinkercad no passo 19" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>Clique num lugar vazio do plano. No <b>cubo</b> de vistas, no canto de cima à esquerda, clique na face escrita <span class=ui>SUPERIOR</span>.<br><br>De cima se vê a placa vermelha com um círculo laranja no meio — o pino — e, em volta dele, um <b>anel fininho</b> onde se enxerga o chão: é a <b>folga</b> de 1 mm. Se o pino tivesse o mesmo tamanho do furo, <b>não haveria anel</b>.</p>
+      <div class="certo"><b>Está certo se</b>De cima: o pino laranja no meio da placa vermelha, com um <b>anel fininho</b> em volta dele (é bem fino: aproxime com o <b>+</b> para enxergar melhor).</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>Não vejo anel</dt><dd>Aproxime a câmera com o <b>+</b> da barra da esquerda. Se mesmo assim o pino encosta na placa, ele tem o mesmo diâmetro do furo: volte ao passo 14 e confira o 10.</dd><dt>A câmera não mudou</dt><dd>Clique <b>na palavra</b> SUPERIOR do cubinho.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo20">
+  <div class="cab"><div class="bolha">20</div><h2>Dê um nome ao seu projeto</h2>
+  <label class="risca"><input type="checkbox" data-passo="20"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/batiza.gif" alt="Animação do passo 20: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g19_depois.jpg" alt="Tela do Tinkercad no passo 20" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>Clique na <b>casinha</b> da barra da esquerda para voltar à vista inicial. Depois clique no <b>nome do projeto</b>, no canto de cima à esquerda, apague, escreva <b>Encaixe da ANA</b> (ou o seu nome) e aperte <span class=ui>Enter</span>.<br><br>O Tinkercad salva sozinho. As peças estão guardadas na sua conta.</p>
+      <div class="certo"><b>Está certo se</b>No canto de cima à esquerda aparece o <b>nome que você escreveu</b>.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>O nome não mudou</dt><dd>Falta o <span class=ui>Enter</span>.</dd><dt>O campo não abriu</dt><dd>Clique <b>em cima das letras</b> do nome.</dd></dl></div>
+    </div></div></section>
+</main>
+
+<p class="fim"><strong>Acabou a Aula 11. Você fez uma <b>placa com furo</b> e um <b>pino</b> que entra nele — e descobriu a conta da <b>folga</b>: furo de 12 mm, pino de 10 mm, <b>1 mm de espaço</b> de cada lado. Numa impressora de verdade, peça com o mesmo tamanho do furo <b>não entra</b>: a folga deixa. De cima, a folga é o <b>anel fininho</b> entre o pino e a placa. As peças estão salvas na sua conta com o nome que você deu. <i>Desafio:</i> faça um pino de 11,8 mm: a folga fica minúscula — e o encaixe, apertado.</strong></p>
+<div class="navega"><a href="../">⌂ Todas as aulas</a><a href="../aula10/">← Aula 10</a><a href="../aula12/">Aula 12 →</a></div>
+<script>
+(function(){
+  var chave = "robotomia-tinkercad-" + (document.body.dataset.aula || "x");
+  function ler(){ try{ return JSON.parse(localStorage.getItem(chave)||"[]"); }catch(e){ return []; } }
+  function gravar(v){ try{ localStorage.setItem(chave, JSON.stringify(v)); }catch(e){} }
+  var caixas = [].slice.call(document.querySelectorAll(".risca input"));
+  var conta  = document.getElementById("conta");
+  var trilho = document.getElementById("trilho");
+  if (!caixas.length) return;
+  var feitos = ler();
+  function pinta(){
+    var n = 0;
+    caixas.forEach(function(c){
+      var p = c.closest(".passo");
+      if (c.checked){ n++; p.classList.add("feito"); } else { p.classList.remove("feito"); }
+    });
+    if (conta)  conta.textContent = n + " de " + caixas.length + " passos prontos";
+    if (trilho) trilho.style.width = (100*n/caixas.length) + "%";
+  }
+  caixas.forEach(function(c){
+    c.checked = feitos.indexOf(c.dataset.passo) >= 0;
+    c.addEventListener("change", function(){
+      var v = ler().filter(function(x){ return x !== c.dataset.passo; });
+      if (c.checked) v.push(c.dataset.passo);
+      gravar(v); pinta();
+    });
+  });
+  pinta();
+  [].slice.call(document.querySelectorAll(".abas")).forEach(function(g){
+    g.addEventListener("click", function(e){
+      var b = e.target.closest(".aba"); if(!b) return;
+      var caixa = g.parentNode;
+      [].slice.call(g.children).forEach(function(x){ x.setAttribute("aria-pressed", x===b ? "true":"false"); });
+      caixa.querySelectorAll(".gif").forEach(function(g){
+        g.hidden = !g.classList.contains(b.dataset.ver);
+      });
+      caixa.querySelector(".foto").hidden = (b.dataset.ver !== "foto");
+      caixa.querySelector(".legenda").textContent = b.dataset.legenda;
+    });
+  });
+})();
+</script>
+</body></html>

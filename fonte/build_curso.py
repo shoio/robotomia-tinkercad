@@ -30,7 +30,7 @@ PLANO = [
     (7, "Robô de formas",
      "Caixas, esferas e um cone viram um robô: cores, formas soltas na face e o que o agrupar faz com a cor.", True),
     (8, "Dado",
-     "Um cubo com furos redondos: os pontos de cada face.", False),
+     "Furos redondos por Orifício, e o Ctrl + D que se repete sozinho: três furos na tampa e um na frente.", True),
     (9, "Porta-celular",
      "Um suporte inclinado, com ranhura e ângulo certo.", False),
     (10, "Régua e escala",

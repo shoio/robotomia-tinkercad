@@ -238,3 +238,12 @@ As ferramentas novas vivem em `mecanica.py` e valem para todas as aulas.
     cabeça do robô, não). **Agrupar (união) apaga as cores**: tudo vira uma cor
     só; Ctrl + Z devolve. O ponto de soltura na face é medido da base da
     pegada da peça (`esq_frente.y`), que NÃO é a base da face: subir ~88 px.
+14. **Ctrl + D REPETE o último empurrão (Aula 8).** Copiar, empurrar e copiar
+    de novo: a segunda cópia anda sozinha o mesmo que a primeira — a fila de
+    furos sai com dois Ctrl + D. (Por isso um plano de cópias com empurrões
+    fixos por cópia, como o do carrinho, só vale se o último empurrão for o
+    esperado.) Esfera solta na tampa nasce no CENTRO (X e Y) — alinhar não muda
+    um pixel; o centro dela tem de ir para a superfície: Ctrl + ↓ ×10 (raio).
+    Em face vertical o Ctrl + ↓ também afunda (vale na direção da face).
+    Prova de furo: desvio-padrão do canal vermelho numa janela de 40 px — lisa
+    = 0,0; furo = ~10 (a média de brilho NÃO distingue).

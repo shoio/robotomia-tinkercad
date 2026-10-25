@@ -1,0 +1,210 @@
+{
+ "cilindro": {
+  "antes": "g02_antes.jpg",
+  "depois": "g02_depois.jpg",
+  "alvo": [
+   1302,
+   375
+  ],
+  "rotulo": "Cilindro",
+  "tipo": "arrasto",
+  "ate": [
+   600,
+   560
+  ]
+ },
+ "medidas_corpo": {
+  "antes": "g03_antes.jpg",
+  "depois": "g03_depois.jpg",
+  "alvo": [
+   558,
+   531
+  ],
+  "rotulo": "alça do canto",
+  "tipo": "clique"
+ },
+ "cone": {
+  "antes": "g04_antes.jpg",
+  "depois": "g04_depois.jpg",
+  "alvo": [
+   1215,
+   583
+  ],
+  "rotulo": "Cone",
+  "tipo": "arrasto",
+  "ate": [
+   600,
+   403
+  ]
+ },
+ "medidas_ponta": {
+  "antes": "g05_antes.jpg",
+  "depois": "g05_depois.jpg",
+  "alvo": [
+   554,
+   374
+  ],
+  "rotulo": "alça do canto",
+  "tipo": "clique"
+ },
+ "caixa": {
+  "antes": "g10_antes.jpg",
+  "depois": "g10_depois.jpg",
+  "alvo": [
+   1215,
+   375
+  ],
+  "rotulo": "Caixa",
+  "tipo": "arrasto",
+  "ate": [
+   820,
+   700
+  ]
+ },
+ "medidas_aleta": {
+  "antes": "g11_antes.jpg",
+  "depois": "g11_depois.jpg",
+  "alvo": [
+   950,
+   570
+  ],
+  "rotulo": "Altura",
+  "tipo": "clique"
+ },
+ "duas": {
+  "antes": "g12_antes.jpg",
+  "depois": "g12_depois.jpg",
+  "alvo": [
+   823,
+   699
+  ],
+  "rotulo": "aleta",
+  "tipo": "tecla",
+  "teclas": [
+   "Shift",
+   "clique"
+  ]
+ },
+ "alinhar2": {
+  "antes": "g12b_antes.jpg",
+  "depois": "g12b_depois.jpg",
+  "alvo": [
+   892,
+   72
+  ],
+  "rotulo": "Alinhar",
+  "tipo": "clique"
+ },
+ "fixa2": {
+  "antes": "g13_antes.jpg",
+  "depois": "g13_depois.jpg",
+  "alvo": [
+   600,
+   497
+  ],
+  "rotulo": "corpo",
+  "tipo": "clique"
+ },
+ "alinha_x2": {
+  "antes": "g14_antes.jpg",
+  "depois": "g14_depois.jpg",
+  "alvo": [
+   598,
+   615
+  ],
+  "rotulo": "bolinha do meio embaixo",
+  "tipo": "clique"
+ },
+ "alinha_y2": {
+  "antes": "g15_antes.jpg",
+  "depois": "g15_depois.jpg",
+  "alvo": [
+   529,
+   560
+  ],
+  "rotulo": "bolinha do meio esquerda",
+  "tipo": "clique"
+ },
+ "duplica": {
+  "antes": "g17_antes.jpg",
+  "depois": "g17_depois.jpg",
+  "alvo": [
+   534,
+   515
+  ],
+  "rotulo": "Ctrl + D",
+  "tipo": "tecla",
+  "teclas": [
+   "Ctrl",
+   "D"
+  ]
+ },
+ "gira": {
+  "antes": "g18_antes.jpg",
+  "depois": "g18_depois.jpg",
+  "alvo": [
+   598,
+   602
+  ],
+  "rotulo": "seta curva de baixo",
+  "tipo": "arrasto",
+  "ate": [
+   708,
+   532
+  ]
+ },
+ "seleciona": {
+  "antes": "g19a_antes.jpg",
+  "depois": "g19a_depois.jpg",
+  "alvo": [
+   600,
+   520
+  ],
+  "rotulo": "Ctrl + A",
+  "tipo": "tecla",
+  "teclas": [
+   "Ctrl",
+   "A"
+  ]
+ },
+ "uniao": {
+  "antes": "g19_antes.jpg",
+  "depois": "g19_depois.jpg",
+  "alvo": [
+   796,
+   72
+  ],
+  "rotulo": "Grupo de união",
+  "tipo": "clique"
+ },
+ "vista_cima": {
+  "antes": "g20_antes.jpg",
+  "depois": "g20_depois.jpg",
+  "alvo": [
+   63,
+   139
+  ],
+  "rotulo": "cubo SUPERIOR",
+  "tipo": "clique"
+ },
+ "vista_frente": {
+  "antes": "g20f_antes.jpg",
+  "depois": "g20f_depois.jpg",
+  "alvo": [
+   63,
+   180
+  ],
+  "rotulo": "cubo FRONTAL",
+  "tipo": "clique"
+ },
+ "batiza": {
+  "antes": "g21_antes.jpg",
+  "depois": "g21_depois.jpg",
+  "alvo": [
+   178,
+   24
+  ],
+  "rotulo": "nome do projeto",
+  "tipo": "clique"
+ }
+}

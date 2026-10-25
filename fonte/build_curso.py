@@ -26,7 +26,7 @@ PLANO = [
     (5, "Carrinho",
      "Uma roda vira quatro: duplicar com Ctrl + D, empurrar com Shift + seta e copiar um par de uma vez.", True),
     (6, "Foguete",
-     "Aletas em volta de um eixo: Duplicar e repetir.", False),
+     "Corpo, ponta de cone e aletas em cruz: uma tira duplicada e girada 90°.", True),
     (7, "Robô de formas",
      "Muitas formas juntas, cada uma com a sua cor.", False),
     (8, "Dado",

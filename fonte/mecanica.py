@@ -336,3 +336,40 @@ def muda_altura(b, valor, nome="_alcasA"):
         raise Falhou(f"esperava 1 número de altura e vi {rot}")
     digita_no_rotulo(b, rot[0][1], rot[0][2], valor)
     return alvo
+
+
+# ──────────────────────────────── cores ────────────────────────────────────
+
+CORES = {"vermelho": 0, "laranja": 1, "amarelo": 2, "verde": 3, "verde-água": 4,
+         "celeste": 5, "azul": 6, "roxo": 7, "rosa": 8, "marrom": 9,
+         "cinza-claro": 10, "cinza": 11}
+
+
+def abre_paleta(b):
+    """Clica na bolinha de cor (`Sólido`) do painel. Devolve o ponto clicado."""
+    ponto = (976, 200)
+    b.pg.mouse.click(*ponto); b.pg.wait_for_timeout(1200)
+    return ponto
+
+
+def ponto_da_cor(b, cor, fileira=1):
+    """Onde está a bolinha `cor` da paleta aberta (fileira 0 clara, 1 normal, 2 escura).
+
+    Medido em relação ao TÍTULO «Cores sólidas»: a janela abre ancorada na bolinha
+    de cima, e o título é o que não muda de lugar."""
+    t = b.pg.evaluate("""() => { let m = null;
+        document.querySelectorAll('*').forEach(e => { if (e.children.length) return;
+          if ((e.textContent||'').trim() !== 'Cores sólidas') return;
+          const r = e.getBoundingClientRect(); if (r.width > 5) m = [r.x, r.y + r.height/2]; });
+        return m; }""")
+    if not t:
+        raise Falhou("a paleta de cores não está aberta (não achei «Cores sólidas»)")
+    return (t[0] + 18 + 40 * CORES[cor], t[1] + 60 + 42 * fileira)
+
+
+def pinta(b, cor, fileira=1):
+    """Escolhe a cor na paleta JÁ ABERTA. Devolve o ponto clicado."""
+    ponto = ponto_da_cor(b, cor, fileira)
+    b.pg.mouse.move(*ponto); b.pg.wait_for_timeout(300)
+    b.pg.mouse.click(*ponto); b.pg.wait_for_timeout(1200)
+    return ponto

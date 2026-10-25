@@ -225,3 +225,16 @@ As ferramentas novas vivem em `mecanica.py` e valem para todas as aulas.
     anda os dois. O transferidor pode ter DOIS `°` no DOM (um `0°` velho): vale o
     que não é `0°`. Depois de digitar numa alça ela fica ATIVA e a seta de girar
     não responde — clique na própria peça antes.
+12. **Cores e faces (Aula 7).** A paleta abre ancorada na bolinha de cor do
+    painel e fica ABERTA cobrindo as alças (Esc NÃO a fecha: clique na bolinha de
+    novo). As bolinhas se acham pelo título «Cores sólidas» (`mecanica.pinta`):
+    12 colunas × 3 fileiras (clara, normal, escura), espaçadas 40 px. O clipe que
+    ABRE a paleta cobre as janelas de controle negativo do `confere_alvos`:
+    `reg(..., abre_janela=True)` o dispensa só dessa checagem.
+13. **Forma solta na FACE** de outra nasce ali (o plano verde fica de pé): é assim
+    que nascem os olhos, sem número. As alças ficam no sistema da face — não
+    mexer em tamanho depois. **Campos do painel** (Caixa) crescem do CENTRO;
+    **alças** crescem de um canto (por isso a telhado da Aula 4 saiu torta e a
+    cabeça do robô, não). **Agrupar (união) apaga as cores**: tudo vira uma cor
+    só; Ctrl + Z devolve. O ponto de soltura na face é medido da base da
+    pegada da peça (`esq_frente.y`), que NÃO é a base da face: subir ~88 px.

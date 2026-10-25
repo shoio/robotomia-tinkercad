@@ -111,7 +111,7 @@ def confere(pastas=None):
                                  "negativo este guarda não vale nada")
                 continue
             ruido = max(mudou_perto(pasta, dados, c)[0] for c in CONTROLES[tam])
-            if ruido > RUIDO_MAX:
+            if ruido > RUIDO_MAX and not dados.get("abre_janela"):
                 problemas.append(f"{pasta}/{chave}: controle negativo sujo "
                                  f"({ruido} px onde nada devia mudar) — com esse "
                                  f"ruído o mínimo de {MINIMO} px não prova nada")

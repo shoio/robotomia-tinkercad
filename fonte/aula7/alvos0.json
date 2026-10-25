@@ -1,0 +1,27 @@
+{
+ "criar": {
+  "antes": "d02_antes.jpg",
+  "depois": "d02_depois.jpg",
+  "alvo": [
+   505,
+   40
+  ],
+  "rotulo": "Criar",
+  "tipo": "clique"
+ },
+ "projeto3d_ponto": {
+  "alvo": [
+   433,
+   98
+  ],
+  "rotulo": "Projeto 3D",
+  "tipo": "marca",
+  "em": "d03_menu.jpg",
+  "caixa": [
+   343,
+   76,
+   523,
+   118
+  ]
+ }
+}

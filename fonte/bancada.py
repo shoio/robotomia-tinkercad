@@ -72,7 +72,7 @@ class Bancada:
         return jpg
 
     def reg(self, gesto, antes, depois, alvo, rotulo, ate=None,
-            tipo=None, teclas=None, botao="esq"):
+            tipo=None, teclas=None, botao="esq", abre_janela=False):
         """Registra um gesto para virar clipe.
 
         `rotulo` é o nome que o PASSO vai citar. O guarda confere que o alvo
@@ -95,6 +95,10 @@ class Bancada:
             d["teclas"] = list(teclas)
         if botao != "esq":
             d["botao"] = botao
+        if abre_janela:
+            # o gesto ABRE uma janela grande (a paleta de cores) que cai sobre as
+            # janelas de controle negativo: o guarda não pode exigir silêncio ali
+            d["abre_janela"] = True
         if d["tipo"] == "tecla" and not teclas:
             raise Falhou(f"{gesto}: gesto de tecla sem dizer QUAIS teclas")
         self.alvos[gesto] = d

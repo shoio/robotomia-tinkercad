@@ -1,0 +1,390 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Robô de formas — Robotomia</title>
+<meta name="description" content="Caixas, esferas e um cone viram um robô — e cada peça ganha a sua cor.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>&#129302;</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800&family=Atkinson+Hyperlegible:wght@400;700&display=swap">
+<style>
+:root{
+  --papel:#FBFAF7; --carta:#FFFFFF; --tinta:#14161C; --tinta2:#4E525C;
+  --linha:#E3E0D8; --azul:#1B62DC; --azul-fraco:#EAF0FC;
+  --verde:#147A38; --verde-fraco:#E7F4EC;
+  --laranja:#C2560A; --laranja-fraco:#FDF0E4;
+  --roxo:#5B2E9E; --roxo-fraco:#F2ECFB;
+  --codigo:#12151C; --codigo-tinta:#E8EBF0;
+  --sombra:0 1px 2px rgba(20,22,28,.05), 0 8px 24px rgba(20,22,28,.06);
+  --raio:14px;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-tema="claro"]){
+    --papel:#12141A; --carta:#1A1D25; --tinta:#ECEEF2; --tinta2:#A4AAB6;
+    --linha:#2C313C; --azul:#6C9BF0; --azul-fraco:#1B2436;
+    --verde:#5CC183; --verde-fraco:#15271C;
+    --laranja:#F0964E; --laranja-fraco:#2A1E14;
+    --roxo:#B995F0; --roxo-fraco:#221A33;
+    --codigo:#0D1016; --codigo-tinta:#E8EBF0;
+    --sombra:0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35);
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:68px}
+body{margin:0;background:var(--papel);color:var(--tinta);
+  font-family:"Atkinson Hyperlegible","Helvetica Neue",Arial,sans-serif;
+  font-size:17px;line-height:1.6;-webkit-text-size-adjust:100%}
+h1,h2,h3{font-family:Archivo,"Helvetica Neue",Arial,sans-serif;
+  font-weight:800;letter-spacing:-.015em;text-wrap:balance}
+img{max-width:100%;display:block}
+[hidden]{display:none!important}
+a{color:var(--azul)}
+
+.barra{position:sticky;top:0;z-index:40;background:color-mix(in srgb,var(--papel) 88%,transparent);
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--linha)}
+.barra-in{max-width:1180px;margin:0 auto;padding:11px 20px;display:flex;align-items:center;gap:14px}
+.marca{font-family:Archivo,sans-serif;font-weight:800;font-size:15px;white-space:nowrap}
+.marca a{color:inherit;text-decoration:none}
+.marca span{color:var(--azul)}
+.conta{margin-left:auto;font-size:13px;color:var(--tinta2);font-variant-numeric:tabular-nums;white-space:nowrap}
+.trilho{position:absolute;left:0;bottom:-1px;height:3px;width:100%;background:transparent}
+.trilho i{display:block;height:100%;width:0;background:var(--azul);transition:width .25s ease}
+
+.capa{max-width:1180px;margin:0 auto;padding:46px 20px 10px}
+.etiqueta{display:inline-block;background:var(--azul);color:#fff;font-family:Archivo,sans-serif;
+  font-weight:700;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;
+  padding:5px 13px;border-radius:99px}
+.capa h1{font-size:clamp(34px,6.2vw,58px);margin:16px 0 10px;line-height:1.02}
+.capa .linha-fina{font-size:19px;color:var(--tinta2);max-width:62ch;margin:0}
+.avisos{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));margin:26px 0 8px}
+.aviso{background:var(--carta);border:1px solid var(--linha);border-radius:var(--raio);
+  padding:14px 16px;font-size:15px;box-shadow:var(--sombra)}
+.aviso b{font-family:Archivo,sans-serif;display:block;font-size:12px;letter-spacing:.09em;
+  text-transform:uppercase;margin-bottom:5px;color:var(--azul)}
+.baixar{display:inline-flex;align-items:center;gap:8px;margin-top:6px;font-size:14.5px;
+  text-decoration:none;border:1px solid var(--linha);background:var(--carta);
+  padding:9px 15px;border-radius:99px;color:var(--tinta);font-weight:700}
+.baixar:hover{border-color:var(--azul);color:var(--azul)}
+
+main{max-width:1180px;margin:0 auto;padding:10px 20px 70px}
+.passo{background:var(--carta);border:1px solid var(--linha);border-radius:var(--raio);
+  padding:20px;margin:22px 0;box-shadow:var(--sombra);scroll-margin-top:70px}
+.passo.feito{border-color:var(--verde)}
+.cab{display:flex;align-items:flex-start;gap:13px;padding-bottom:13px;border-bottom:2px solid var(--linha)}
+.passo.feito .cab{border-bottom-color:var(--verde)}
+.bolha{flex:none;width:40px;height:40px;border-radius:11px;background:var(--azul);color:#fff;
+  font-family:Archivo,sans-serif;font-weight:800;font-size:19px;
+  display:flex;align-items:center;justify-content:center;font-variant-numeric:tabular-nums}
+.passo.feito .bolha{background:var(--verde)}
+.cab h2{font-size:clamp(20px,2.7vw,26px);margin:3px 0 0;flex:1}
+.risca{display:flex;align-items:center;gap:7px;font-size:13.5px;color:var(--tinta2);
+  cursor:pointer;user-select:none;flex:none;padding-top:8px;white-space:nowrap}
+.risca input{width:19px;height:19px;accent-color:var(--verde);cursor:pointer}
+
+.corpo{display:grid;gap:20px;grid-template-columns:1fr;margin-top:16px}
+@media (min-width:920px){ .corpo{grid-template-columns:1.35fr 1fr;align-items:start} }
+.midia{margin:0}
+.moldura{border:1px solid var(--linha);border-radius:10px;overflow:hidden;background:var(--papel)}
+.abas{display:flex;gap:6px;margin-bottom:9px}
+.aba{font-family:Archivo,sans-serif;font-size:12.5px;font-weight:700;letter-spacing:.04em;
+  border:1px solid var(--linha);background:var(--carta);color:var(--tinta2);
+  padding:6px 13px;border-radius:99px;cursor:pointer}
+.aba[aria-pressed="true"]{background:var(--roxo-fraco);border-color:var(--roxo);color:var(--roxo)}
+.legenda{font-size:13px;color:var(--tinta2);margin:8px 2px 0}
+
+.texto>p{margin:0 0 14px}
+.ui{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:.86em;
+  background:var(--azul-fraco);border:1px solid color-mix(in srgb,var(--azul) 25%,transparent);
+  border-radius:5px;padding:1px 6px;white-space:nowrap;color:var(--tinta)}
+.certo,.socorro{border-radius:0 10px 10px 0;padding:12px 15px;margin-top:14px;font-size:15.5px}
+.certo{background:var(--verde-fraco);border-left:5px solid var(--verde)}
+.socorro{background:var(--laranja-fraco);border-left:5px solid var(--laranja)}
+.certo>b:first-child,.socorro>b:first-child{font-family:Archivo,sans-serif;display:block;
+  font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:5px}
+.certo>b:first-child{color:var(--verde)}
+.socorro>b:first-child{color:var(--laranja)}
+.socorro dl{margin:0}
+.socorro dt{font-weight:700;margin-top:10px}
+.socorro dt:first-of-type{margin-top:2px}
+.socorro dd{margin:2px 0 0;color:var(--tinta2)}
+
+.codigo{margin:14px 0;border-radius:10px;overflow:hidden;border:1px solid var(--linha)}
+.codigo .titulo{display:flex;align-items:center;gap:8px;background:var(--roxo-fraco);
+  color:var(--roxo);font-family:Archivo,sans-serif;font-weight:700;font-size:11.5px;
+  letter-spacing:.1em;text-transform:uppercase;padding:7px 13px;border-bottom:1px solid var(--linha)}
+.codigo pre{margin:0;background:var(--codigo);color:var(--codigo-tinta);padding:14px 16px;
+  overflow-x:auto;font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:14.5px;line-height:1.7}
+.codigo ol{margin:0;padding:0 0 0 46px;background:var(--codigo);color:var(--codigo-tinta);
+  font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:14.5px;line-height:1.75;
+  overflow-x:auto}
+.codigo li{border-left:1px solid color-mix(in srgb,var(--codigo-tinta) 18%,transparent);
+  padding:0 16px 0 10px;white-space:pre}
+.codigo li::marker{color:color-mix(in srgb,var(--codigo-tinta) 40%,transparent);font-size:12px}
+.codigo li.auto{color:color-mix(in srgb,var(--codigo-tinta) 42%,transparent);font-style:italic}
+.codigo .rodape{background:var(--codigo);color:color-mix(in srgb,var(--codigo-tinta) 55%,transparent);
+  font-family:"Atkinson Hyperlegible",sans-serif;font-size:12.5px;padding:8px 16px 12px;
+  border-top:1px solid color-mix(in srgb,var(--codigo-tinta) 15%,transparent)}
+.codigo .rodape b{color:color-mix(in srgb,var(--codigo-tinta) 85%,transparent)}
+.codigo .rodape code{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:13px;
+  color:color-mix(in srgb,var(--codigo-tinta) 92%,transparent);
+  background:color-mix(in srgb,var(--codigo-tinta) 12%,transparent);
+  padding:1px 5px;border-radius:4px}
+.codigo .rodape+.rodape{padding-top:10px}
+.so-papel{display:none}
+
+.fim{max-width:1180px;margin:0 auto;padding:0 20px 40px;text-align:center;color:var(--tinta2);font-size:15px}
+.fim strong{color:var(--tinta)}
+.navega{max-width:1180px;margin:0 auto;padding:0 20px 80px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.navega a{text-decoration:none;border:1px solid var(--linha);background:var(--carta);
+  padding:11px 18px;border-radius:99px;color:var(--tinta);font-weight:700;font-size:15px}
+.navega a:hover{border-color:var(--azul);color:var(--azul)}
+
+/* indice */
+.grade{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+  max-width:1180px;margin:0 auto;padding:10px 20px 80px}
+.cartao{display:block;text-decoration:none;color:inherit;background:var(--carta);
+  border:1px solid var(--linha);border-radius:var(--raio);padding:18px 20px;box-shadow:var(--sombra)}
+.cartao:hover{border-color:var(--azul)}
+.cartao .num{font-family:Archivo,sans-serif;font-weight:800;font-size:12px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--azul)}
+.cartao h3{margin:6px 0 6px;font-size:21px}
+.cartao p{margin:0;color:var(--tinta2);font-size:15px}
+.cartao.embreve{opacity:.55}
+.cartao.embreve .num{color:var(--tinta2)}
+
+@media print{
+  .barra,.abas,.risca,.baixar,.navega{display:none}
+  body{background:#fff}
+  .gif{display:none!important}
+  .foto{display:block!important}
+  /* quebrar DENTRO do passo e nao antes dele: com page-break-inside:avoid num
+     passo alto o Chrome pulava a folha inteira e sobravam paginas em branco. */
+  .passo{break-inside:auto;box-shadow:none;border-color:#ccc;margin:0 0 16px;padding:16px 18px}
+  .cab{break-after:avoid}
+  .midia,.certo,.socorro,.codigo{break-inside:avoid}
+  .legenda{display:none}
+  .legenda.so-papel{display:block}
+  .midia img{max-height:11cm;width:auto;margin:0 auto}
+  .capa{break-after:page}
+}
+</style>
+</head>
+<body data-aula="aula7">
+
+<header class="barra"><div class="barra-in">
+  <div class="marca"><a href="../">Robotomia</a> <span>· Tinkercad · Aula 7</span></div>
+  <div class="conta" id="conta">0 de 19 passos prontos</div>
+</div><div class="trilho"><i id="trilho"></i></div></header>
+
+<div class="capa">
+  <span class="etiqueta">Aula 7 · cores</span>
+  <h1>Robô de formas</h1>
+  <p class="linha-fina">Caixas, esferas e um cone viram um robô — e cada peça ganha a sua cor. São 19 passos, 50 minutos.
+  Faça um de cada vez e só passe adiante depois de conferir o quadro verde.</p>
+  <div class="avisos"><div class="aviso"><b>Projeto novo</b>Esta aula começa num projeto novo, vazio. As peças das aulas anteriores continuam guardadas na sua conta.</div><div class="aviso"><b>Milímetros</b>O robô tem <b>80 mm</b> de largura: um pouco menos que uma mão.</div><div class="aviso"><b>Cores</b>A paleta fica numa <b>bolinha de cor</b> no painel da peça. Ela abre uma janela que <b>cobre</b> parte da tela: feche-a clicando de novo na bolinha.</div><div class="aviso"><b>Os clipes</b>Os passos com animação mostram o gesto inteiro: o mouse andando, o <b>botão certo acendendo</b> e as <b>teclas acesas</b> quando o gesto é de teclado.</div><div class="aviso"><b>Travou?</b>Todo passo tem um quadro laranja embaixo com o conserto dos erros mais comuns.</div></div>
+  <a class="baixar" href="aula7.pdf">⤓ Baixar esta aula em PDF (para imprimir)</a>
+</div>
+
+<main>
+<section class="passo" id="passo1">
+  <div class="cab"><div class="bolha">1</div><h2>Abra o Tinkercad e crie um Projeto 3D</h2>
+  <label class="risca"><input type="checkbox" data-passo="1"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/criar.gif" alt="Animação do passo 1: Clipe" loading="lazy"><img hidden class="foto" src="fotos/p01_vazio.jpg" alt="Tela do Tinkercad no passo 1" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>Entre no Tinkercad com a sua conta. No canto de cima à direita, clique em <span class=ui>+ Criar</span> e, na primeira linha, em <span class=ui>Projeto 3D</span>.<br><br>Abre o editor com o plano azul quadriculado <b>vazio</b> e um nome sorteado — deixe assim, no último passo você troca.</p>
+      <div class="certo"><b>Está certo se</b>O editor abriu com o plano azul claro quadriculado vazio.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>Não sei entrar</dt><dd>Chame o professor. Não crie conta nova: os seus projetos estão na antiga.</dd><dt>Abriu outra coisa</dt><dd>Volte com a seta ⟵ do navegador e clique de novo em <span class=ui>+ Criar</span>, escolhendo a primeira linha.</dd><dt>A tela ficou branca</dt><dd>O Tinkercad é pesado. Espere até meio minuto. Se continuar branca, recarregue com <span class=ui>F5</span>.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo2">
+  <div class="cab"><div class="bolha">2</div><h2>Arraste uma Caixa para o plano: o corpo</h2>
+  <label class="risca"><input type="checkbox" data-passo="2"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/caixa.gif" alt="Animação do passo 2: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g02_depois.jpg" alt="Tela do Tinkercad no passo 2" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>Na coluna da direita, a forma <b>vermelha</b> do meio da segunda fileira, à esquerda, é a <span class=ui>Caixa</span>. Segure o botão esquerdo nela, <b>arraste até o meio do plano</b> e solte.<br><br>É o <b>corpo</b> do robô.</p>
+      <div class="certo"><b>Está certo se</b>Tem um cubo vermelho no meio do plano e o painel branco escrito <span class=ui>Caixa</span> no alto.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>Peguei a caixa cinza listrada</dt><dd>Essa é o <b>buraco</b>. Aperte <span class=ui>Delete</span> e arraste a vermelha.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo3">
+  <div class="cab"><div class="bolha">3</div><h2>Corpo: Comprimento 40, Largura 80, Altura 36</h2>
+  <label class="risca"><input type="checkbox" data-passo="3"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/medidas_corpo.gif" alt="Animação do passo 3: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g03_depois.jpg" alt="Tela do Tinkercad no passo 3" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>No painel, escreva <b>40</b> em <span class=ui>Comprimento</span>, <b>80</b> em <span class=ui>Largura</span> e <b>36</b> em <span class=ui>Altura</span> (<span class=ui>Enter</span> depois de cada).<br><br>O corpo fica <b>largo</b>: o número grande vai em <span class=ui>Largura</span>.</p>
+      <div class="certo"><b>Está certo se</b>A caixa virou um bloco largo e baixo, de frente para você.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>O bloco ficou fundo e estreito</dt><dd>O 80 foi parar em <span class=ui>Comprimento</span>. Troque os dois números.</dd><dt>Digitei e nada mudou</dt><dd>Falta o <span class=ui>Enter</span> depois de cada número.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo4">
+  <div class="cab"><div class="bolha">4</div><h2>Abra a paleta: clique na bolinha de cor</h2>
+  <label class="risca"><input type="checkbox" data-passo="4"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/paleta.gif" alt="Animação do passo 4: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g04_depois.jpg" alt="Tela do Tinkercad no passo 4" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>No painel branco do alto, clique na <b>bolinha vermelha</b> ao lado da palavra <span class=ui>Sólido</span>.<br><br>Abre a janela <span class=ui>Cores sólidas</span>, com <b>três fileiras</b> de bolinhas: a de cima é de cores <b>claras</b>, a do meio é a cor <b>normal</b> e a de baixo é <b>escura</b>. A janela cobre parte do plano.</p>
+      <div class="certo"><b>Está certo se</b>Abriu a janela <span class=ui>Cores sólidas</span> com três fileiras de bolinhas coloridas.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>Não abriu nada</dt><dd>Clique <b>na bolinha colorida</b>, e não na palavra <span class=ui>Sólido</span>. A peça precisa estar selecionada.</dd><dt>Cliquei em Orifício</dt><dd>Aí a peça virou buraco. Clique em <span class=ui>Sólido</span> para voltar e abra a paleta de novo.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo5">
+  <div class="cab"><div class="bolha">5</div><h2>Escolha o azul</h2>
+  <label class="risca"><input type="checkbox" data-passo="5"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/azul.gif" alt="Animação do passo 5: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g05_depois.jpg" alt="Tela do Tinkercad no passo 5" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>Na fileira do <b>meio</b>, clique na bolinha <b>azul</b> (a sétima da esquerda para a direita, depois do azul-claro).<br><br>O corpo do robô fica <b>azul</b>. Depois, <b>clique de novo na bolinha de cor</b> do painel para fechar a janela — ela tapa as alças.</p>
+      <div class="certo"><b>Está certo se</b>O corpo está azul, e a bolinha do painel também ficou azul.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>Ficou azul-claro</dt><dd>Você pegou a bolinha da fileira de cima. A normal é a do <b>meio</b>.</dd><dt>A janela não fecha</dt><dd>Clique na bolinha de cor do painel de novo. O Esc não fecha essa janela.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo6">
+  <div class="cab"><div class="bolha">6</div><h2>Outra Caixa na tampa do corpo: a cabeça</h2>
+  <label class="risca"><input type="checkbox" data-passo="6"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/caixa_cabeca.gif" alt="Animação do passo 6: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g06_depois.jpg" alt="Tela do Tinkercad no passo 6" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>Clique num <b>lugar vazio</b> do plano para soltar a seleção. Arraste <b>outra Caixa vermelha</b> e solte <b>bem no meio da tampa</b> do corpo.<br><br>A caixa nasce <b>em cima</b> do corpo, e aparece o <b>quadrado verde</b> (o plano de trabalho foi para o alto da peça).</p>
+      <div class="certo"><b>Está certo se</b>Tem uma caixa vermelha pousada em cima do corpo azul, com o quadrado verde em volta.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>A caixa caiu no chão</dt><dd>Você soltou fora do corpo. Arraste de novo para o meio da <b>tampa</b>.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo7">
+  <div class="cab"><div class="bolha">7</div><h2>Cabeça: Comprimento 36, Largura 70, Altura 30</h2>
+  <label class="risca"><input type="checkbox" data-passo="7"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/medidas_cabeca.gif" alt="Animação do passo 7: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g07_depois.jpg" alt="Tela do Tinkercad no passo 7" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>No painel, escreva <b>36</b> em <span class=ui>Comprimento</span>, <b>70</b> em <span class=ui>Largura</span> e <b>30</b> em <span class=ui>Altura</span> (<span class=ui>Enter</span> depois de cada).<br><br>A cabeça é <b>um pouco menor</b> que o corpo. Pelos campos do painel a caixa cresce <b>a partir do centro</b>: ela continua centrada em cima do corpo.</p>
+      <div class="certo"><b>Está certo se</b>A cabeça ficou um pouco menor que o corpo, centrada em cima dele.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>A cabeça saiu torta</dt><dd>Confira os números: 36, 70 e 30, cada um no seu campo.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo8">
+  <div class="cab"><div class="bolha">8</div><h2>Pinte a cabeça de cinza-claro</h2>
+  <label class="risca"><input type="checkbox" data-passo="8"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/cinza.gif" alt="Animação do passo 8: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g08_depois.jpg" alt="Tela do Tinkercad no passo 8" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>Com a cabeça selecionada, clique na <b>bolinha de cor</b> do painel. Na fileira do <b>meio</b>, clique na bolinha <b>cinza bem clara</b> (a penúltima, à direita).<br><br>A cabeça fica cinza-claro. Clique de novo na bolinha de cor do painel para fechar a janela.</p>
+      <div class="certo"><b>Está certo se</b>A cabeça está cinza-claro, em cima do corpo azul.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>Ficou cinza-escuro</dt><dd>Você pegou a última bolinha. A cinza bem clara é a <b>penúltima</b> da fileira do meio.</dd><dt>Pintei o corpo</dt><dd>Você estava com o corpo selecionado. Clique na cabeça e pinte de novo.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo9">
+  <div class="cab"><div class="bolha">9</div><h2>Solte a Esfera na FACE da frente da cabeça</h2>
+  <label class="risca"><input type="checkbox" data-passo="9"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/olho.gif" alt="Animação do passo 9: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g13_depois.jpg" alt="Tela do Tinkercad no passo 9" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>Clique num lugar vazio do plano. Na coluna da direita, a <b>bola azul</b> do canto direito da segunda fileira é a <span class=ui>Esfera</span>. Segure o botão esquerdo nela e <b>solte em cima da frente da cabeça</b>, um pouco para a esquerda do meio — na parede da frente, e não na tampa.<br><br>O <b>quadrado verde</b> fica de pé, colado na parede: a esfera <b>nasce ali</b>, saindo da parede como um olho.</p>
+      <div class="certo"><b>Está certo se</b>A esfera azul está colada na frente da cabeça, do lado esquerdo, e o quadrado verde está de pé.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>A esfera caiu no chão</dt><dd>Você soltou fora da cabeça. Arraste de novo, soltando em cima da <b>parede da frente</b>.</dd><dt>A esfera foi para a tampa</dt><dd>Você soltou na parte de cima. Solte mais para baixo, na frente da cabeça.</dd><dt>O olho ficou no corpo azul</dt><dd>Solte mais para cima: o meio da cabeça, e não a beirada de baixo.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo10">
+  <div class="cab"><div class="bolha">10</div><h2>Pinte o olho de amarelo</h2>
+  <label class="risca"><input type="checkbox" data-passo="10"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/amarelo.gif" alt="Animação do passo 10: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g14_depois.jpg" alt="Tela do Tinkercad no passo 10" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>Com a esfera selecionada, clique na <b>bolinha de cor</b> do painel e, na fileira do meio, na bolinha <b>amarela</b> (a terceira). Clique de novo na bolinha de cor para fechar a janela.</p>
+      <div class="certo"><b>Está certo se</b>O olho está amarelo.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>Ficou laranja</dt><dd>A amarela é a <b>terceira</b> da fileira do meio, a laranja é a segunda.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo11">
+  <div class="cab"><div class="bolha">11</div><h2>Ctrl + D: o segundo olho</h2>
+  <label class="risca"><input type="checkbox" data-passo="11"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/duplica.gif" alt="Animação do passo 11: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g15_depois.jpg" alt="Tela do Tinkercad no passo 11" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>Com o olho selecionado, aperte <span class=ui>Ctrl</span> + <span class=ui>D</span> (Mac: <span class=ui>Cmd</span> + <span class=ui>D</span>): nasce uma <b>cópia</b> em cima dele.<br><br>Agora empurre a cópia para a direita: <span class=ui>Shift</span> + <span class=ui>→</span> <b>três vezes</b> e <span class=ui>→</span> <b>uma vez</b> (31 mm). Os dois olhos ficam lado a lado, os dois amarelos: <b>a cópia leva a cor</b>.</p>
+      <div class="certo"><b>Está certo se</b>A cabeça tem <b>dois olhos amarelos</b>, lado a lado.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>O olho foi demais</dt><dd>Cada Shift + seta é 10 mm e cada seta sozinha é 1 mm. Volte com a seta contrária.</dd><dt>Os olhos ficaram um em cima do outro</dt><dd>O Ctrl + D copiou, mas faltou empurrar. Aperte Shift + → três vezes.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo12">
+  <div class="cab"><div class="bolha">12</div><h2>Solte o Cone na tampa da cabeça</h2>
+  <label class="risca"><input type="checkbox" data-passo="12"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/cone.gif" alt="Animação do passo 12: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g15b_depois.jpg" alt="Tela do Tinkercad no passo 12" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>Clique num lugar vazio do plano. Na coluna da direita, na fileira da pirâmide, o <b>cone roxo</b>. Solte-o <b>no meio da tampa</b> da cabeça.<br><br>O cone nasce em cima: é o <b>chapéu</b> do robô.</p>
+      <div class="certo"><b>Está certo se</b>Um cone roxo está em cima da cabeça, no meio.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>O cone caiu no chão</dt><dd>Você soltou fora da cabeça. Arraste de novo para a <b>tampa</b>.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo13">
+  <div class="cab"><div class="bolha">13</div><h2>Pinte o chapéu de vermelho</h2>
+  <label class="risca"><input type="checkbox" data-passo="13"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/vermelho.gif" alt="Animação do passo 13: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g15c_depois.jpg" alt="Tela do Tinkercad no passo 13" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>Com o cone selecionado, clique na <b>bolinha de cor</b> do painel e, na fileira do meio, na bolinha <b>vermelha</b> (a primeira da esquerda). Clique de novo na bolinha de cor para fechar a janela.</p>
+      <div class="certo"><b>Está certo se</b>O chapéu está vermelho.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>Ficou rosa</dt><dd>A vermelha é a <b>primeira</b> bolinha da fileira do meio, a rosa fica mais à direita.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo14">
+  <div class="cab"><div class="bolha">14</div><h2>Gire a câmera com o botão direito</h2>
+  <label class="risca"><input type="checkbox" data-passo="14"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/girar.gif" alt="Animação do passo 14: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g15d_depois.jpg" alt="Tela do Tinkercad no passo 14" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>Clique num lugar vazio. Segure o botão <b>direito</b> do mouse em cima do <b>plano de trabalho</b> e arraste um pouco para a direita e para cima.<br><br>A câmera <b>gira</b> e dá para ver o robô de outro lado: os olhos saem da parede da cabeça como bolinhas. Os olhos são <b>esferas inteiras</b>, não buracos.</p>
+      <div class="certo"><b>Está certo se</b>A câmera mudou: dá para ver o robô de lado, com os olhos saindo da cabeça.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>A peça saiu do lugar</dt><dd>Você usou o botão <b>esquerdo</b>. Aperte Ctrl + Z e repita com o <b>direito</b>.</dd><dt>A câmera foi longe</dt><dd>Use a casinha da barra da esquerda para voltar à vista inicial.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo15">
+  <div class="cab"><div class="bolha">15</div><h2>Olhe de frente: o robô</h2>
+  <label class="risca"><input type="checkbox" data-passo="15"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/vista_frente.gif" alt="Animação do passo 15: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g16_depois.jpg" alt="Tela do Tinkercad no passo 15" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>No canto de cima à esquerda, no <b>cubo</b> de vistas, clique na face escrita <span class=ui>FRONTAL</span>.<br><br>De frente se vê o robô: corpo azul, cabeça cinza, dois olhos amarelos e o chapéu vermelho.</p>
+      <div class="certo"><b>Está certo se</b>De frente se vê o corpo azul, a cabeça cinza, os dois olhos amarelos e o chapéu vermelho.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>A câmera não mudou</dt><dd>Clique <b>na palavra</b> FRONTAL do cubinho.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo16">
+  <div class="cab"><div class="bolha">16</div><h2>Selecione tudo: Ctrl + A</h2>
+  <label class="risca"><input type="checkbox" data-passo="16"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/seleciona.gif" alt="Animação do passo 16: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g17a_depois.jpg" alt="Tela do Tinkercad no passo 16" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>Clique na <b>casinha</b> da barra da esquerda para voltar à vista inicial. Clique num lugar vazio e aperte <span class=ui>Ctrl</span> + <span class=ui>A</span> (Mac: <span class=ui>Cmd</span> + <span class=ui>A</span>).<br><br>Todas as peças ficam selecionadas, com contorno azul: o painel diz <span class=ui>Shapes(5)</span>.</p>
+      <div class="certo"><b>Está certo se</b>O robô inteiro tem contorno azul, e o painel diz <span class=ui>Shapes(5)</span>.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>O painel diz outro número</dt><dd>Conte: corpo, cabeça, dois olhos e chapéu são cinco peças. Se faltar uma, clique num lugar vazio e refaça.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo17">
+  <div class="cab"><div class="bolha">17</div><h2>Agrupe: veja a cor sumir</h2>
+  <label class="risca"><input type="checkbox" data-passo="17"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/uniao.gif" alt="Animação do passo 17: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g17_depois.jpg" alt="Tela do Tinkercad no passo 17" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>Na barra de cima, clique no do <b>meio</b> dos três botõezinhos de juntar, o <span class=ui>Grupo de união</span>.<br><br>As cinco peças viram <b>uma só</b>, e agora <b>tudo fica de uma cor só</b>, azul: o <b>Grupo de união apaga as cores</b>. Só vale agrupar quando a peça é de uma cor só — como nas aulas anteriores.</p>
+      <div class="certo"><b>Está certo se</b>O robô virou uma peça só, toda azul, e o painel diz <span class=ui>Union</span>.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>O painel não mudou</dt><dd>Clique no botão do meio dos três, o <span class=ui>Grupo de união</span>.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo18">
+  <div class="cab"><div class="bolha">18</div><h2>Desfaça: Ctrl + Z</h2>
+  <label class="risca"><input type="checkbox" data-passo="18"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/desfaz.gif" alt="Animação do passo 18: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g18_depois.jpg" alt="Tela do Tinkercad no passo 18" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>Aperte <span class=ui>Ctrl</span> + <span class=ui>Z</span> (Mac: <span class=ui>Cmd</span> + <span class=ui>Z</span>): o agrupar é <b>desfeito</b> e as <b>cores voltam</b>. O robô fica solto, peça por peça.<br><br>Por isso o robô colorido <b>não se agrupa</b>. Cor se escolhe peça a peça, antes de qualquer união.</p>
+      <div class="certo"><b>Está certo se</b>O robô voltou a ter as quatro cores: azul, cinza, amarelo e vermelho.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>Não voltou</dt><dd>Aperte Ctrl + Z mais uma vez, até o painel não dizer mais <span class=ui>Union</span>.</dd><dt>Voltou demais</dt><dd>Aperte Ctrl + Y (no Mac, Cmd + Shift + Z) para refazer um passo.</dd></dl></div>
+    </div></div></section>
+<section class="passo" id="passo19">
+  <div class="cab"><div class="bolha">19</div><h2>Dê um nome ao seu projeto</h2>
+  <label class="risca"><input type="checkbox" data-passo="19"> feito</label></div>
+  <div class="corpo"><figure class="midia"><div class="abas"><button class="aba" data-ver="clipe0" aria-pressed="true" data-legenda="O clipe repete sozinho. Repare onde o cursor vai antes de clicar.">▶ Clipe</button><button class="aba" data-ver="foto" aria-pressed="false" data-legenda="Foto da tela.">Foto</button></div><div class="moldura"><img class="gif clipe0" src="clipes/batiza.gif" alt="Animação do passo 19: Clipe" loading="lazy"><img hidden class="foto" src="fotos/g19_depois.jpg" alt="Tela do Tinkercad no passo 19" loading="lazy"></div><p class="legenda">O clipe repete sozinho. Repare onde o cursor vai antes de clicar.</p><p class="legenda so-papel">Foto da tela.</p></figure>
+    <div class="texto"><p>Clique na <b>casinha</b> da barra da esquerda para voltar à vista inicial. Depois clique no <b>nome do projeto</b>, no canto de cima à esquerda, apague, escreva <b>Robô da ANA</b> (ou o seu nome) e aperte <span class=ui>Enter</span>.<br><br>O Tinkercad salva sozinho. O robô está guardado na sua conta.</p>
+      <div class="certo"><b>Está certo se</b>No canto de cima à esquerda aparece o <b>nome que você escreveu</b>.</div>
+      <div class="socorro"><b>Não deu certo?</b><dl><dt>O nome não mudou</dt><dd>Falta o <span class=ui>Enter</span>.</dd><dt>O campo não abriu</dt><dd>Clique <b>em cima das letras</b> do nome.</dd></dl></div>
+    </div></div></section>
+</main>
+
+<p class="fim"><strong>Acabou a Aula 7. Você montou um <b>robô</b> de formas e <b>pintou cada peça</b> com a paleta. Aprendeu que uma forma solta <b>na face</b> de outra nasce ali (os olhos) e que o <b>Grupo de união apaga as cores</b>: tudo vira uma cor só. Por isso o robô ficou <b>solto</b>, peça por peça. A peça está salva na sua conta com o nome que você deu.</strong></p>
+<div class="navega"><a href="../">⌂ Todas as aulas</a><a href="../aula6/">← Aula 6</a><a href="../aula8/">Aula 8 →</a></div>
+<script>
+(function(){
+  var chave = "robotomia-tinkercad-" + (document.body.dataset.aula || "x");
+  function ler(){ try{ return JSON.parse(localStorage.getItem(chave)||"[]"); }catch(e){ return []; } }
+  function gravar(v){ try{ localStorage.setItem(chave, JSON.stringify(v)); }catch(e){} }
+  var caixas = [].slice.call(document.querySelectorAll(".risca input"));
+  var conta  = document.getElementById("conta");
+  var trilho = document.getElementById("trilho");
+  if (!caixas.length) return;
+  var feitos = ler();
+  function pinta(){
+    var n = 0;
+    caixas.forEach(function(c){
+      var p = c.closest(".passo");
+      if (c.checked){ n++; p.classList.add("feito"); } else { p.classList.remove("feito"); }
+    });
+    if (conta)  conta.textContent = n + " de " + caixas.length + " passos prontos";
+    if (trilho) trilho.style.width = (100*n/caixas.length) + "%";
+  }
+  caixas.forEach(function(c){
+    c.checked = feitos.indexOf(c.dataset.passo) >= 0;
+    c.addEventListener("change", function(){
+      var v = ler().filter(function(x){ return x !== c.dataset.passo; });
+      if (c.checked) v.push(c.dataset.passo);
+      gravar(v); pinta();
+    });
+  });
+  pinta();
+  [].slice.call(document.querySelectorAll(".abas")).forEach(function(g){
+    g.addEventListener("click", function(e){
+      var b = e.target.closest(".aba"); if(!b) return;
+      var caixa = g.parentNode;
+      [].slice.call(g.children).forEach(function(x){ x.setAttribute("aria-pressed", x===b ? "true":"false"); });
+      caixa.querySelectorAll(".gif").forEach(function(g){
+        g.hidden = !g.classList.contains(b.dataset.ver);
+      });
+      caixa.querySelector(".foto").hidden = (b.dataset.ver !== "foto");
+      caixa.querySelector(".legenda").textContent = b.dataset.legenda;
+    });
+  });
+})();
+</script>
+</body></html>

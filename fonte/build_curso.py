@@ -28,7 +28,7 @@ PLANO = [
     (6, "Foguete",
      "Corpo, ponta de cone e aletas em cruz: uma tira duplicada e girada 90°.", True),
     (7, "Robô de formas",
-     "Muitas formas juntas, cada uma com a sua cor.", False),
+     "Caixas, esferas e um cone viram um robô: cores, formas soltas na face e o que o agrupar faz com a cor.", True),
     (8, "Dado",
      "Um cubo com furos redondos: os pontos de cada face.", False),
     (9, "Porta-celular",

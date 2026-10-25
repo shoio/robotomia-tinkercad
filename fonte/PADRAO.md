@@ -219,3 +219,9 @@ As ferramentas novas vivem em `mecanica.py` e valem para todas as aulas.
 10. **O número de tamanho tem classe repetida.** O transferidor de girar usa a
     mesma classe `.dimension-label-view.visible` dos números de medida e fica no
     DOM em (0,0) com texto `0°`: filtra-se por número puro.
+11. **Duplicar (Aula 5).** Ctrl + D não muda NADA na tela (a cópia nasce em
+    cima da original e fica selecionada): vira um clipe só junto com o empurrão
+    de Shift + seta. Duplicar um PAR de formas copia o par e o empurrão do par
+    anda os dois. O transferidor pode ter DOIS `°` no DOM (um `0°` velho): vale o
+    que não é `0°`. Depois de digitar numa alça ela fica ATIVA e a seta de girar
+    não responde — clique na própria peça antes.

@@ -24,7 +24,7 @@ PLANO = [
     (4, "Casinha",
      "Uma caixa vira casa: telhado de duas águas centrado em cima e um vão de porta na parede da frente.", True),
     (5, "Carrinho",
-     "Quatro rodas iguais: duplicar, espelhar e girar.", False),
+     "Uma roda vira quatro: duplicar com Ctrl + D, empurrar com Shift + seta e copiar um par de uma vez.", True),
     (6, "Foguete",
      "Aletas em volta de um eixo: Duplicar e repetir.", False),
     (7, "Robô de formas",

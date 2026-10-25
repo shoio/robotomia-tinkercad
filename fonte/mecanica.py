@@ -242,7 +242,9 @@ def graus_agora(pg):
     """O número do transferidor enquanto se gira («-90°»), ou None."""
     r = pg.evaluate("""() => [...document.querySelectorAll('*')].filter(e => !e.children.length
         && /^-?\\d+(\\.\\d+)?°$/.test((e.textContent||'').trim())).map(e => (e.textContent||'').trim())""")
-    return r[0] if r else None
+    # ⛔ pode haver DOIS «°» no DOM: um `0°` velho e o vivo. Vale o que não é 0°.
+    vivos = [t for t in r if t != '0°']
+    return vivos[0] if vivos else (r[0] if r else None)
 
 
 def gira(b, seta, graus, passo=(4, 3), maximo=60):

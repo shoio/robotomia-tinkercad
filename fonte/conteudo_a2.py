@@ -87,8 +87,9 @@ AULA = {
 
   dict(n=9, titulo="Traga um segundo Cilindro, ao lado", img="aula2/g10_depois.jpg", clipe="cilindro2.gif",
     corpo="Clique num lugar vazio do plano (para soltar a seleção). Arraste <b>outro Cilindro laranja</b> da coluna da direita e solte <b>no plano, ao lado do tubo</b> — <b>não em cima dele</b>.<br><br>Esse segundo cilindro vai virar o <b>buraco</b>. Soltar em cima do tubo faria ele nascer lá no alto, na altura da tampa.",
-    ck="Tem <b>dois</b> cilindros no plano: o tubo alto e um cilindro pequeno ao lado.",
-    sos=[("O cilindro nasceu em cima do tubo","Arraste-o para o plano, para longe do tubo. Ele precisa estar <b>no chão</b>."),
+    ck="Tem <b>dois</b> cilindros no plano: o tubo alto e um cilindro menor ao lado.",
+    sos=[("O cilindro novo nasceu com outro tamanho","Normal: ele nasce com o tamanho do último que você mexeu. Não importa: os passos seguintes dão o tamanho certo."),
+         ("O cilindro nasceu em cima do tubo","Arraste-o para o plano, para longe do tubo. Ele precisa estar <b>no chão</b>."),
          ("Soltei um cilindro cinza listrado","Esse já é o buraco, e tudo bem: pule o passo seguinte. Mas ele nasce com o tamanho padrão: siga os passos de medida.")]),
 
   dict(n=10, titulo="Transforme o cilindro em Orifício", img="aula2/g11_depois.jpg", clipe="orificio.gif",
@@ -154,7 +155,7 @@ AULA = {
          ("Está tudo laranja, não vejo anel","Gire a câmera com o botão <b>direito</b> do mouse até enxergar a abertura em cima.")]),
 
   dict(n=20, titulo="Dê um nome ao seu projeto", img="aula2/g21_depois.jpg", clipe="batiza.gif",
-    corpo="Clique no <b>nome do projeto</b>, no canto de cima à esquerda (o nome sorteado). Apague, escreva <b>Porta-lápis da ANA</b> (ou o seu nome) e aperte <span class=ui>Enter</span>.<br><br>O Tinkercad salva sozinho. No outro dia, é só abrir o Tinkercad e a peça está lá.",
+    corpo="Clique no <b>nome do projeto</b>, no canto de cima à esquerda (o nome sorteado). Apague, escreva <b>Porta-lápis da ANA</b> (ou o seu nome) e aperte <span class=ui>Enter</span>. (A câmera pode continuar olhando de cima: não atrapalha.)<br><br>O Tinkercad salva sozinho. No outro dia, é só abrir o Tinkercad e a peça está lá.",
     ck="No canto de cima à esquerda aparece o <b>nome que você escreveu</b>, no lugar do sorteado.",
     sos=[("O nome não mudou","Falta o <span class=ui>Enter</span>. Clique no nome de novo e faça de novo."),
          ("Clicou e o campo não abriu","Clique <b>em cima das letras</b> do nome, e não ao lado.")]),

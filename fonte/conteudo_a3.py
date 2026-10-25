@@ -103,7 +103,7 @@ AULA = {
 
   dict(n=12, titulo="Centro em Y: a bolinha do meio, à esquerda", img="aula3/g13_depois.jpg", clipe="alinha_y.gif",
     corpo="Clique na <b>bolinha do meio</b> da coluna da <b>esquerda</b>.<br><br>O anel se <b>alinha</b> com o copo de <b>frente para trás</b>: o centro do anel passa a estar na mesma linha do centro do copo.",
-    ck="O anel andou e ficou na mesma linha do copo de frente para trás; o copo não se mexeu.",
+    ck="O anel deslizou um pouco (para a frente ou para trás) e ficou na mesma linha do copo; o copo não se mexeu. A mudança é pequena: o que importa é o copo ficar parado.",
     sos=[("As bolinhas mudaram de lugar","É normal: depois de cada clique elas se reposicionam. Procure de novo a do meio da esquerda."),
          ("O copo é que andou","Você não fixou o copo. Aperte Ctrl + Z e volte ao passo 11.")]),
 

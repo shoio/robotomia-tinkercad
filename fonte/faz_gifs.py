@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Monta os clipes da Aula 1 a partir das capturas REAIS do Tinkercad.
+"""Monta os clipes de uma aula a partir das capturas REAIS do Tinkercad.
 
 O enquadramento não é escolhido no olho: cada clipe recorta a janela que
 CONTÉM o gesto inteiro (de onde a seta sai até onde ela chega), com margem.
 Assim nenhum clipe pode cortar justamente o botão que o passo manda apertar —
 que é o defeito que o olho não pega quando o recorte vem de números a dedo.
 
-    python3 fonte/faz_gifs1.py
+    python3 fonte/faz_gifs.py N        # N = numero da aula (padrao 1)
 """
 import json, os, sys
 import numpy as np
@@ -17,7 +17,8 @@ AQUI = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, AQUI)
 import gif as G
 
-PASTA  = os.path.join(AQUI, "aula1")
+N      = sys.argv[1] if len(sys.argv) > 1 else "1"
+PASTA  = os.path.join(AQUI, f"aula{N}")
 TELA   = (1440, 900)
 MARGEM = 190          # folga em volta do que o clipe tem de mostrar
 MIN_L  = 920          # largura mínima da janela, para o recorte não ficar apertado

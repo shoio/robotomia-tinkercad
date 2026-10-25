@@ -8,6 +8,7 @@ import os, json, shutil
 from PIL import Image
 import gera_curso as G
 import conteudo_a1
+import todas_as_aulas
 
 AQUI  = os.path.dirname(os.path.abspath(__file__))     # .../fonte
 SAIDA = os.path.dirname(AQUI)                          # a raiz do repositorio
@@ -22,6 +23,13 @@ PLANO = [
 
 
 def aula1(): return _de_conteudo(conteudo_a1)
+
+
+def construtores():
+    """Uma aula entra no build quando o PLANO diz `pronta` E o conteudo existe."""
+    por_n = {m.AULA["n"]: m for m in todas_as_aulas.modulos()}
+    return [(lambda m=por_n[n]: _de_conteudo(m)) for n, _t, _s, pronta in PLANO
+            if pronta and n in por_n]
 
 
 def _de_conteudo(mod):
@@ -110,7 +118,7 @@ def monta():
         elif os.path.exists(alvo):
             os.remove(alvo)
     prontas = []
-    for construtor in (aula1,):
+    for construtor in construtores():
         a = construtor()
         pasta = os.path.join(SAIDA, a["slug"])
         os.makedirs(os.path.join(pasta, "fotos"), exist_ok=True)

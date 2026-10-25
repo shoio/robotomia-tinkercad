@@ -43,8 +43,8 @@ def fichas(rotulo):
 def confere(aulas=None):
     import gera_curso as _G
     if aulas is None:
-        import conteudo_a1
-        aulas = [conteudo_a1.AULA]
+        import todas_as_aulas
+        aulas = todas_as_aulas.aulas()
     problemas, casados = [], 0
     for A in aulas:
         slug = A["slug"]

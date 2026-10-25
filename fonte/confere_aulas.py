@@ -20,8 +20,8 @@ DELEGA = ["como na aula passada", "igual ao de cima", "use a receita",
 def confere(aulas=None):
     erros = []
     if aulas is None:
-        import conteudo_a1
-        aulas = [conteudo_a1.AULA]
+        import todas_as_aulas
+        aulas = todas_as_aulas.aulas()
 
     for A in aulas:
         n, slug = A["n"], A["slug"]

@@ -32,7 +32,7 @@ PLANO = [
     (8, "Dado",
      "Furos redondos por Orifício, e o Ctrl + D que se repete sozinho: três furos na tampa e um na frente.", True),
     (9, "Porta-celular",
-     "Um suporte inclinado, com ranhura e ângulo certo.", False),
+     "Base, encosto inclinado para trás e batente: a setinha do lado e o Alinhar com a base como régua.", True),
     (10, "Régua e escala",
      "Medir com exatidão e fazer a mesma peça maior ou menor.", False),
     (11, "Peça que encaixa",

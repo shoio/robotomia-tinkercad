@@ -247,3 +247,12 @@ As ferramentas novas vivem em `mecanica.py` e valem para todas as aulas.
     Em face vertical o Ctrl + ↓ também afunda (vale na direção da face).
     Prova de furo: desvio-padrão do canal vermelho numa janela de 40 px — lisa
     = 0,0; furo = ~10 (a média de brilho NÃO distingue).
+15. **Inclinar (Aula 9).** A TERCEIRA seta curva (a do lado, que gira em torno do
+    eixo esquerda-direita) é minúscula e quase invisível: ~3 px cinza, 16 a 24 px
+    acima da quina de trás-direita da silhueta da peça (`mecanica.acha_seta_do_lado`).
+    Puxada para CIMA inclina para TRÁS; o transferidor lê -15°, -20°, -27° e
+    PULA o 22,5° que ele pára quando se puxa para baixo — por isso a aula pede
+    «uns 20°» e `inclina` pára no primeiro valor em módulo ≥ 20. Numa base de 6
+    mm as três bolinhas de Z se colam e somem na abertura 5×5: o detector aceita
+    5 bolinhas e quem precisa de Z reclama. A base atrás do batente e debaixo do
+    encosto só tem uma faixa de tampa clicável (97 px acima da quina da frente).

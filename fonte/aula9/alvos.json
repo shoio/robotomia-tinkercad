@@ -1,0 +1,225 @@
+{
+ "caixa": {
+  "antes": "g02_antes.jpg",
+  "depois": "g02_depois.jpg",
+  "alvo": [
+   1215,
+   375
+  ],
+  "rotulo": "Caixa",
+  "tipo": "arrasto",
+  "ate": [
+   600,
+   600
+  ]
+ },
+ "medidas_base": {
+  "antes": "g03_antes.jpg",
+  "depois": "g03_depois.jpg",
+  "alvo": [
+   950,
+   570
+  ],
+  "rotulo": "Altura",
+  "tipo": "clique"
+ },
+ "caixa_encosto": {
+  "antes": "g04_antes.jpg",
+  "depois": "g04_depois.jpg",
+  "alvo": [
+   1215,
+   375
+  ],
+  "rotulo": "Caixa",
+  "tipo": "arrasto",
+  "ate": [
+   597,
+   548
+  ]
+ },
+ "medidas_encosto": {
+  "antes": "g05_antes.jpg",
+  "depois": "g05_depois.jpg",
+  "alvo": [
+   950,
+   570
+  ],
+  "rotulo": "Altura",
+  "tipo": "clique"
+ },
+ "inclina": {
+  "antes": "g06_antes.jpg",
+  "depois": "g06_depois.jpg",
+  "alvo": [
+   763,
+   271
+  ],
+  "rotulo": "seta curva do lado",
+  "tipo": "arrasto",
+  "ate": [
+   763,
+   211
+  ]
+ },
+ "seleciona": {
+  "antes": "g07_antes.jpg",
+  "depois": "g07_depois.jpg",
+  "alvo": [
+   600,
+   520
+  ],
+  "rotulo": "Ctrl + A",
+  "tipo": "tecla",
+  "teclas": [
+   "Ctrl",
+   "A"
+  ]
+ },
+ "alinhar": {
+  "antes": "g08_antes.jpg",
+  "depois": "g08_depois.jpg",
+  "alvo": [
+   892,
+   72
+  ],
+  "rotulo": "Alinhar",
+  "tipo": "clique"
+ },
+ "fixa": {
+  "antes": "g09_antes.jpg",
+  "depois": "g09_depois.jpg",
+  "alvo": [
+   600,
+   610
+  ],
+  "rotulo": "base",
+  "tipo": "clique"
+ },
+ "alinha_atras": {
+  "antes": "g10_antes.jpg",
+  "depois": "g10_depois.jpg",
+  "alvo": [
+   457,
+   508
+  ],
+  "rotulo": "bolinha de cima esquerda",
+  "tipo": "clique"
+ },
+ "caixa_batente": {
+  "antes": "g11_antes.jpg",
+  "depois": "g11_depois.jpg",
+  "alvo": [
+   1215,
+   375
+  ],
+  "rotulo": "Caixa",
+  "tipo": "arrasto",
+  "ate": [
+   597,
+   677
+  ]
+ },
+ "medidas_batente": {
+  "antes": "g12_antes.jpg",
+  "depois": "g12_depois.jpg",
+  "alvo": [
+   950,
+   570
+  ],
+  "rotulo": "Altura",
+  "tipo": "clique"
+ },
+ "duas": {
+  "antes": "g13_antes.jpg",
+  "depois": "g13_depois.jpg",
+  "alvo": [
+   600,
+   672
+  ],
+  "rotulo": "batente",
+  "tipo": "tecla",
+  "teclas": [
+   "Shift",
+   "clique"
+  ]
+ },
+ "alinhar2": {
+  "antes": "g14_antes.jpg",
+  "depois": "g14_depois.jpg",
+  "alvo": [
+   892,
+   72
+  ],
+  "rotulo": "Alinhar",
+  "tipo": "clique"
+ },
+ "fixa2": {
+  "antes": "g15_antes.jpg",
+  "depois": "g15_depois.jpg",
+  "alvo": [
+   600,
+   610
+  ],
+  "rotulo": "base",
+  "tipo": "clique"
+ },
+ "alinha_frente": {
+  "antes": "g16_antes.jpg",
+  "depois": "g16_depois.jpg",
+  "alvo": [
+   432,
+   707
+  ],
+  "rotulo": "bolinha de baixo esquerda",
+  "tipo": "clique"
+ },
+ "seleciona3": {
+  "antes": "g17_antes.jpg",
+  "depois": "g17_depois.jpg",
+  "alvo": [
+   600,
+   520
+  ],
+  "rotulo": "Ctrl + A",
+  "tipo": "tecla",
+  "teclas": [
+   "Ctrl",
+   "A"
+  ]
+ },
+ "uniao": {
+  "antes": "g18_antes.jpg",
+  "depois": "g18_depois.jpg",
+  "alvo": [
+   796,
+   72
+  ],
+  "rotulo": "Grupo de união",
+  "tipo": "clique"
+ },
+ "girar": {
+  "antes": "g19_antes.jpg",
+  "depois": "g19_depois.jpg",
+  "alvo": [
+   600,
+   780
+  ],
+  "rotulo": "plano de trabalho",
+  "tipo": "arrasto",
+  "ate": [
+   768,
+   720
+  ],
+  "botao": "dir"
+ },
+ "batiza": {
+  "antes": "g20_antes.jpg",
+  "depois": "g20_depois.jpg",
+  "alvo": [
+   178,
+   24
+  ],
+  "rotulo": "nome do projeto",
+  "tipo": "clique"
+ }
+}

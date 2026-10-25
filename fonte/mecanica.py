@@ -156,7 +156,9 @@ def acha_bolinhas_alinhar(captura):
             pts += [(cx - 6, cy), (cx + 6, cy)]
         else:
             pts.append((cx, cy))
-    if len(pts) < 7:
+    # (as de Z podem faltar: numa peça baixa as três ficam coladas e a abertura 5x5
+    #  as apaga — quem precisa delas pede e o `alinha` acusa a que não achou)
+    if len(pts) < 5:
         raise Falhou(f"esperava as bolinhas de alinhar e achei só {len(pts)}: {pts}")
     # ⛔ a bolinha que ACABOU de ser clicada fica CINZA e some desta lista; a
     #    classificação tolera falta e devolve None no lugar.
@@ -373,3 +375,58 @@ def pinta(b, cor, fileira=1):
     b.pg.mouse.move(*ponto); b.pg.wait_for_timeout(300)
     b.pg.mouse.click(*ponto); b.pg.wait_for_timeout(1200)
     return ponto
+
+
+def acha_seta_do_lado(captura, alcas):
+    """A seta curva de INCLINAR (a que gira em torno do eixo esquerda-direita).
+
+    É a menor das três e quase invisível: uns poucos pixels cinza que ficam junto
+    da quina de trás-direita da TAMPA, 16 a 24 px acima da silhueta. As alças não
+    dizem onde (a tampa de uma peça alta está longe delas): acha-se pela
+    SILHUETA da peça selecionada — o vermelho — e refina-se nos pixels escuros."""
+    im = np.asarray(Image.open(captura).convert("RGB"), dtype=int)
+    m = (im[:, :, 0] > 150) & (im[:, :, 1] < 90) & (im[:, :, 2] < 90)
+    m[:PAINEL_ATE_Y, LIMITE_PAINEL:] = False
+    m[:, 1150:] = False                     # a coluna de formas (tem uma Caixa vermelha)
+    m[:TOPO_UTIL] = False
+    ys, xs = np.nonzero(m)
+    if len(xs) < 1000:
+        raise Falhou("não achei a silhueta vermelha da peça para achar a seta do lado")
+    xmax, ymin = int(xs.max()), int(ys.min())
+    x0, y0 = xmax - 12, ymin - 36
+    jan = im[y0:y0 + 32, x0:x0 + 22]
+    mm = (jan < 170).all(axis=2)
+    yy, xx = np.nonzero(mm)
+    if len(xx) >= 2:
+        return (x0 + float(xx.mean()), y0 + float(yy.mean()))
+    return (float(xmax - 2), float(ymin - 20))
+
+
+def inclina(b, seta, minimo, sinal=1, passo=2, maximo=120):
+    """Segura a seta de inclinar e a puxa na vertical até o transferidor chegar a
+    `minimo` graus (em módulo). Devolve (texto lido, captura).
+
+    ⛔ Aqui NÃO se mira um número exato: puxando para cima o transferidor lê
+    -15°, -27°… e pula o 22,5° (puxando para baixo, ele parou em 22,5°). O ângulo
+    da aula é «mais ou menos 20 a 25°» e a figura mostra o que saiu."""
+    pg = b.pg
+    pg.mouse.move(*seta); pg.wait_for_timeout(500)
+    pg.mouse.down(); pg.wait_for_timeout(500)
+    visto = None
+    for i in range(1, maximo + 1):
+        pg.mouse.move(seta[0], seta[1] + sinal * i * passo)
+        pg.wait_for_timeout(70)
+        visto = graus_agora(pg)
+        try:
+            v = abs(float(visto.replace("°", ""))) if visto else 0.0
+        except ValueError:
+            v = 0.0
+        if v >= minimo:
+            break
+    else:
+        pg.mouse.up()
+        raise Falhou(f"puxei a seta do lado {maximo} passos e o transferidor nunca chegou a {minimo}° (último: {visto})")
+    pg.wait_for_timeout(300)
+    meio = b.cap("_inclinando", parar=False)
+    pg.mouse.up(); pg.wait_for_timeout(1200)
+    return visto, meio
